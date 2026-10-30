@@ -75,6 +75,8 @@ PUNCH_COOLDOWN = 0.38
 PUNCH_HIT_R = 11.0       # radius of the claw hitbox, centred on the drawn claw
 IFRAME_TIME = 3.0        # longer mercy window after a hit
 MAX_HP = 3
+DANCE_AFTER = 3.0        # seconds of stillness before the idle dance starts
+RAINBOW_STREAK = 3       # clean pools in a row that earn rainbow mode
 
 CRAB_W, CRAB_H = 26, 16
 
@@ -242,6 +244,103 @@ LEVELS = [
         gulls=[(180, 104, 110)],
         tip="The tide swings faster here. Plan two moves ahead.",
     ),
+    dict(
+        name="Kelp gate",
+        period=11.5, tide_low=606, tide_high=153,
+        spawn=(32, 560), goal=(40, 155),
+        plats=[(0, 600, 420, 20), (300, 545, 120, 16), (160, 470, 120, 16),
+               (0, 395, 140, 16), (210, 320, 150, 16), (60, 240, 130, 16),
+               (0, 175, 120, 16)],
+        urchins=[(352, 537), (212, 462), (92, 387), (262, 312)],
+        eels=[(190, 600, "up", 136, 3.0), (120, 411, "down", 96, 2.8)],
+        jellies=[((340, 470), (200, 470), 0.40), ((90, 300), (90, 196), 0.46)],
+        pearls=[(344, 527), (56, 377), (272, 302)],
+        puffers=[((380, 400), (380, 260), 0.34)],
+        crawlers=[((210, 320, 150, 16), 250, 28)],
+        gulls=[(240, 112, 96)],
+        tip="Two ways up here. The slow one is usually the dry one.",
+    ),
+    dict(
+        name="The shelf",
+        period=10.5, tide_low=606, tide_high=143,
+        spawn=(390, 570), goal=(372, 145),
+        plats=[(0, 600, 420, 20), (0, 530, 150, 16), (230, 470, 190, 16),
+               (60, 390, 160, 16), (280, 310, 140, 16), (0, 300, 130, 16),
+               (140, 215, 150, 16), (300, 165, 120, 16)],
+        urchins=[(102, 522), (266, 462), (172, 382), (46, 292), (196, 207)],
+        eels=[(300, 600, "up", 142, 2.9), (330, 486, "down", 104, 2.7),
+              (90, 406, "down", 86, 3.1)],
+        jellies=[((150, 440), (150, 330), 0.44), ((240, 250), (380, 250), 0.48)],
+        pearls=[(30, 512), (110, 372), (340, 292)],
+        puffers=[((200, 540), (380, 540), 0.32)],
+        crawlers=[((230, 470, 190, 16), 300, 30), ((140, 215, 150, 16), 180, 26)],
+        gulls=[(200, 100, 120)],
+        tip="A wide shelf is a long way to be caught standing on.",
+    ),
+    dict(
+        name="Gull run",
+        period=12.0, tide_low=606, tide_high=133,
+        spawn=(30, 570), goal=(50, 135),
+        plats=[(0, 600, 420, 20), (250, 540, 170, 16), (60, 465, 150, 16),
+               (270, 385, 150, 16), (90, 310, 140, 16), (260, 230, 160, 16),
+               (0, 155, 150, 16)],
+        urchins=[(330, 532), (130, 457), (350, 377), (160, 302), (330, 222)],
+        eels=[(210, 600, "up", 128, 3.2), (300, 401, "down", 98, 2.8)],
+        jellies=[((120, 420), (120, 330), 0.42)],
+        pearls=[(300, 522), (40, 447), (120, 292)],
+        puffers=[((60, 540), (210, 540), 0.30), ((380, 300), (380, 180), 0.36)],
+        crawlers=[((90, 310, 140, 16), 130, 28)],
+        gulls=[(140, 96, 110), (310, 120, 90)],
+        tip="Two birds. The water is the only roof you have.",
+    ),
+    dict(
+        name="Siphon",
+        period=9.5, tide_low=606, tide_high=123,
+        spawn=(200, 575), goal=(210, 125),
+        plats=[(0, 600, 420, 20), (0, 525, 130, 16), (290, 525, 130, 16),
+               (120, 450, 180, 16), (0, 370, 120, 16), (300, 370, 120, 16),
+               (130, 290, 160, 16), (0, 210, 120, 16), (300, 210, 120, 16),
+               (140, 145, 140, 16)],
+        urchins=[(72, 517), (352, 517), (210, 442), (46, 362), (346, 362),
+                 (200, 282)],
+        eels=[(160, 600, "up", 118, 2.7), (240, 600, "up", 118, 3.3),
+              (210, 466, "down", 92, 2.6)],
+        jellies=[((60, 480), (60, 390), 0.46), ((360, 330), (360, 232), 0.46)],
+        pearls=[(210, 432), (60, 352), (210, 272)],
+        puffers=[((150, 340), (280, 340), 0.34)],
+        crawlers=[((130, 290, 160, 16), 170, 32)],
+        gulls=[(210, 90, 100)],
+        tip="Narrow chimney, fast tide. Grip, wait, climb, grip again.",
+    ),
+    dict(
+        name="Open water",
+        period=13.0, tide_low=606, tide_high=113,
+        spawn=(28, 575), goal=(360, 115),
+        plats=[(0, 600, 420, 20), (0, 515, 160, 16), (230, 455, 190, 16),
+               (40, 370, 170, 16), (250, 290, 170, 16), (30, 215, 150, 16),
+               (240, 135, 180, 16)],
+        urchins=[(120, 507), (300, 447), (90, 362)],
+        eels=[(200, 600, "up", 120, 3.6)],
+        jellies=[((180, 400), (180, 310), 0.34)],
+        pearls=[(40, 497), (290, 437), (160, 352)],
+        puffers=[((300, 380), (380, 380), 0.28)],
+        crawlers=[],
+        gulls=[],
+        tip="The last pool. Nothing here is in a hurry. Neither are you.",
+        dialogue=[
+            ("Old hermit", "Careful at that edge. It isn't another pool."),
+            ("Old hermit", "That's all of them, at once, going out."),
+            ("Old hermit", "I've been in this one since the spring tide."),
+            ("Old hermit", "Good rock. Good light. I stopped climbing."),
+            ("Old hermit", "Every pool you crossed is still down there,"),
+            ("Old hermit", "filling and emptying, with or without you in it."),
+            ("Old hermit", "That's the thing about a tide. It isn't taking"),
+            ("Old hermit", "anything from you. It only ever keeps moving."),
+            ("Old hermit", "Go on, then. The water's high enough."),
+            ("", "The crab lets go of the rock,"),
+            ("", "and the sea carries it the rest of the way."),
+        ],
+    ),
 ]
 
 
@@ -348,6 +447,16 @@ class Crab:
         self.gripping = False
         self.safe_spot = (float(x), float(y))
         self.safe_t = 0.0
+        # idle_t counts seconds with no button held at all; once it passes
+        # DANCE_AFTER the dance ramps in through dance (0..1) and ramps back
+        # out the instant anything is pressed.
+        self.idle_t = 0.0
+        self.dance = 0.0
+        self.dance_t = 0.0
+        # resting on rock, gravity re-lands the crab every other frame, so
+        # on_ground flickers. air_t smooths that into "has had its feet down
+        # recently", which is what idling actually means.
+        self.air_t = 0.0
 
     @property
     def rect(self):
@@ -956,6 +1065,25 @@ class Pearl:
 
 
 # ----------------------------------------------------------------------------
+# Shop
+# ----------------------------------------------------------------------------
+# Hats are mutually exclusive - one head, one hat. The dance is independent of
+# whichever hat is on, so you can wear a top hat and still dance in it.
+
+SHOP_ITEMS = [
+    dict(key="dance", name="IDLE DANCE", cost=8, kind="dance",
+         blurb="stand still 3s and the crab dances"),
+    dict(key="spinner", name="SPINNER HAT", cost=3, kind="hat",
+         blurb="rainbow spiral, propeller on top"),
+    dict(key="tophat", name="TOP HAT", cost=2, kind="hat",
+         blurb="for a crab of some standing"),
+]
+SHOP_KEYS = [it["key"] for it in SHOP_ITEMS]
+RAINBOW = [(255, 92, 92), (255, 164, 66), (255, 226, 92), (118, 214, 118),
+           (96, 178, 246), (158, 124, 238)]
+
+
+# ----------------------------------------------------------------------------
 # Ad banner (fictional brands only)
 # ----------------------------------------------------------------------------
 
@@ -1017,18 +1145,29 @@ class AdBanner:
 # Save file
 # ----------------------------------------------------------------------------
 
+DEFAULT_SAVE = dict(level=0, unlocked=0, pearls=0, fullscreen=False,
+                    pace="relaxed", wallet=0, owned=[], hat="", dance=False,
+                    streak=0)
+
+
 def load_save():
     try:
         with open(SAVE_PATH, "r") as f:
             d = json.load(f)
+        owned = [str(k) for k in d.get("owned", []) if str(k) in SHOP_KEYS]
+        hat = str(d.get("hat", ""))
         return dict(level=int(d.get("level", 0)),
                     unlocked=int(d.get("unlocked", 0)),
                     pearls=int(d.get("pearls", 0)),
                     fullscreen=bool(d.get("fullscreen", False)),
-                    pace=str(d.get("pace", "relaxed")))
+                    pace=str(d.get("pace", "relaxed")),
+                    wallet=max(0, int(d.get("wallet", 0))),
+                    owned=owned,
+                    hat=hat if hat in owned else "",
+                    dance=bool(d.get("dance", False)) and "dance" in owned,
+                    streak=max(0, int(d.get("streak", 0))))
     except Exception:
-        return dict(level=0, unlocked=0, pearls=0, fullscreen=False,
-                    pace="relaxed")
+        return dict(DEFAULT_SAVE, owned=[])
 
 
 def write_save(d):
@@ -1043,8 +1182,8 @@ def write_save(d):
 # Game
 # ----------------------------------------------------------------------------
 
-MENU, PLAY, DEAD, CLEARED, SETTINGS, CONTROLS = \
-    "menu", "play", "dead", "cleared", "settings", "controls"
+MENU, PLAY, DEAD, CLEARED, SETTINGS, CONTROLS, SHOP, DIALOGUE = \
+    "menu", "play", "dead", "cleared", "settings", "controls", "shop", "dialogue"
 
 
 class Button:
@@ -1093,6 +1232,22 @@ class Game:
         self.level_i = self.save["level"]
         self.unlocked = self.save["unlocked"]
         self.run_pearls = self.save["pearls"]
+        # wallet is the spendable purse and survives new runs; run_pearls is
+        # just what this run has turned up.
+        self.wallet = self.save["wallet"]
+        self.owned = list(self.save["owned"])
+        self.hat = self.save["hat"]
+        self.dance_on = self.save["dance"]
+        self.streak = self.save["streak"]
+        self.clean = True            # no damage taken in this pool yet
+        self.rainbow = self.streak >= RAINBOW_STREAK
+        self.rain_t = 0.0
+        self.earned_rainbow = False
+        self.dlg_i = 0
+        self.dlg_t = 0.0
+        self.shop_msg = ""
+        self.shop_msg_t = 0.0
+        self.shop_from = MENU
         self.max_hp = MAX_HP
         self.hp = MAX_HP
         self.shake = self.freeze = self.flash = 0.0
@@ -1129,10 +1284,13 @@ class Game:
     def build_menu(self):
         cx = WORLD_W // 2
         self.buttons = [
-            Button("CONTINUE", (cx - 105, 360, 210, 54), primary=True,
+            Button("CONTINUE", (cx - 105, 340, 210, 54), primary=True,
                    sub="Pool %d - %s" % (self.level_i + 1,
                                          LEVELS[min(self.level_i, len(LEVELS) - 1)]["name"])),
-            Button("QUIT", (cx - 105, 430, 210, 40)),
+            Button("SHOP", (cx - 105, 402, 210, 44),
+                   sub="%d pearl%s saved" % (self.wallet,
+                                             "" if self.wallet == 1 else "s")),
+            Button("QUIT", (cx - 105, 454, 210, 38)),
         ]
 
     def build_dead_menu(self):
@@ -1156,15 +1314,18 @@ class Game:
         cx = WORLD_W // 2
         self.buttons = [
             Button("FULLSCREEN: %s" % ("ON" if self.fullscreen else "OFF"),
-                   (cx - 110, 258, 220, 48), sub="F11 toggles any time"),
-            Button("PACE: %s" % self.pace.upper(), (cx - 110, 312, 220, 48),
+                   (cx - 110, 236, 220, 48), sub="F11 toggles any time"),
+            Button("PACE: %s" % self.pace.upper(), (cx - 110, 290, 220, 48),
                    sub="relaxed slows the tide and every hazard"),
-            Button("CONTROLS", (cx - 110, 366, 220, 44),
+            Button("CONTROLS", (cx - 110, 344, 220, 44),
                    sub="how to move, hop, punch, and grip"),
-            Button("NEW GAME", (cx - 110, 416, 220, 44),
-                   sub="wipes your saved progress"),
-            Button("MAIN SCREEN", (cx - 110, 466, 220, 40)),
-            Button("BACK", (cx - 110, 512, 220, 40), primary=True),
+            Button("SHOP", (cx - 110, 394, 220, 44),
+                   sub="%d pearl%s saved" % (self.wallet,
+                                             "" if self.wallet == 1 else "s")),
+            Button("NEW GAME", (cx - 110, 444, 220, 44),
+                   sub="wipes pool progress, keeps your pearls"),
+            Button("MAIN SCREEN", (cx - 110, 494, 220, 40)),
+            Button("BACK", (cx - 110, 540, 220, 40), primary=True),
         ]
 
     def build_controls_menu(self):
@@ -1173,12 +1334,40 @@ class Game:
             Button("BACK", (cx - 105, 536, 210, 42), primary=True),
         ]
 
+    def shop_state(self, it):
+        """(label, sub, enabled) for one shop row, from what you own and
+        what you can afford."""
+        key, cost = it["key"], it["cost"]
+        if key not in self.owned:
+            can = self.wallet >= cost
+            return ("BUY  %d" % cost,
+                    it["blurb"] if can else "needs %d more pearl%s" % (
+                        cost - self.wallet, "" if cost - self.wallet == 1 else "s"),
+                    can)
+        worn = (self.hat == key) if it["kind"] == "hat" else self.dance_on
+        return ("TAKE OFF" if worn else "WEAR", it["blurb"], True)
+
+    def build_shop_menu(self):
+        cx = WORLD_W // 2
+        self.buttons = []
+        y = 262
+        for it in SHOP_ITEMS:
+            label, sub, enabled = self.shop_state(it)
+            self.buttons.append(
+                Button("%s: %s" % (it["name"], label), (cx - 130, y, 260, 48),
+                       enabled=enabled, sub=sub))
+            y += 60
+        self.buttons.append(Button("BACK", (cx - 105, y + 8, 210, 42),
+                                   primary=True))
+
     # -- persistence ---------------------------------------------------------
 
     def persist(self, level=None):
         write_save(dict(level=self.level_i if level is None else level,
                         unlocked=self.unlocked, pearls=self.run_pearls,
-                        fullscreen=self.fullscreen, pace=self.pace))
+                        fullscreen=self.fullscreen, pace=self.pace,
+                        wallet=self.wallet, owned=self.owned, hat=self.hat,
+                        dance=self.dance_on, streak=self.streak))
 
     def toggle_fullscreen(self):
         """SCALED letterboxes the fixed playfield to whatever the display is,
@@ -1218,6 +1407,7 @@ class Game:
         self.gulls = [Gull(*g) for g in L.get("gulls", [])]
         self.pearls = [Pearl(*p) for p in L["pearls"]]
         self.crab = Crab(*L["spawn"])
+        self.clean = True            # rainbow mode is earned pool by pool
         self.apply_pace()
         # a moment of grace so you are never hit before you can react
         self.crab.iframe = 2.6 if self.pace == "relaxed" else 1.4
@@ -1269,6 +1459,13 @@ class Game:
             return
         self.hp -= 1
         c.iframe = IFRAME_TIME
+        # one hit ends the clean run: the streak resets and the rainbow goes
+        self.clean = False
+        self.streak = 0
+        lost_rainbow = self.rainbow
+        if lost_rainbow:
+            self.rainbow = False
+            self.parts.burst(c.x, c.y, 22, RAINBOW[2], 4.0, 0.6, 3.0, 0.1, True)
         c.vx = (1 if c.x >= src_x else -1) * 4.6
         c.vy = -4.4
         self.shake = max(self.shake, 11)
@@ -1280,6 +1477,8 @@ class Game:
             self.shake = 18
             self.state = DEAD
             self.build_dead_menu()
+        elif lost_rainbow:
+            self.set_msg("Rainbow washed off. Streak reset.", 2.0)
         else:
             self.set_msg("%d hit%s left" % (self.hp - 1, "" if self.hp - 1 == 1 else "s"),
                          1.6)
@@ -1318,6 +1517,17 @@ class Game:
         c.sy = approach(c.sy, float(c.in_y), dt * 7.0)
         if held and swimming:
             c.kick += dt * 13.0
+
+        # ---- idle dance. Any button at all resets it, and it only starts
+        # with both feet on rock, so it can never interrupt a swim or a fall.
+        busy = held or jump_held or c.punch_t > 0 or c.charging
+        c.air_t = 0.0 if c.on_ground else c.air_t + dt
+        settled = c.air_t < 0.14 and abs(c.vx) < 0.3 and abs(c.vy) < 1.6
+        c.idle_t = 0.0 if (busy or not settled) else c.idle_t + dt
+        want = 1.0 if (self.dance_on and c.idle_t >= DANCE_AFTER) else 0.0
+        c.dance = approach(c.dance, want, dt * (3.4 if want else 9.0))
+        if c.dance > 0.02:
+            c.dance_t += dt * 7.4
 
         # holding down on rock grips it, so a rising tide cannot lift you off
         c.gripping = (c.in_y > 0) and c.on_ground
@@ -1551,18 +1761,37 @@ class Game:
             if not p.got and math.hypot(p.x - c.x, p.y - c.y) < 20:
                 p.got = True
                 self.run_pearls += 1
+                self.wallet += 1          # spendable in the shop, and it keeps
                 self.parts.burst(p.x, p.y, 14, C_SHELL, 3.6, 0.45, 2.4, 0.04, True)
 
         gx, gy = self.L["goal"]
         if math.hypot(c.x - gx, c.y - gy) < 21 and self.state == PLAY:
-            self.state = CLEARED
             self.cleared_last = self.level_i >= len(LEVELS) - 1
             self.next_level = min(self.level_i + 1, len(LEVELS) - 1)
             self.unlocked = max(self.unlocked, self.next_level)
+            # a pool crossed without a scratch extends the streak; three in a
+            # row and the shell goes rainbow until something lands a hit
+            self.earned_rainbow = False
+            if self.clean:
+                self.streak += 1
+                if self.streak >= RAINBOW_STREAK and not self.rainbow:
+                    self.rainbow = True
+                    self.earned_rainbow = True
             self.persist(level=self.next_level)
             self.parts.burst(gx, gy, 28, C_SHELL, 5.2, 0.85, 3.0, 0.08, True)
+            if self.earned_rainbow:
+                for i, col in enumerate(RAINBOW):
+                    self.parts.burst(gx, gy, 9, col, 5.6, 0.9, 3.2, 0.06, True)
             self.shake = max(self.shake, 8)
-            self.build_cleared_menu()
+            # the last pool says its piece before the clear card
+            if self.cleared_last and self.L.get("dialogue"):
+                self.state = DIALOGUE
+                self.dlg_i = 0
+                self.dlg_t = 0.0
+                self.buttons = []
+            else:
+                self.state = CLEARED
+                self.build_cleared_menu()
 
     # -- drawing: world ------------------------------------------------------
 
@@ -1947,6 +2176,85 @@ class Game:
             pygame.draw.line(s, C_SHELL_DARK, (gx, gy + 8), (gx + i * 4.0, gy - 5), 1)
         pygame.draw.line(s, C_SHELL_DARK, (gx - 15, gy + 9), (gx + 15, gy + 9), 2)
 
+    def draw_rainbow_shell(self, s, pts, cx, cy):
+        """Slanted rainbow bands running left to right across the shell.
+
+        The bands are painted on their own surface and multiplied by a mask of
+        the shell polygon, so the colour stops exactly at the shell edge
+        instead of bleeding over the legs and eyes."""
+        pad, W, H = 26, 0, 0
+        xs = [p[0] for p in pts]
+        ys = [p[1] for p in pts]
+        ox, oy = min(xs) - pad, min(ys) - pad
+        W = int(max(xs) - min(xs) + pad * 2)
+        H = int(max(ys) - min(ys) + pad * 2)
+        if W <= 0 or H <= 0:
+            return
+
+        bands = pygame.Surface((W, H), pygame.SRCALPHA)
+        bw_band = 7
+        span = bw_band * len(RAINBOW)
+        scroll = (self.rain_t * 54.0) % span
+        k = 0
+        x0 = -H - span - scroll
+        while x0 < W + span:
+            col = RAINBOW[k % len(RAINBOW)]
+            pygame.draw.polygon(bands, (*col, 255), [
+                (x0, 0), (x0 + bw_band, 0),
+                (x0 + bw_band - H * 0.6, H), (x0 - H * 0.6, H)])
+            x0 += bw_band
+            k += 1
+
+        mask = pygame.Surface((W, H), pygame.SRCALPHA)
+        pygame.draw.polygon(mask, (255, 255, 255, 255),
+                            [(x - ox, y - oy) for (x, y) in pts])
+        bands.blit(mask, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+        bands.set_alpha(200)
+        s.blit(bands, (ox, oy))
+
+    def draw_hat(self, s, P, bh, pitch, dnc):
+        """Whatever is equipped, worn on the eyestalks and tilting with the
+        body. Drawn last so it sits over the eyes, not under them."""
+        # the brim rides above the eyestalk tips (about -bh-10) so the hat
+        # perches on the stalks and the eyes still read
+        base = -bh - 10.5
+        if self.hat == "tophat":
+            crown = [P(-6.0, base), P(6.0, base),
+                     P(6.0, base - 12), P(-6.0, base - 12)]
+            pygame.draw.polygon(s, (28, 28, 34), crown)
+            pygame.draw.polygon(s, (10, 10, 14), crown, 1)
+            band = [P(-6.0, base - 2.0), P(6.0, base - 2.0),
+                    P(6.0, base - 4.6), P(-6.0, base - 4.6)]
+            pygame.draw.polygon(s, (168, 42, 48), band)
+            pygame.draw.line(s, (28, 28, 34), P(-10, base), P(10, base), 4)
+            pygame.draw.line(s, (84, 84, 94), P(-3.5, base - 10.5),
+                             P(1.5, base - 10.5), 1)
+        elif self.hat == "spinner":
+            hc = P(0, base)
+            r = 9.5
+            for i, col in enumerate(RAINBOW):
+                a0 = math.pi + math.pi * i / len(RAINBOW) + pitch
+                a1 = math.pi + math.pi * (i + 1) / len(RAINBOW) + pitch
+                pygame.draw.polygon(s, col, [
+                    hc,
+                    (hc[0] + math.cos(a0) * r, hc[1] + math.sin(a0) * r),
+                    (hc[0] + math.cos((a0 + a1) / 2) * r,
+                     hc[1] + math.sin((a0 + a1) / 2) * r),
+                    (hc[0] + math.cos(a1) * r, hc[1] + math.sin(a1) * r)])
+            pygame.draw.line(s, (250, 248, 242), P(-10, base), P(10, base), 3)
+            top = P(0, base - 11)
+            pygame.draw.line(s, (62, 62, 70), P(0, base - 8.5), top, 2)
+            # propeller: spins faster while the crab is dancing
+            spin = self.rain_t * (9.0 + 11.0 * dnc)
+            for j in (0, 1):
+                a = spin + j * math.pi
+                tip = (top[0] + math.cos(a) * 12, top[1] + math.sin(a) * 3.6)
+                mid = (top[0] + math.cos(a) * 6.5, top[1] + math.sin(a) * 2.2 - 3.0)
+                blade = [top, mid, tip]
+                pygame.draw.polygon(s, RAINBOW[(j * 3) % len(RAINBOW)], blade)
+                pygame.draw.polygon(s, (52, 44, 40), blade, 1)
+            pygame.draw.circle(s, (248, 244, 236), (int(top[0]), int(top[1])), 2)
+
     def draw_crab(self, s, c, ghost=False):
         if c.iframe > 0 and int(c.iframe * 22) % 2 == 0:
             return
@@ -1975,8 +2283,16 @@ class Game:
         f = c.face
         amt = c.pose_amt
 
+        # ---- idle dance: sway, bob, and a rocking roll. Purely drawn - it
+        # moves nothing, and any button drops it before the next frame.
+        dnc = c.dance
+        if dnc > 0.01:
+            cx += math.sin(c.dance_t) * 3.4 * dnc
+            cy += abs(math.sin(c.dance_t * 2.0)) * -2.6 * dnc
+            bw *= 1.0 + 0.06 * math.sin(c.dance_t * 2.0) * dnc
+
         # ---- pose, driven by the held direction only (never by velocity)
-        pitch = 0.42 * c.sy * f * amt
+        pitch = 0.42 * c.sy * f * amt + (math.sin(c.dance_t) * 0.34 * dnc)
         cosp, sinp = math.cos(pitch), math.sin(pitch)
 
         def P(lx, ly):
@@ -2000,19 +2316,28 @@ class Game:
 
         # ---- shell, as a rotated polygon so the pitch actually reads
         ring = [math.tau * k / 16 for k in range(16)]
+        shell_pts = [P(math.cos(a) * bw, math.sin(a) * bh) for a in ring]
         pygame.draw.polygon(s, C_CRAB_DARK,
                             [P(math.cos(a) * (bw + 1.4), math.sin(a) * (bh + 1.4))
                              for a in ring])
-        pygame.draw.polygon(s, C_CRAB,
-                            [P(math.cos(a) * bw, math.sin(a) * bh) for a in ring])
+        pygame.draw.polygon(s, C_CRAB, shell_pts)
         hi = [P(math.cos(a) * bw * 0.72, math.sin(a) * bh * 0.72 - bh * 0.3)
               for a in [math.pi + math.pi * k / 7 for k in range(8)]]
         pygame.draw.lines(s, C_CRAB_PALE, False, hi, 3)
+        if self.rainbow:
+            self.draw_rainbow_shell(s, shell_pts, cx, cy)
 
         # ---- claws. Position comes from claw_point(), the same call the
         # hitbox uses, so what you see is still exactly what connects.
         idle_bob = math.sin(self.menu_t * 2.2) * 0.8 + 3 * amt
         clx, cly, cang, _reach = c.claw_point(idle_bob)
+        # dancing raises the claws in turn. Only ever while no punch is in
+        # flight, so the drawn claw still matches the punch hitbox exactly.
+        lift_a = lift_b = 0.0
+        if dnc > 0.01 and c.punch_t <= 0:
+            lift_a = max(0.0, math.sin(c.dance_t)) * 9.0 * dnc
+            lift_b = max(0.0, math.sin(c.dance_t + math.pi)) * 9.0 * dnc
+            cly -= lift_a
         shoulder = P(f * 7, -1)
         pygame.draw.line(s, C_CRAB_DARK, shoulder, (clx, cly), 4)
         pygame.draw.circle(s, C_CRAB_DARK, (int(clx), int(cly)), 6)
@@ -2023,7 +2348,7 @@ class Game:
 
         sh2 = P(-f * 7, -1)
         sang = cang + math.pi * (0.62 if f > 0 else -0.62)
-        s2 = (sh2[0] + math.cos(sang) * 6, sh2[1] + math.sin(sang) * 6)
+        s2 = (sh2[0] + math.cos(sang) * 6, sh2[1] + math.sin(sang) * 6 - lift_b)
         pygame.draw.line(s, C_CRAB_DARK, sh2, s2, 3)
         pygame.draw.circle(s, C_CRAB_DARK, (int(s2[0]), int(s2[1])), 4)
         pygame.draw.circle(s, C_CRAB, (int(s2[0]), int(s2[1])), 2)
@@ -2044,6 +2369,26 @@ class Game:
                 look = P(tipx + c.sx * 1.2 * amt + (f * 0.8 if amt < 0.3 else 0),
                          tipy + c.sy * 1.2 * amt)
                 pygame.draw.circle(s, C_INK, (int(look[0]), int(look[1])), 2)
+
+        if self.hat:
+            self.draw_hat(s, P, bh, pitch, dnc)
+
+        # ---- two notes drift up while it dances
+        if dnc > 0.3:
+            for j in (0, 1):
+                ph = (c.dance_t * 0.55 + j * 0.5) % 1.0
+                nx = cx + (14 if j else -15) + math.sin(ph * 6.0 + j) * 3
+                ny = cy - 16 - ph * 22
+                a = int(210 * (1.0 - ph) * dnc)
+                if a <= 4:
+                    continue
+                note = pygame.Surface((12, 14), pygame.SRCALPHA)
+                col = (*RAINBOW[(j + int(c.dance_t * 0.6)) % len(RAINBOW)], a) \
+                    if self.rainbow else (*C_WHITE, a)
+                pygame.draw.circle(note, col, (4, 10), 3)
+                pygame.draw.line(note, col, (7, 10), (7, 2), 2)
+                pygame.draw.line(note, col, (7, 2), (11, 4), 2)
+                s.blit(note, (nx - 6, ny - 7))
 
         if c.gripping:
             for sgn in (-1, 1):
@@ -2141,6 +2486,20 @@ class Game:
             pe = self.fonts["small"].render("%d/%d" % (got, len(self.pearls)),
                                             True, C_MUTED)
             surf.blit(pe, (px + 10, y + 11))
+            # clean-run tracker, parked between the pearl count and the
+            # hearts: pips while you build the streak, a rainbow bar once it
+            # has earned you the shell
+            tx = px - 48
+            if self.rainbow:
+                for i, col in enumerate(RAINBOW):
+                    pygame.draw.rect(surf, col, (tx + i * 4, y + 14, 4, 9))
+                pygame.draw.rect(surf, (226, 214, 190),
+                                 (tx - 1, y + 13, 4 * len(RAINBOW) + 2, 11), 1)
+            else:
+                for i in range(RAINBOW_STREAK):
+                    on = i < self.streak
+                    pygame.draw.circle(surf, RAINBOW[i * 2] if on else (220, 210, 196),
+                                       (tx + 3 + i * 10, y + 18), 3)
         else:
             cap = self.fonts["tiny"].render("A ROCK POOL GAME", True, C_MUTED)
             surf.blit(cap, (12, y + 13))
@@ -2217,7 +2576,7 @@ class Game:
         for i, line in enumerate(ctl):
             g = self.fonts["tiny"].render(line, True, C_INK)
             g.set_alpha(190)
-            s.blit(g, (WORLD_W // 2 - g.get_width() // 2, 500 + i * 15))
+            s.blit(g, (WORLD_W // 2 - g.get_width() // 2, 512 + i * 15))
 
     def draw_overlay_card(self, surf, title, body_lines, accent=C_INK):
         s = self.world
@@ -2239,12 +2598,87 @@ class Game:
         veil = pygame.Surface((WORLD_W, WORLD_H), pygame.SRCALPHA)
         veil.fill((8, 40, 54, 190))
         s.blit(veil, (0, 0))
-        plate = pygame.Rect(WORLD_W // 2 - 140, 180, 280, 340)
+        plate = pygame.Rect(WORLD_W // 2 - 140, 166, 280, 436)
         pygame.draw.rect(s, C_PANEL, plate, border_radius=18)
         pygame.draw.rect(s, (226, 206, 170), plate, 2, border_radius=18)
         t = self.fonts["h2"].render("Settings", True, C_INK)
-        s.blit(t, (WORLD_W // 2 - t.get_width() // 2, 206))
+        s.blit(t, (WORLD_W // 2 - t.get_width() // 2, 182))
         self.draw_buttons(s, 0)
+
+    def draw_shop(self, surf):
+        s = self.world
+        veil = pygame.Surface((WORLD_W, WORLD_H), pygame.SRCALPHA)
+        veil.fill((8, 40, 54, 190))
+        s.blit(veil, (0, 0))
+        plate = pygame.Rect(WORLD_W // 2 - 150, 150, 300, 440)
+        pygame.draw.rect(s, C_PANEL, plate, border_radius=18)
+        pygame.draw.rect(s, (226, 206, 170), plate, 2, border_radius=18)
+        t = self.fonts["h2"].render("Pearl shop", True, C_INK)
+        s.blit(t, (WORLD_W // 2 - t.get_width() // 2, 168))
+
+        # purse
+        px = WORLD_W // 2 - 34
+        pygame.draw.circle(s, C_SHELL_DARK, (px, 214), 8)
+        pygame.draw.circle(s, C_SHELL, (px, 214), 7)
+        pygame.draw.circle(s, C_WHITE, (px - 2, 211), 2)
+        cnt = self.fonts["ui"].render("%d" % self.wallet, True, C_INK)
+        s.blit(cnt, (px + 14, 205))
+
+        # the crab models whatever is on right now
+        demo = Crab(WORLD_W // 2 + 86, 222)
+        demo.walk = self.menu_t * 4
+        demo.blink = math.sin(self.menu_t * 0.7) + 0.4
+        if self.dance_on:
+            demo.dance = 1.0
+            demo.dance_t = self.menu_t * 7.4
+        self.draw_crab(s, demo, ghost=True)
+
+        self.draw_buttons(s, 0)
+        if self.shop_msg_t > 0:
+            g = self.fonts["tiny"].render(self.shop_msg, True, C_CRAB_DARK)
+            s.blit(g, (WORLD_W // 2 - g.get_width() // 2, 240))
+
+    def draw_dialogue(self, surf):
+        """The last pool's send-off. One line at a time, click or press to go
+        on; the pool keeps moving behind it."""
+        s = self.world
+        lines = self.L.get("dialogue", [])
+        i = min(self.dlg_i, len(lines) - 1)
+        speaker, text = lines[i]
+        veil = pygame.Surface((WORLD_W, WORLD_H), pygame.SRCALPHA)
+        veil.fill((8, 40, 54, 120))
+        s.blit(veil, (0, 0))
+
+        box = pygame.Rect(26, WORLD_H - 150, WORLD_W - 52, 96)
+        pygame.draw.rect(s, C_PANEL, box, border_radius=14)
+        pygame.draw.rect(s, (226, 206, 170), box, 2, border_radius=14)
+        if speaker:
+            nm = self.fonts["tiny"].render(speaker.upper(), True, C_CRAB_DARK)
+            s.blit(nm, (box.x + 18, box.y + 14))
+        # the line types itself in, so it reads at a speaking pace
+        shown = text[:int(self.dlg_t * 34)]
+        body = self.fonts["small"] if speaker else self.fonts["ui"]
+        g = body.render(shown, True, C_INK if speaker else C_MUTED)
+        s.blit(g, (box.x + 18, box.y + 36))
+
+        done = len(shown) >= len(text)
+        if done and math.sin(self.menu_t * 5.0) > -0.2:
+            tip = "click or press to go on" if i < len(lines) - 1 else \
+                  "click or press to finish"
+            hint = self.fonts["tiny"].render(tip, True, C_MUTED)
+            s.blit(hint, (box.right - hint.get_width() - 16, box.bottom - 20))
+
+    def advance_dialogue(self):
+        lines = self.L.get("dialogue", [])
+        text = lines[min(self.dlg_i, len(lines) - 1)][1]
+        if self.dlg_t * 34 < len(text):        # first press finishes the line
+            self.dlg_t = len(text) / 34.0 + 0.1
+            return
+        self.dlg_i += 1
+        self.dlg_t = 0.0
+        if self.dlg_i >= len(lines):
+            self.state = CLEARED
+            self.build_cleared_menu()
 
     def draw_controls(self, surf):
         s = self.world
@@ -2317,9 +2751,53 @@ class Game:
         self.state = SETTINGS
         self.build_settings_menu()
 
+    def open_shop(self):
+        self.shop_from = self.state if self.state in (MENU, SETTINGS) else MENU
+        self.state = SHOP
+        self.shop_msg_t = 0.0
+        self.build_shop_menu()
+
+    def close_shop(self):
+        if self.shop_from == SETTINGS:
+            self.state = SETTINGS
+            self.build_settings_menu()
+        else:
+            self.state = MENU
+            self.build_menu()
+
+    def shop_click(self, label):
+        """Buy an item, or put one on and take it off. Hats replace each
+        other; the dance is its own switch."""
+        for it in SHOP_ITEMS:
+            if not label.startswith(it["name"] + ":"):
+                continue
+            key = it["key"]
+            if key not in self.owned:
+                if self.wallet < it["cost"]:
+                    return True
+                self.wallet -= it["cost"]
+                self.owned.append(key)
+                if it["kind"] == "hat":
+                    self.hat = key
+                else:
+                    self.dance_on = True
+                self.shop_msg, self.shop_msg_t = "Bought, and on.", 2.2
+            elif it["kind"] == "hat":
+                self.hat = "" if self.hat == key else key
+            else:
+                self.dance_on = not self.dance_on
+            self.persist()
+            self.build_shop_menu()
+            return True
+        return False
+
     def activate(self, label):
+        if self.state == SHOP and label != "BACK" and self.shop_click(label):
+            return
         if label == "__gear__":
             self.open_settings()
+        elif label == "SHOP":
+            self.open_shop()
         elif label == "CONTINUE":
             if self.state == CLEARED:
                 self.start_level(self.next_level)
@@ -2334,6 +2812,10 @@ class Game:
             self.level_i = clamp(sv["level"], 0, len(LEVELS) - 1)
             self.unlocked = sv["unlocked"]
             self.run_pearls = sv["pearls"]
+            self.wallet = sv["wallet"]
+            self.owned = list(sv["owned"])
+            self.hat = sv["hat"]
+            self.dance_on = sv["dance"]
             self.L = LEVELS[self.level_i]
             self.state = MENU
             self.build_menu()
@@ -2346,6 +2828,8 @@ class Game:
         elif label == "BACK":
             if self.state == CONTROLS:
                 self.close_controls()
+            elif self.state == SHOP:
+                self.close_shop()
             else:
                 self.close_settings()
         elif label.startswith("PACE"):
@@ -2377,6 +2861,9 @@ class Game:
                     pygame.quit()
                     return
                 if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                    if self.state == DIALOGUE:
+                        self.advance_dialogue()
+                        continue
                     lab = self.click_at(ev.pos)
                     if lab:
                         self.activate(lab)
@@ -2391,6 +2878,10 @@ class Game:
                     if ev.key == pygame.K_ESCAPE:
                         if self.state == CONTROLS:
                             self.close_controls()
+                        elif self.state == SHOP:
+                            self.close_shop()
+                        elif self.state == DIALOGUE:
+                            self.advance_dialogue()
                         elif self.state == SETTINGS:
                             self.close_settings()
                         elif self.state == MENU:
@@ -2416,6 +2907,8 @@ class Game:
                                     5, C_FOAM, 2.2, 0.2, 1.8, 0.0)
                         elif ev.key == pygame.K_r:
                             self.start_level(self.level_i)
+                    elif self.state == DIALOGUE:
+                        self.advance_dialogue()
                     elif self.state in (MENU, DEAD, CLEARED):
                         if ev.key in (pygame.K_RETURN, pygame.K_SPACE):
                             for b in self.buttons:
@@ -2430,8 +2923,13 @@ class Game:
                 self.update_play(dt, keys)
                 self.parts.update(dt)
                 self.msg_t = max(0.0, self.msg_t - dt)
-            elif self.state in (DEAD, CLEARED):
+            elif self.state in (DEAD, CLEARED, DIALOGUE):
                 self.parts.update(dt)
+                if self.state == DIALOGUE:
+                    self.t += dt          # the pool keeps breathing behind it
+                    self.dlg_t += dt
+            self.rain_t += dt
+            self.shop_msg_t = max(0.0, self.shop_msg_t - dt)
 
             self.shake = max(0.0, self.shake - dt * 44)
             self.flash = max(0.0, self.flash - dt * 3.2)
@@ -2440,11 +2938,13 @@ class Game:
             self.screen.fill(C_SKY_BOT)
             self.ad.draw(self.screen)
 
-            in_game = self.state not in (MENU,) and not (
-                self.state in (SETTINGS, CONTROLS) and self.prev_state == MENU)
+            menu_behind = (self.state in (SETTINGS, CONTROLS) and
+                           self.prev_state == MENU) or \
+                          (self.state == SHOP and
+                           (self.shop_from == MENU or self.prev_state == MENU))
+            in_game = self.state not in (MENU,) and not menu_behind
 
-            if self.state == MENU or (
-                    self.state in (SETTINGS, CONTROLS) and self.prev_state == MENU):
+            if self.state == MENU or menu_behind:
                 self.draw_menu(self.screen)
             else:
                 self.draw_world()
@@ -2455,18 +2955,30 @@ class Game:
                          "Pearls this run: %d" % self.run_pearls], C_DANGER)
                 elif self.state == CLEARED:
                     got = sum(1 for p in self.pearls if p.got)
+                    if self.cleared_last:
+                        body = ["That was the last pool.",
+                                "Pearls in all: %d" % self.run_pearls]
+                    else:
+                        body = ["Pearls here: %d / %d" % (got, len(self.pearls)),
+                                "Progress saved."]
+                        if self.earned_rainbow:
+                            body.append("Three clean pools - RAINBOW MODE")
+                        elif self.clean and self.streak:
+                            body.append("Clean run: %d of %d" %
+                                        (self.streak, RAINBOW_STREAK))
                     self.draw_overlay_card(
                         self.screen,
                         "High water" if self.cleared_last else "Safe ashore",
-                        (["That was the last pool.",
-                          "Pearls in all: %d" % self.run_pearls] if self.cleared_last else
-                         ["Pearls here: %d / %d" % (got, len(self.pearls)),
-                          "Progress saved."]), C_INK)
+                        body, C_INK)
+                elif self.state == DIALOGUE:
+                    self.draw_dialogue(self.screen)
 
             if self.state == SETTINGS:
                 self.draw_settings(self.screen)
             elif self.state == CONTROLS:
                 self.draw_controls(self.screen)
+            elif self.state == SHOP:
+                self.draw_shop(self.screen)
 
             ox = random.uniform(-self.shake, self.shake) if self.shake > 0 else 0
             oy = random.uniform(-self.shake, self.shake) if self.shake > 0 else 0
