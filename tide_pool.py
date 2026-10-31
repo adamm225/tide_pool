@@ -116,6 +116,8 @@ C_GULL_BEAK = (250, 176, 60)
 C_JELLY = (232, 116, 198)
 C_JELLY_DARK = (168, 62, 150)
 C_JELLY_HOT = (255, 248, 164)
+C_JELLY_DRY = (190, 182, 158)          # sun-bleached, stranded on dry rock
+C_JELLY_DRY_DARK = (140, 132, 112)
 C_INK = (24, 46, 54)
 C_MUTED = (104, 136, 142)
 C_PANEL = (255, 251, 242)
@@ -193,7 +195,7 @@ LEVELS = [
         jellies=[],
         pearls=[(72, 482), (172, 560)],
         puffers=[], crawlers=[((0, 500, 140, 16), 70, 26)], gulls=[],
-        tip="Punch the eel with J. The half you hit folds out of the way.",
+        tip="Punch the eel with B. The half you hit folds out of the way.",
     ),
     dict(
         name="Overhang",
@@ -742,12 +744,19 @@ class Eel:
 
 
 class Jelly:
-    """Patrols, charges with an accelerating blink, then discharges a ring."""
+    """Patrols, charges with an accelerating blink, then discharges a ring.
+
+    All of that needs water. A jelly the tide has left behind strands at the
+    surface instead of patrolling on into open air, and goes inert: no
+    charge, no blink, no shock, and it can't be run into. It picks back up
+    the instant the water returns over it - the charge it had is still there,
+    just paused."""
 
     R = 13
     CHARGE_TIME = 3.4
     SHOCK_TIME = 1.0
     SHOCK_R = 40
+    STRAND_PAD = 4.0        # how far the bell can poke above the waterline
 
     def __init__(self, p1, p2, speed):
         self.p1, self.p2 = p1, p2
@@ -763,6 +772,8 @@ class Jelly:
         self.spin = 0.0
         self.blink = 0.0
         self.pulse = random.uniform(0, math.tau)
+        self.stranded = False
+        self.droop = 0.0         # 0 afloat, 1 fully beached - purely visual
 
     @property
     def lit(self):
@@ -772,7 +783,7 @@ class Jelly:
         return (lerp(self.p1[0], self.p2[0], self.u),
                 lerp(self.p1[1], self.p2[1], self.u))
 
-    def update(self, dt):
+    def update(self, dt, water_y=None):
         self.pulse += dt * 2.6
         if self.knock > 0:
             self.knock -= dt
@@ -786,6 +797,12 @@ class Jelly:
             self.spin *= 0.88
 
         tx, ty = self.target()
+        # smaller y is higher on screen and water fills the region BELOW
+        # water_y, so a patrol target above the surface is a dry target - it
+        # can't float up into open air to reach it, so it settles at the
+        # surface instead
+        if water_y is not None and ty < water_y - self.STRAND_PAD:
+            ty = water_y - self.STRAND_PAD
         pull = 0.9 if self.knock <= 0 else 0.12
         self.vx += (tx - self.x) * 0.035 * pull
         self.vy += (ty - self.y) * 0.035 * pull
@@ -793,6 +810,14 @@ class Jelly:
         self.vy *= 0.90
         self.x += self.vx
         self.y += self.vy
+
+        # smaller y is higher on screen, and water fills the region BELOW
+        # water_y, so "at or above the clamped resting line" is dry
+        self.stranded = water_y is not None and self.y <= water_y - self.STRAND_PAD + 0.5
+        self.droop = approach(self.droop, 1.0 if self.stranded else 0.0, dt * 2.6)
+
+        if self.stranded:
+            return None             # the clock itself pauses - no free charge on the rocks
 
         if self.shock > 0:
             self.shock -= dt
@@ -813,10 +838,14 @@ class Jelly:
         return (0.5 + 0.5 * math.sin(self.blink)) * (0.25 + 0.75 * k * k)
 
     def hits(self, rect):
+        if self.stranded:
+            return False
         r = self.SHOCK_R if self.lit else self.R
         return rect.colliderect(pygame.Rect(self.x - r, self.y - r, r * 2, r * 2))
 
     def punched(self, px, py, pr):
+        if self.stranded:
+            return False
         return math.hypot(self.x - px, self.y - py) <= self.R + pr
 
     def knock_back(self, fx, fy):
@@ -1807,7 +1836,7 @@ class Game:
                              else "Beak first into the rock.", 1.8)
         self.gulls = [g for g in self.gulls if not g.gone]
         for j in self.jellies:
-            if j.update(dt) == "discharge":
+            if j.update(dt, wy) == "discharge":
                 self.parts.ring(j.x, j.y, 20, C_JELLY_HOT, 5.2, 0.6)
                 self.parts.burst(j.x, j.y, 12, C_JELLY, 3.2, 0.5, 2.6, 0.0, True)
                 self.shake = max(self.shake, 6)
@@ -2117,10 +2146,15 @@ class Game:
         pygame.draw.circle(s, (12, 26, 30), (int(e.ax), int(e.ay)), 7)
 
     def draw_jelly(self, s, j):
-        b = j.bright()
-        col = lerp3(C_JELLY, C_JELLY_HOT, b)
-        dark = lerp3(C_JELLY_DARK, C_JELLY_HOT, b * 0.6)
-        if j.lit:
+        wet = 1.0 - j.droop
+        b = j.bright() * wet          # no charge-glow once it's drying out
+        col = lerp3(lerp3(C_JELLY, C_JELLY_HOT, b), C_JELLY_DRY, j.droop * 0.8)
+        dark = lerp3(lerp3(C_JELLY_DARK, C_JELLY_HOT, b * 0.6),
+                     C_JELLY_DRY_DARK, j.droop * 0.8)
+        if j.droop > 0.5:
+            shadow(s, j.x, j.y + Jelly.R * 0.6, int(Jelly.R * 1.3), 4,
+                  int(50 * j.droop))
+        if j.lit and not j.stranded:
             k = clamp(j.shock / Jelly.SHOCK_TIME, 0, 1)
             rad = int(Jelly.SHOCK_R * (1.05 - 0.25 * k))
             ring = pygame.Surface((rad * 2 + 6, rad * 2 + 6), pygame.SRCALPHA)
@@ -2145,22 +2179,28 @@ class Game:
             pygame.draw.circle(halo, (g, g, g // 3), (35, 35), int(16 + 10 * b))
             s.blit(halo, (int(j.x) - 35, int(j.y) - 35), special_flags=pygame.BLEND_ADD)
 
-        # the bell pumps: it squeezes tall as it pushes, then spreads wide
-        squash = 1.0 + math.sin(j.pulse) * 0.13
-        rw, rh = Jelly.R * squash, Jelly.R * 0.88 / squash
-        k_ch = 0.0 if j.lit else clamp(j.charge / j.charge_time, 0, 1)
+        # the bell pumps: it squeezes tall as it pushes, then spreads wide.
+        # dried out, it stops pumping and sags - wider and flatter, resting
+        # its weight on the rock instead of holding its shape in the water
+        squash = 1.0 + math.sin(j.pulse) * 0.13 * wet
+        rw = Jelly.R * squash * (1.0 + 0.22 * j.droop)
+        rh = Jelly.R * 0.88 / squash * (1.0 - 0.4 * j.droop)
+        k_ch = 0.0 if (j.lit or j.stranded) else clamp(j.charge / j.charge_time, 0, 1)
 
         hem = j.y + rh * 0.34          # where the bell ends and the trailing
-        # ---- seven fine stingers, long and drifting, drawn behind everything
+        # ---- seven fine stingers, long and drifting, drawn behind everything.
+        # out of water they go limp: less sway, and they lie close instead of
+        # trailing out
+        swayk = wet * (1.0 - 0.6 * j.droop)
         for i in range(-3, 4):
             x0 = j.x + i * (rw * 0.26)
             ln = 5 + (3 - abs(i))                 # longest in the middle
             pts = [(x0, hem)]
             for k in range(1, ln):
-                sway = math.sin(j.pulse * 0.8 + i * 0.9 - k * 0.42) * (1.0 + k * 0.8)
-                pts.append((x0 + sway, hem + k * 6.4))
+                sway = math.sin(j.pulse * 0.8 + i * 0.9 - k * 0.42) * (1.0 + k * 0.8) * swayk
+                pts.append((x0 + sway, hem + k * 6.4 * (1.0 - 0.3 * j.droop)))
             pygame.draw.lines(s, dark, False, pts, 1)
-            if j.lit or k_ch > 0.8:
+            if j.lit:
                 pygame.draw.circle(s, C_JELLY_HOT,
                                    (int(pts[-1][0]), int(pts[-1][1])), 1)
 
@@ -2169,7 +2209,7 @@ class Game:
             x0 = j.x + i * (rw * 0.36)
             pts = [(x0, hem - 2)]
             for k in range(1, 4):
-                pts.append((x0 + math.sin(j.pulse * 1.2 + i * 2 - k * 0.8) * (1.6 * k),
+                pts.append((x0 + math.sin(j.pulse * 1.2 + i * 2 - k * 0.8) * (1.6 * k) * swayk,
                             hem - 2 + k * 4.6))
             pygame.draw.lines(s, dark, False, pts, 4)
             pygame.draw.lines(s, col, False, pts, 2)
@@ -2200,7 +2240,7 @@ class Game:
                 mr.center = (int(j.x + i * rw * 0.40), int(j.y + jj * rh * 0.22))
                 pygame.draw.arc(s, lerp3(C_WHITE, C_JELLY_HOT, b), mr,
                                 math.pi * 0.1, math.pi * 1.15, 2)
-        pygame.draw.arc(s, C_WHITE,
+        pygame.draw.arc(s, lerp3(C_WHITE, dark, j.droop * 0.7),
                         (int(j.x - rw * 0.8), int(j.y - rh * 0.8),
                          int(rw * 1.1), int(rh * 1.1)), 0.9, 2.3, 2)
 
@@ -2832,7 +2872,7 @@ class Game:
 
         self.draw_buttons(s, 0)
         ctl = ["swim  8 directions, arrows or wasd",
-               "hop  hold space, release    punch  J",
+               "hop  hold space, release    punch  B",
                "grip the rock  hold down"]
         for i, line in enumerate(ctl):
             g = self.fonts["tiny"].render(line, True, C_INK)
@@ -2955,7 +2995,7 @@ class Game:
         rows = [
             ("MOVE", "Arrows or WASD", "swim or walk in all 8 directions"),
             ("HOP", "Hold SPACE, release", "hold longer for a higher jump"),
-            ("PUNCH", "J, X, or Z", "aims the way you're holding"),
+            ("PUNCH", "B, X, or Z", "aims the way you're holding"),
             ("GRIP", "Hold DOWN on rock", "anchors you against the tide"),
             ("SETTINGS", "Gear icon, or ESC", ""),
             ("FULLSCREEN", "F11 or F", "works any time"),
@@ -3153,7 +3193,7 @@ class Game:
                             self.open_settings()
                         continue
                     if self.state == PLAY:
-                        if ev.key in (pygame.K_j, pygame.K_x, pygame.K_z):
+                        if ev.key in (pygame.K_b, pygame.K_x, pygame.K_z):
                             c = self.crab
                             if c.punch_cd <= 0:
                                 # lock the swing to the direction held at the
