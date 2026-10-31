@@ -75,7 +75,8 @@ PUNCH_COOLDOWN = 0.38
 PUNCH_HIT_R = 11.0       # radius of the claw hitbox, centred on the drawn claw
 IFRAME_TIME = 3.0        # longer mercy window after a hit
 MAX_HP = 3
-DANCE_AFTER = 3.0        # seconds of stillness before the idle dance starts
+DANCE_AFTER = 4.0        # seconds of stillness before the idle dance starts
+ZAP_TIME = 0.85          # how long the crab rattles after a shock
 RAINBOW_STREAK = 3       # clean pools in a row that earn rainbow mode
 
 CRAB_W, CRAB_H = 26, 16
@@ -191,7 +192,7 @@ LEVELS = [
         eels=[(170, 600, "up", 124, 3.4)],
         jellies=[],
         pearls=[(72, 482), (172, 560)],
-        puffers=[], crawlers=[((100, 490, 110, 16), 150, 26)], gulls=[],
+        puffers=[], crawlers=[((0, 500, 140, 16), 70, 26)], gulls=[],
         tip="Punch the eel with J. The half you hit folds out of the way.",
     ),
     dict(
@@ -200,7 +201,7 @@ LEVELS = [
         spawn=(30, 500), goal=(55, 210),
         plats=[(0, 600, 420, 20), (0, 520, 110, 16), (140, 430, 160, 14),
                (320, 450, 100, 16), (110, 330, 150, 16), (0, 230, 130, 16)],
-        urchins=[(362, 442), (90, 322)],
+        urchins=[(362, 442), (130, 322)],
         eels=[(220, 444, "down", 112, 3.0)],
         jellies=[((362, 548), (362, 352), 0.36)],
         pearls=[(192, 560), (182, 312)],
@@ -291,7 +292,7 @@ LEVELS = [
         puffers=[((60, 540), (210, 540), 0.30), ((380, 300), (380, 180), 0.36)],
         crawlers=[((90, 310, 140, 16), 130, 28)],
         gulls=[(140, 96, 110), (310, 120, 90)],
-        tip="Two birds. The water is the only roof you have.",
+        tip="Two birds. Step aside late and let them meet the rock.",
     ),
     dict(
         name="Siphon",
@@ -311,6 +312,97 @@ LEVELS = [
         crawlers=[((130, 290, 160, 16), 170, 32)],
         gulls=[(210, 90, 100)],
         tip="Narrow chimney, fast tide. Grip, wait, climb, grip again.",
+    ),
+    dict(
+        name="Split tide",
+        period=11.0, tide_low=606, tide_high=123,
+        spawn=(30, 570), goal=(210, 125),
+        plats=[(0, 600, 420, 20), (0, 530, 150, 16), (270, 530, 150, 16),
+               (0, 440, 120, 16), (300, 440, 120, 16), (150, 360, 120, 16),
+               (0, 275, 130, 16), (290, 275, 130, 16), (140, 195, 140, 16),
+               (150, 145, 120, 16)],
+        urchins=[(72, 522), (342, 522), (46, 432), (352, 432), (210, 352),
+                 (200, 187)],
+        eels=[(210, 600, "up", 130, 3.0), (60, 456, "down", 96, 2.8),
+              (360, 456, "down", 96, 3.2)],
+        jellies=[((150, 480), (270, 480), 0.40), ((210, 300), (210, 215), 0.44)],
+        pearls=[(60, 512), (360, 422), (210, 342)],
+        puffers=[((40, 380), (140, 380), 0.32)],
+        crawlers=[((140, 195, 140, 16), 180, 28)],
+        gulls=[(210, 100, 110)],
+        tip="Two towers, one tide. Pick your side before it lifts you.",
+    ),
+    dict(
+        name="The gallery",
+        period=12.5, tide_low=606, tide_high=123,
+        spawn=(30, 575), goal=(40, 125),
+        plats=[(0, 600, 420, 20), (60, 540, 300, 16), (0, 460, 220, 16),
+               (200, 380, 220, 16), (0, 300, 240, 16), (180, 220, 240, 16),
+               (0, 145, 170, 16)],
+        urchins=[(120, 532), (300, 532), (60, 452), (160, 452), (260, 372),
+                 (380, 372), (80, 292), (300, 212)],
+        eels=[(210, 600, "up", 126, 3.1), (120, 476, "down", 92, 2.9),
+              (300, 396, "down", 88, 2.7)],
+        jellies=[((80, 420), (80, 330), 0.42), ((240, 260), (380, 260), 0.46)],
+        pearls=[(200, 522), (40, 442), (360, 362)],
+        puffers=[((260, 500), (400, 500), 0.30)],
+        crawlers=[((60, 540, 300, 16), 200, 30), ((0, 300, 240, 16), 100, 26)],
+        gulls=[(150, 96, 120), (330, 112, 80)],
+        tip="Long shelves, long walks. The birds have noticed.",
+    ),
+    dict(
+        name="Undertow",
+        period=8.0, tide_low=606, tide_high=118,
+        spawn=(30, 570), goal=(350, 120),
+        plats=[(0, 600, 420, 20), (280, 545, 140, 16), (40, 470, 130, 16),
+               (270, 395, 150, 16), (30, 320, 140, 16), (260, 245, 160, 16),
+               (60, 170, 150, 16), (240, 140, 180, 16)],
+        urchins=[(340, 537), (100, 462), (330, 387), (90, 312), (320, 237),
+                 (120, 162)],
+        eels=[(180, 600, "up", 120, 2.5), (330, 411, "down", 86, 2.4),
+              (90, 486, "down", 80, 2.6)],
+        jellies=[((180, 460), (180, 360), 0.50)],
+        pearls=[(360, 527), (70, 452), (300, 377)],
+        puffers=[((150, 520), (260, 520), 0.36)],
+        crawlers=[((260, 245, 160, 16), 300, 34)],
+        gulls=[(200, 104, 100)],
+        tip="Quick water. Read the next ledge while you're still on this one.",
+    ),
+    dict(
+        name="The bloom",
+        period=13.0, tide_low=606, tide_high=118,
+        spawn=(30, 575), goal=(140, 120),
+        plats=[(0, 600, 420, 20), (0, 545, 170, 16), (250, 490, 170, 16),
+               (60, 415, 160, 16), (260, 340, 160, 16), (40, 265, 150, 16),
+               (250, 190, 170, 16), (60, 140, 160, 16)],
+        urchins=[(100, 537), (300, 482), (120, 407), (320, 332), (80, 257)],
+        eels=[(210, 600, "up", 118, 3.4), (120, 431, "down", 84, 3.0)],
+        jellies=[((190, 520), (190, 430), 0.38), ((340, 420), (200, 420), 0.42),
+                 ((100, 340), (100, 250), 0.40), ((300, 250), (160, 250), 0.44)],
+        pearls=[(40, 527), (330, 472), (100, 397)],
+        puffers=[((380, 300), (380, 200), 0.30)],
+        crawlers=[((250, 190, 170, 16), 300, 26)],
+        gulls=[],
+        tip="Four of them, each on its own clock. Count the blinks.",
+    ),
+    dict(
+        name="Last ledge",
+        period=9.5, tide_low=606, tide_high=116,
+        spawn=(30, 570), goal=(210, 118),
+        plats=[(0, 600, 420, 20), (0, 550, 120, 16), (190, 550, 110, 16),
+               (330, 480, 90, 16), (140, 470, 120, 16), (0, 400, 130, 16),
+               (250, 385, 170, 16), (80, 315, 150, 16), (260, 240, 160, 16),
+               (0, 230, 120, 16), (130, 138, 170, 16)],
+        urchins=[(60, 542), (240, 542), (370, 472), (190, 462), (60, 392),
+                 (320, 377), (140, 307), (320, 232)],
+        eels=[(160, 600, "up", 124, 2.7), (300, 600, "up", 124, 3.1),
+              (210, 486, "down", 90, 2.6), (90, 416, "down", 84, 2.9)],
+        jellies=[((180, 420), (180, 330), 0.46), ((340, 300), (200, 300), 0.50)],
+        pearls=[(350, 462), (40, 382), (300, 222)],
+        puffers=[((40, 480), (150, 480), 0.34), ((300, 180), (400, 180), 0.38)],
+        crawlers=[((80, 315, 150, 16), 120, 32), ((260, 240, 160, 16), 300, 30)],
+        gulls=[(140, 96, 110), (320, 116, 86)],
+        tip="Everything the pools taught you, in one climb.",
     ),
     dict(
         name="Open water",
@@ -453,6 +545,7 @@ class Crab:
         self.idle_t = 0.0
         self.dance = 0.0
         self.dance_t = 0.0
+        self.zap = 0.0           # electrocution animation timer
         # resting on rock, gravity re-lands the crab every other frame, so
         # on_ground flickers. air_t smooths that into "has had its feet down
         # recently", which is what idling actually means.
@@ -849,11 +942,16 @@ class Crawler:
 
 class Gull:
     """Circles above the waterline and stoops at you whenever you are out of
-    the water. Takes two punches: the first sends it flapping back up in a
-    temper, the second breaks its nerve and it leaves the pool for good."""
+    the water. Takes two hits: the first sends it flapping back up in a
+    temper, the second breaks its nerve and it leaves the pool for good.
+
+    A hit is a punch, or the bird's own fault: it commits to a stoop and aims
+    at where you were standing, so stepping aside at the last moment lands it
+    beak-first in the rock. That counts."""
 
     R = 13
     HP = 2
+    CRASH_SPEED = 3.4        # how fast a stoop has to be to hurt the bird
 
     def __init__(self, x, y, span):
         self.home = (float(x), float(y))
@@ -869,6 +967,8 @@ class Gull:
         self.hurt_flash = 0.0
         self.gone = False
         self.sad_t = 0.0
+        self.crash_pending = 0.0     # impact speed, read and cleared by Game
+        self.daze = 0.0              # stars over the head after a crash
 
     @property
     def leaving(self):
@@ -878,11 +978,16 @@ class Gull:
         return pygame.Rect(int(self.x - 12), int(self.y - 9), 24, 18)
 
     def collide(self, plats):
-        """A gull is a solid bird. It does not fly through rock."""
+        """A gull is a solid bird. It does not fly through rock - and if it
+        arrives at speed in the middle of a stoop, the rock wins."""
         r = self.body_rect()
         for p in plats:
             if not r.colliderect(p):
                 continue
+            spd = math.hypot(self.vx, self.vy)
+            if self.state == "dive" and spd >= self.CRASH_SPEED:
+                self.crash_pending = spd
+                self.daze = 1.1
             # push out along whichever axis is least embedded
             dl = r.right - p.left
             dr = p.right - r.left
@@ -908,6 +1013,7 @@ class Gull:
     def update(self, dt, crab, crab_dry, plats):
         self.t += dt * 0.8
         self.hurt_flash = max(0.0, self.hurt_flash - dt)
+        self.daze = max(0.0, self.daze - dt)
         self.flap += dt * (7.0 if self.state != "dive" else 2.0)
 
         if self.state == "flee":
@@ -937,14 +1043,18 @@ class Gull:
             if self.cool <= 0 and crab_dry and abs(crab.x - self.x) < 150 \
                     and crab.y > self.y:
                 self.state = "dive"
-                self.tgt = (crab.x, crab.y)
+                # it aims a little past you, not at you, so a committed stoop
+                # carries into whatever you were standing on once you move
+                self.tgt = (crab.x, crab.y + 12)
         elif self.state == "dive":
             dx = self.tgt[0] - self.x
             dy = self.tgt[1] - self.y
             d = max(1.0, math.hypot(dx, dy))
             self.vx += dx / d * 0.55
             self.vy += dy / d * 0.60
-            if d < 14 or self.y > WORLD_H - 20:
+            # it only pulls up once it is right on the mark, so a stoop at an
+            # empty ledge carries all the way into the wood
+            if d < 9 or self.y > WORLD_H - 20:
                 self.state = "climb"
         else:                                    # climb
             self.vx += (self.home[0] - self.x) * 0.012
@@ -1248,6 +1358,9 @@ class Game:
         self.shop_msg = ""
         self.shop_msg_t = 0.0
         self.shop_from = MENU
+        self.lost_pearls = 0
+        self.wallet_in = self.wallet
+        self.run_pearls_in = self.run_pearls
         self.max_hp = MAX_HP
         self.hp = MAX_HP
         self.shake = self.freeze = self.flash = 0.0
@@ -1408,6 +1521,10 @@ class Game:
         self.pearls = [Pearl(*p) for p in L["pearls"]]
         self.crab = Crab(*L["spawn"])
         self.clean = True            # rainbow mode is earned pool by pool
+        # pearls only stick if you get out of the pool alive, so remember what
+        # you walked in with and hand it back if you drown
+        self.wallet_in = self.wallet
+        self.run_pearls_in = self.run_pearls
         self.apply_pace()
         # a moment of grace so you are never hit before you can react
         self.crab.iframe = 2.6 if self.pace == "relaxed" else 1.4
@@ -1453,10 +1570,19 @@ class Game:
 
     # -- damage --------------------------------------------------------------
 
-    def hurt(self, src_x, src_y):
+    def hurt(self, src_x, src_y, kind="hit"):
         c = self.crab
         if c.iframe > 0:
             return
+        if kind == "zap":
+            # caught in the discharge: the crab locks up, rattles, and the
+            # shell lights up from the inside before it drops
+            c.zap = ZAP_TIME
+            self.parts.burst(c.x, c.y, 16, C_JELLY_HOT, 5.0, 0.55, 2.6, 0.0, True)
+            self.parts.ring(c.x, c.y, 14, C_JELLY_HOT, 4.4, 0.45)
+            self.flash = 0.4
+            self.shake = max(self.shake, 14)
+            self.freeze = max(self.freeze, 0.14)
         self.hp -= 1
         c.iframe = IFRAME_TIME
         # one hit ends the clean run: the streak resets and the rainbow goes
@@ -1475,6 +1601,11 @@ class Game:
         if self.hp <= 0:
             self.parts.burst(c.x, c.y, 30, C_CRAB_DARK, 5.6, 0.85, 3.4, 0.2)
             self.shake = 18
+            # anything picked up in this pool washes away with you
+            self.lost_pearls = self.wallet - self.wallet_in
+            self.wallet = self.wallet_in
+            self.run_pearls = self.run_pearls_in
+            self.persist()
             self.state = DEAD
             self.build_dead_menu()
         elif lost_rainbow:
@@ -1629,6 +1760,7 @@ class Game:
         if abs(c.vx) > 0.4 and c.on_ground:
             c.walk += dt * 13
         c.squash = approach(c.squash, 0.0, dt * 3.4)
+        c.zap = max(0.0, c.zap - dt)
         c.iframe = max(0.0, c.iframe - dt)
         c.punch_t = max(0.0, c.punch_t - dt)
         if c.punch_t <= 0:
@@ -1659,6 +1791,20 @@ class Game:
             cw.update(dt)
         for gl in self.gulls:
             gl.update(dt, c, depth < 0.25, self.plats)
+            if gl.crash_pending:
+                # it stooped at where you were and found rock instead
+                spd = gl.crash_pending
+                gl.crash_pending = 0.0
+                away = -1.0 if c.x >= gl.x else 1.0
+                drove_off = gl.take_hit(away * 2.2)
+                self.parts.burst(gl.x, gl.y + 6, 16 if drove_off else 12,
+                                 C_GULL, 4.4, 0.6, 2.8, 0.06)
+                self.parts.burst(gl.x, gl.y + 7, 8, C_ROCK_LIT,
+                                 3.4, 0.4, 2.2, 0.16)
+                self.shake = max(self.shake, 7 + min(5, spd))
+                self.freeze = max(self.freeze, 0.07)
+                self.set_msg("The gull has had enough." if drove_off
+                             else "Beak first into the rock.", 1.8)
         self.gulls = [g for g in self.gulls if not g.gone]
         for j in self.jellies:
             if j.update(dt) == "discharge":
@@ -1753,7 +1899,13 @@ class Game:
                         sx, sy = mob.ax, mob.ay
                     else:
                         sy = mob.y
-                    self.hurt(sx, sy)
+                    # a stoop that actually connects is spent: the bird pulls
+                    # up rather than carrying on into the rock for a free hit
+                    if isinstance(mob, Gull) and mob.state == "dive":
+                        mob.state = "climb"
+                        mob.cool = random.uniform(2.4, 4.0)
+                    zap = isinstance(mob, Jelly) and mob.lit
+                    self.hurt(sx, sy, "zap" if zap else "hit")
                     break
 
         for p in self.pearls:
@@ -1993,28 +2145,82 @@ class Game:
             pygame.draw.circle(halo, (g, g, g // 3), (35, 35), int(16 + 10 * b))
             s.blit(halo, (int(j.x) - 35, int(j.y) - 35), special_flags=pygame.BLEND_ADD)
 
-        squash = 1.0 + math.sin(j.pulse) * 0.11
-        rw, rh = Jelly.R * squash, Jelly.R * 0.84 / squash
-        for i in range(-2, 3):
-            x0 = j.x + i * 4.6
-            pts = [(x0, j.y + 2)]
+        # the bell pumps: it squeezes tall as it pushes, then spreads wide
+        squash = 1.0 + math.sin(j.pulse) * 0.13
+        rw, rh = Jelly.R * squash, Jelly.R * 0.88 / squash
+        k_ch = 0.0 if j.lit else clamp(j.charge / j.charge_time, 0, 1)
+
+        hem = j.y + rh * 0.34          # where the bell ends and the trailing
+        # ---- seven fine stingers, long and drifting, drawn behind everything
+        for i in range(-3, 4):
+            x0 = j.x + i * (rw * 0.26)
+            ln = 5 + (3 - abs(i))                 # longest in the middle
+            pts = [(x0, hem)]
+            for k in range(1, ln):
+                sway = math.sin(j.pulse * 0.8 + i * 0.9 - k * 0.42) * (1.0 + k * 0.8)
+                pts.append((x0 + sway, hem + k * 6.4))
+            pygame.draw.lines(s, dark, False, pts, 1)
+            if j.lit or k_ch > 0.8:
+                pygame.draw.circle(s, C_JELLY_HOT,
+                                   (int(pts[-1][0]), int(pts[-1][1])), 1)
+
+        # ---- four oral arms: short, thick, ruffled, hanging under the bell
+        for i in (-1.5, -0.5, 0.5, 1.5):
+            x0 = j.x + i * (rw * 0.36)
+            pts = [(x0, hem - 2)]
             for k in range(1, 4):
-                pts.append((x0 + math.sin(j.pulse * 1.2 + i - k * 0.7) * (2.0 * k),
-                            j.y + 2 + k * 6.2))
-            pygame.draw.lines(s, dark, False, pts, 3)
-            pygame.draw.lines(s, col, False, pts, 1)
-        bell = pygame.Rect(int(j.x - rw), int(j.y - rh), int(rw * 2), int(rh * 2))
-        pygame.draw.ellipse(s, dark, bell.inflate(3, 3))
-        pygame.draw.ellipse(s, col, bell)
-        pygame.draw.arc(s, C_WHITE, bell.inflate(-5, -5), 0.6, 2.3, 2)
-        # charge meter reads as a filling arc inside the bell
-        if not j.lit:
-            k = clamp(j.charge / j.charge_time, 0, 1)
-            if k > 0.05:
-                pygame.draw.arc(s, C_JELLY_HOT, bell.inflate(6, 6),
-                                math.pi / 2, math.pi / 2 + math.tau * k, 2)
+                pts.append((x0 + math.sin(j.pulse * 1.2 + i * 2 - k * 0.8) * (1.6 * k),
+                            hem - 2 + k * 4.6))
+            pygame.draw.lines(s, dark, False, pts, 4)
+            pygame.draw.lines(s, col, False, pts, 2)
+
+        # ---- the bell itself: a dome with a scalloped hem, not a circle
+        dome = [(j.x + math.cos(math.pi + math.pi * k / 14) * rw,
+                 j.y + math.sin(math.pi + math.pi * k / 14) * rh)
+                for k in range(15)]
+        for k in range(7):                        # hem, right back to left
+            t = k / 6.0
+            dome.append((j.x + rw - 2 * rw * t,
+                         hem + math.sin(t * math.pi * 3 + j.pulse) * 1.8))
+        pygame.draw.polygon(s, col, dome)
+        pygame.draw.polygon(s, dark, dome, 2)
+
+        # soft inner light, brightening as it charges
+        gl = pygame.Surface((int(rw * 2), int(rh * 2.4)), pygame.SRCALPHA)
+        q = int(30 + 90 * b)
+        pygame.draw.ellipse(gl, (*C_JELLY_HOT, q),
+                            (int(rw * 0.3), int(rh * 0.5),
+                             int(rw * 1.4), int(rh * 1.3)))
+        s.blit(gl, (j.x - rw, j.y - rh * 0.9))
+
+        # four small horseshoe markings, the giveaway that it is a jellyfish
+        for i in (-1, 1):
+            for jj in (-1, 1):
+                mr = pygame.Rect(0, 0, int(rw * 0.34), int(rh * 0.34))
+                mr.center = (int(j.x + i * rw * 0.40), int(j.y + jj * rh * 0.22))
+                pygame.draw.arc(s, lerp3(C_WHITE, C_JELLY_HOT, b), mr,
+                                math.pi * 0.1, math.pi * 1.15, 2)
+        pygame.draw.arc(s, C_WHITE,
+                        (int(j.x - rw * 0.8), int(j.y - rh * 0.8),
+                         int(rw * 1.1), int(rh * 1.1)), 0.9, 2.3, 2)
+
+        # charge meter reads as a filling arc around the bell
+        if k_ch > 0.05:
+            ring_r = pygame.Rect(int(j.x - rw - 5), int(j.y - rh - 5),
+                                 int(rw * 2 + 10), int(rh * 2 + 10))
+            pygame.draw.arc(s, C_JELLY_HOT, ring_r,
+                            math.pi / 2, math.pi / 2 + math.tau * k_ch, 2)
+        # about to go off: sparks jump the rim
+        if k_ch > 0.8 and random.random() < 0.45:
+            a = random.uniform(0, math.tau)
+            p0 = (j.x + math.cos(a) * rw, j.y + math.sin(a) * rh)
+            p1 = (p0[0] + math.cos(a) * 6, p0[1] + math.sin(a) * 6)
+            pygame.draw.line(s, C_JELLY_HOT, p0, p1, 2)
         if j.knock > 0:
-            pygame.draw.arc(s, C_WHITE, bell.inflate(10, 10), j.spin, j.spin + 1.2, 2)
+            pygame.draw.arc(s, C_WHITE,
+                            (int(j.x - rw - 5), int(j.y - rh - 5),
+                             int(rw * 2 + 10), int(rh * 2 + 10)),
+                            j.spin, j.spin + 1.2, 2)
 
     def draw_puffer(self, s, pf):
         r = pf.radius
@@ -2140,6 +2346,19 @@ class Game:
                 pygame.draw.line(s, C_GULL_BEAK, (gl.x + sgn * 3, gl.y + 8),
                                  (gl.x + sgn * 3 - f * 6, gl.y + 14), 2)
 
+        # seeing stars after a face full of rock
+        if gl.daze > 0:
+            for k in range(3):
+                a = self.menu_t * 5.2 + math.tau * k / 3
+                sx_ = gl.x + math.cos(a) * 13
+                sy_ = gl.y - 15 + math.sin(a) * 4
+                col = (255, 226, 92) if k != 1 else C_WHITE
+                for d in range(3):
+                    aa = math.pi * d / 3 + a * 0.4
+                    pygame.draw.line(s, col,
+                                     (sx_ - math.cos(aa) * 3, sy_ - math.sin(aa) * 3),
+                                     (sx_ + math.cos(aa) * 3, sy_ + math.sin(aa) * 3), 1)
+
     def draw_pearl(self, s, p):
         if p.got:
             return
@@ -2256,7 +2475,9 @@ class Game:
             pygame.draw.circle(s, (248, 244, 236), (int(top[0]), int(top[1])), 2)
 
     def draw_crab(self, s, c, ghost=False):
-        if c.iframe > 0 and int(c.iframe * 22) % 2 == 0:
+        # the post-hit flicker is suppressed while the shock plays, so the
+        # electrocution is actually visible instead of strobing in and out
+        if c.zap <= 0 and c.iframe > 0 and int(c.iframe * 22) % 2 == 0:
             return
         if not ghost:
             # motion ghosts when moving fast
@@ -2283,6 +2504,12 @@ class Game:
         f = c.face
         amt = c.pose_amt
 
+        # ---- electrocuted: the whole crab rattles in place, legs stiff out
+        zap = clamp(c.zap / ZAP_TIME, 0.0, 1.0)
+        if zap > 0:
+            cx += random.uniform(-2.6, 2.6) * zap
+            cy += random.uniform(-2.2, 2.2) * zap
+
         # ---- idle dance: sway, bob, and a rocking roll. Purely drawn - it
         # moves nothing, and any button drops it before the next frame.
         dnc = c.dance
@@ -2308,9 +2535,12 @@ class Game:
             for sgn in (-1, 1):
                 ph = math.sin(cyc + i * 0.8 + (0 if sgn > 0 else math.pi)) * \
                     (3.8 if swim else 3.4)
+                if zap > 0:          # legs lock out straight and judder
+                    ph = ph * (1 - zap) + random.uniform(-2.6, 2.6) * zap
                 hip = P(i * 6, 2)
-                knee = P(i * 6 + sgn * 3 + trail_x * 0.5, 5 + trail_y * 0.5)
-                foot = P(i * 6 + sgn * 6 + trail_x, 10 + trail_y + ph)
+                knee = P(i * 6 + sgn * (3 + 2.5 * zap) + trail_x * 0.5,
+                         5 + trail_y * 0.5 - 2.0 * zap)
+                foot = P(i * 6 + sgn * (6 + 5.0 * zap), 10 + trail_y + ph)
                 pygame.draw.lines(s, C_CRAB_DARK, False, [hip, knee, foot], 3)
                 pygame.draw.lines(s, C_CRAB, False, [hip, knee, foot], 1)
 
@@ -2362,7 +2592,11 @@ class Game:
             eye = P(tipx, tipy)
             pygame.draw.line(s, C_CRAB, root, eye, 2)
             pygame.draw.circle(s, C_WHITE, (int(eye[0]), int(eye[1])), 3)
-            if closed:
+            if zap > 0.25:               # eyes go to crosses while it fries
+                for dx in (-1, 1):
+                    pygame.draw.line(s, C_INK, (eye[0] - 3 * dx, eye[1] - 3),
+                                     (eye[0] + 3 * dx, eye[1] + 3), 2)
+            elif closed:
                 pygame.draw.line(s, C_CRAB_DARK, (eye[0] - 3, eye[1]),
                                  (eye[0] + 3, eye[1]), 2)
             else:
@@ -2372,6 +2606,33 @@ class Game:
 
         if self.hat:
             self.draw_hat(s, P, bh, pitch, dnc)
+
+        # ---- the shock itself: the shell lights from inside and arcs crawl
+        # over it, thinning out as the charge drains away
+        if zap > 0:
+            # BLEND_ADD sums channels, so this stays in single digits or it
+            # blows the whole crab out to white
+            glow = pygame.Surface((int(bw * 2.6), int(bh * 4.2)), pygame.SRCALPHA)
+            gq = int(5 + 13 * zap)
+            pygame.draw.ellipse(glow, (gq, gq, int(gq * 0.4)),
+                                (0, 0, glow.get_width(), glow.get_height()))
+            s.blit(glow, (cx - glow.get_width() / 2, cy - glow.get_height() / 2),
+                   special_flags=pygame.BLEND_ADD)
+            for k in range(int(2 + 5 * zap)):
+                a = random.uniform(0, math.tau)
+                r0 = bw * 0.5
+                pts = [(cx + math.cos(a) * r0 * 0.3, cy + math.sin(a) * r0 * 0.3)]
+                for seg in range(1, 4):
+                    aa = a + random.uniform(-0.7, 0.7)
+                    rr = r0 * (0.5 + seg * 0.52) + random.uniform(0, 5)
+                    pts.append((cx + math.cos(aa) * rr, cy + math.sin(aa) * rr * 0.9))
+                pygame.draw.lines(s, C_JELLY_HOT if k % 2 else C_WHITE,
+                                  False, pts, 2)
+            if random.random() < 0.5 * zap:
+                self.parts.add(cx + random.uniform(-10, 10),
+                               cy + random.uniform(-8, 8),
+                               random.uniform(-1.4, 1.4), random.uniform(-2.2, -0.4),
+                               0.4, C_JELLY_HOT, random.uniform(1.4, 2.6))
 
         # ---- two notes drift up while it dances
         if dnc > 0.3:
@@ -2949,10 +3210,13 @@ class Game:
             else:
                 self.draw_world()
                 if self.state == DEAD:
-                    self.draw_overlay_card(
-                        self.screen, "Washed out",
-                        ["The pool took you.",
-                         "Pearls this run: %d" % self.run_pearls], C_DANGER)
+                    body = ["The pool took you."]
+                    if self.lost_pearls:
+                        body.append("%d pearl%s washed away." %
+                                    (self.lost_pearls,
+                                     "" if self.lost_pearls == 1 else "s"))
+                    body.append("Pearls kept: %d" % self.wallet)
+                    self.draw_overlay_card(self.screen, "Washed out", body, C_DANGER)
                 elif self.state == CLEARED:
                     got = sum(1 for p in self.pearls if p.got)
                     if self.cleared_last:
