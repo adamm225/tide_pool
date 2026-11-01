@@ -36,6 +36,7 @@ Requires: pygame   ->   pip install pygame
 Run with: python3 tide_pool.py
 """
 
+import asyncio
 import json
 import math
 import os
@@ -316,6 +317,22 @@ LEVELS = [
         tip="Narrow chimney, fast tide. Grip, wait, climb, grip again.",
     ),
     dict(
+        name="Gull King",
+        period=12.0, tide_low=606, tide_high=118,
+        spawn=(30, 575), goal=(210, 120),
+        plats=[(0, 600, 420, 20), (0, 520, 130, 16), (290, 520, 130, 16),
+               (145, 430, 130, 16), (0, 330, 120, 16), (300, 330, 120, 16),
+               (150, 240, 120, 16), (150, 140, 120, 16)],
+        urchins=[(360, 512)],
+        eels=[],
+        jellies=[],
+        pearls=[(60, 502), (210, 412), (360, 312)],
+        puffers=[], crawlers=[], gulls=[],
+        special="gullking",
+        boss=(210, 86, 140),
+        tip="The Gull King. Too big to punch. Make it meet the rock.",
+    ),
+    dict(
         name="Split tide",
         period=11.0, tide_low=606, tide_high=123,
         spawn=(30, 570), goal=(210, 125),
@@ -388,6 +405,75 @@ LEVELS = [
         tip="Four of them, each on its own clock. Count the blinks.",
     ),
     dict(
+        name="Crosscurrent",
+        period=10.5, tide_low=606, tide_high=123,
+        spawn=(30, 575), goal=(225, 125),
+        plats=[(0, 600, 420, 20), (300, 540, 120, 16), (180, 480, 100, 16),
+               (40, 430, 110, 16), (170, 370, 100, 16), (300, 315, 120, 16),
+               (170, 255, 100, 16), (30, 200, 110, 16), (170, 145, 110, 16)],
+        urchins=[(350, 532), (90, 422), (360, 307), (80, 192)],
+        eels=[(240, 600, "up", 110, 3.0), (220, 496, "down", 80, 2.8)],
+        jellies=[((110, 330), (110, 250), 0.42)],
+        pearls=[(230, 462), (220, 352), (215, 237)],
+        puffers=[((60, 520), (200, 520), 0.34), ((300, 420), (400, 420), 0.36),
+                 ((60, 290), (140, 290), 0.32), ((300, 220), (400, 220), 0.34)],
+        crawlers=[((300, 315, 120, 16), 340, 28)],
+        gulls=[(220, 98, 110)],
+        tip="Zigzag up through the puffers. Wait for them to go soft.",
+    ),
+    dict(
+        name="Eel garden",
+        period=11.0, tide_low=606, tide_high=118,
+        spawn=(30, 575), goal=(210, 120),
+        plats=[(0, 600, 420, 20), (0, 530, 130, 16), (290, 530, 130, 16),
+               (140, 450, 140, 16), (0, 370, 120, 16), (300, 370, 120, 16),
+               (140, 290, 140, 16), (0, 210, 120, 16), (300, 210, 120, 16),
+               (150, 140, 120, 16)],
+        urchins=[(60, 522), (360, 522), (60, 362), (360, 362)],
+        eels=[(150, 600, "up", 120, 2.9), (270, 600, "up", 120, 3.3),
+              (170, 466, "down", 86, 2.7), (250, 466, "down", 86, 3.1),
+              (180, 306, "down", 84, 2.6), (240, 306, "down", 84, 3.0)],
+        jellies=[],
+        pearls=[(210, 432), (60, 352), (360, 192)],
+        puffers=[],
+        crawlers=[((140, 290, 140, 16), 200, 26)],
+        gulls=[(210, 100, 120)],
+        tip="A garden of eels. Every one of them folds aside for a punch.",
+    ),
+    dict(
+        name="Moon pool",
+        period=15.0, tide_low=606, tide_high=113,
+        spawn=(30, 575), goal=(355, 115),
+        plats=[(0, 600, 420, 20), (330, 560, 90, 14), (200, 500, 70, 14),
+               (60, 450, 70, 14), (180, 390, 70, 14), (320, 340, 80, 14),
+               (190, 280, 70, 14), (50, 230, 70, 14), (170, 170, 80, 14),
+               (300, 135, 110, 14)],
+        urchins=[(360, 552), (85, 442), (350, 332), (75, 222)],
+        eels=[(260, 600, "up", 110, 3.6)],
+        jellies=[((120, 520), (120, 420), 0.30), ((280, 430), (280, 320), 0.32),
+                 ((120, 300), (120, 200), 0.30), ((260, 240), (380, 240), 0.34)],
+        pearls=[(235, 482), (215, 372), (210, 152)],
+        puffers=[], crawlers=[], gulls=[],
+        tip="Long, slow tide. Small stones. Jellies drifting in the dark.",
+    ),
+    dict(
+        name="Rookery",
+        period=12.0, tide_low=606, tide_high=118,
+        spawn=(30, 575), goal=(210, 120),
+        plats=[(0, 600, 420, 20), (0, 520, 170, 16), (250, 520, 170, 16),
+               (120, 440, 180, 16), (0, 360, 150, 16), (270, 360, 150, 16),
+               (130, 280, 160, 16), (0, 200, 140, 16), (280, 200, 140, 16),
+               (140, 140, 140, 16)],
+        urchins=[(140, 512), (280, 512), (40, 352), (380, 352), (60, 192)],
+        eels=[(210, 600, "up", 120, 3.1), (210, 456, "down", 80, 2.9)],
+        jellies=[((210, 400), (210, 320), 0.40)],
+        pearls=[(210, 422), (80, 342), (350, 182)],
+        puffers=[((40, 260), (110, 260), 0.32)],
+        crawlers=[((130, 280, 160, 16), 180, 28)],
+        gulls=[(90, 96, 70), (330, 96, 70), (210, 106, 110)],
+        tip="The rookery. Get under a ledge and they can't reach you.",
+    ),
+    dict(
         name="Last ledge",
         period=9.5, tide_low=606, tide_high=116,
         spawn=(30, 570), goal=(210, 118),
@@ -420,8 +506,11 @@ LEVELS = [
         puffers=[((300, 380), (380, 380), 0.28)],
         crawlers=[],
         gulls=[],
-        tip="The last pool. Nothing here is in a hurry. Neither are you.",
+        hatchlings=[(70, 509), (390, 449), (190, 364), (340, 284), (90, 209)],
+        tip="Five little ones are lost on these ledges. Bring them all up.",
         dialogue=[
+            ("Old hermit", "Well. Look at the little ones behind you."),
+            ("Old hermit", "All the way up from the shallows. Good."),
             ("Old hermit", "Careful at that edge. It isn't another pool."),
             ("Old hermit", "That's all of them, at once, going out."),
             ("Old hermit", "I've been in this one since the spring tide."),
@@ -976,13 +1065,20 @@ class Gull:
 
     A hit is a punch, or the bird's own fault: it commits to a stoop and aims
     at where you were standing, so stepping aside at the last moment lands it
-    beak-first in the rock. That counts."""
+    beak-first in the rock. That counts.
+
+    It is not stupid about it, though. It only stoops along a clear line of
+    sight - if there's a ledge between it and you, it slides along the sky
+    looking for an angle under the edge instead of diving into the roof. And
+    if you duck under cover mid-stoop, it pulls up rather than eating the
+    ceiling."""
 
     R = 13
     HP = 2
     CRASH_SPEED = 3.4        # how fast a stoop has to be to hurt the bird
+    REACH = 150              # how far sideways it will consider a stoop
 
-    def __init__(self, x, y, span):
+    def __init__(self, x, y, span, boss=False):
         self.home = (float(x), float(y))
         self.span = span
         self.x, self.y = float(x), float(y)
@@ -992,29 +1088,83 @@ class Gull:
         self.vx = self.vy = 0.0
         self.face = 1
         self.flap = random.uniform(0, math.tau)
-        self.hp = self.HP
+        self.boss = boss
+        self.scale = 1.65 if boss else 1.0
+        self.hp = 4 if boss else self.HP
+        self.max_hp = self.hp
         self.hurt_flash = 0.0
         self.gone = False
         self.sad_t = 0.0
         self.crash_pending = 0.0     # impact speed, read and cleared by Game
         self.daze = 0.0              # stars over the head after a crash
+        self.seek_x = None           # where it is sliding to for a clear shot
+        self.windup = 0.0            # boss only: the screech before a stoop
+        self.tgt = (x, y)
+        self.prey = None             # the crab's damage box, this frame
 
     @property
     def leaving(self):
         return self.state == "flee"
 
+    @property
+    def hw(self):
+        return 12 * self.scale
+
+    @property
+    def hh(self):
+        return 9 * self.scale
+
     def body_rect(self):
-        return pygame.Rect(int(self.x - 12), int(self.y - 9), 24, 18)
+        return pygame.Rect(int(self.x - self.hw), int(self.y - self.hh),
+                           int(self.hw * 2), int(self.hh * 2))
+
+    def clear_line(self, x0, y0, x1, y1, plats):
+        """True if the bird's body could travel this segment without
+        touching rock. Platforms are fattened by its own half-size."""
+        for p in plats:
+            if p.inflate(int(self.hw * 2 - 4), int(self.hh * 2 - 4)).clipline(
+                    x0, y0, x1, y1):
+                return False
+        return True
+
+    def sight(self, crab, plats, x=None, y=None):
+        x = self.x if x is None else x
+        y = self.y if y is None else y
+        # aim at the space just above the crab, so the ledge it stands on
+        # doesn't count as cover
+        return self.clear_line(x, y, crab.x, crab.y - 14, plats)
+
+    def find_angle(self, crab, plats):
+        """Somewhere along its flight altitude with a clear line down to
+        the crab, nearest first. None if the crab is properly under cover."""
+        best = None
+        for k in range(0, WORLD_W // 14 + 1):
+            cx = 16 + k * 14
+            if cx > WORLD_W - 16 or abs(cx - crab.x) > self.REACH:
+                continue
+            if self.sight(crab, plats, cx, self.home[1]):
+                d = abs(cx - self.x)
+                if best is None or d < best[0]:
+                    best = (d, cx)
+        return None if best is None else best[1]
 
     def collide(self, plats):
         """A gull is a solid bird. It does not fly through rock - and if it
-        arrives at speed in the middle of a stoop, the rock wins."""
+        arrives at speed in the middle of a stoop, at the spot it was aiming
+        for, the rock wins."""
         r = self.body_rect()
         for p in plats:
             if not r.colliderect(p):
                 continue
             spd = math.hypot(self.vx, self.vy)
-            if self.state == "dive" and spd >= self.CRASH_SPEED:
+            # only the ledge you were standing on counts. Clipping some other
+            # bit of rock on the way down is just a scuffed approach.
+            at_mark = self.state == "dive" and p.top >= self.tgt[1] - 20 \
+                and p.left - 6 <= self.tgt[0] <= p.right + 6
+            # landing on you isn't a crash, even on the same frame it hits
+            # the rock under you - you got hit, the bird didn't
+            got_you = self.prey is not None and self.hits(self.prey)
+            if at_mark and spd >= self.CRASH_SPEED and not got_you:
                 self.crash_pending = spd
                 self.daze = 1.1
             # push out along whichever axis is least embedded
@@ -1024,23 +1174,31 @@ class Gull:
             db = p.bottom - r.top
             m = min(dl, dr, dt_, db)
             if m == dt_:
-                self.y = p.top - 9
+                self.y = p.top - self.hh
                 self.vy = min(self.vy, 0.0)
             elif m == db:
-                self.y = p.bottom + 9
+                self.y = p.bottom + self.hh
                 self.vy = max(self.vy, 0.0)
             elif m == dl:
-                self.x = p.left - 12
+                self.x = p.left - self.hw
                 self.vx = min(self.vx, 0.0)
             else:
-                self.x = p.right + 12
+                self.x = p.right + self.hw
                 self.vx = max(self.vx, 0.0)
             if self.state == "dive":
-                self.state = "climb"     # clipped a ledge, pull out of the stoop
+                self.state = "climb"     # pull out of the stoop
             r = self.body_rect()
+
+    def start_dive(self, crab):
+        self.state = "dive"
+        self.seek_x = None
+        # it aims a little past you, not at you, so a committed stoop
+        # carries into whatever you were standing on once you move
+        self.tgt = (crab.x, crab.y + 12)
 
     def update(self, dt, crab, crab_dry, plats):
         self.t += dt * 0.8
+        self.prey = crab.hurt_rect
         self.hurt_flash = max(0.0, self.hurt_flash - dt)
         self.daze = max(0.0, self.daze - dt)
         self.flap += dt * (7.0 if self.state != "dive" else 2.0)
@@ -1059,38 +1217,104 @@ class Gull:
                 self.vx = clamp(self.vx + 0.07 * self.face, -2.4, 2.4)
             self.x += self.vx
             self.y += self.vy
-            if self.y < -40 or self.x < -50 or self.x > WORLD_W + 50:
+            if self.y < -60 or self.x < -70 or self.x > WORLD_W + 70:
                 self.gone = True
             return
 
         if self.state == "hover":
             self.cool -= dt
-            tx = self.home[0] + math.sin(self.t) * self.span
+            want = self.cool <= 0 and crab_dry and crab.y > self.y + 20 \
+                and abs(crab.x - self.x) < self.REACH + 60
+            if want and self.sight(crab, plats):
+                if self.boss:
+                    self.state = "windup"
+                    self.windup = 0.5
+                else:
+                    self.start_dive(crab)
+            elif want:
+                # no clear line - slide along the sky for an angle under the
+                # edge rather than stooping into the roof
+                self.seek_x = self.find_angle(crab, plats)
+            else:
+                self.seek_x = None
+            if self.seek_x is not None:
+                tx = self.seek_x
+            else:
+                tx = self.home[0] + math.sin(self.t) * self.span
             ty = self.home[1] + math.sin(self.t * 1.7) * 6
-            self.vx += (tx - self.x) * 0.02
+            self.vx += (tx - self.x) * (0.035 if self.seek_x is not None else 0.02)
             self.vy += (ty - self.y) * 0.03
-            if self.cool <= 0 and crab_dry and abs(crab.x - self.x) < 150 \
-                    and crab.y > self.y:
-                self.state = "dive"
-                # it aims a little past you, not at you, so a committed stoop
-                # carries into whatever you were standing on once you move
-                self.tgt = (crab.x, crab.y + 12)
+        elif self.state == "windup":
+            # the king screeches and rears back before it commits, and only
+            # picks its mark at the end - so you dodge the stoop, not the tell
+            self.windup -= dt
+            self.flap += dt * 14.0
+            self.vx *= 0.8
+            self.vy = self.vy * 0.8 - 0.12
+            if self.windup <= 0:
+                if crab_dry and self.sight(crab, plats):
+                    self.start_dive(crab)
+                else:
+                    self.state = "hover"
+                    self.cool = 0.6
+        elif self.state == "dive" and self.hits(crab.hurt_rect):
+            # reached you: the stoop is spent and it pulls up. Checked before
+            # anything else so a bird landing on you and the rock in the same
+            # frame never gets scored as a crash. The Game still sees the
+            # contact this frame and deals the damage.
+            self.state = "climb"
+            self.cool = random.uniform(1.2, 2.2) if self.boss \
+                else random.uniform(2.4, 4.0)
         elif self.state == "dive":
             dx = self.tgt[0] - self.x
             dy = self.tgt[1] - self.y
             d = max(1.0, math.hypot(dx, dy))
-            self.vx += dx / d * 0.55
-            self.vy += dy / d * 0.60
+            acc = 1.25 if self.boss else 1.0
+            self.vx += dx / d * 0.55 * acc
+            self.vy += dy / d * 0.60 * acc
+            # look a few frames ahead: if there's rock in the way that ISN'T
+            # the ledge it's aiming at (you ducked under a roof), pull up
+            nx, ny = self.x + self.vx * 4, self.y + self.vy * 4
+            for p in plats:
+                if p.top < self.tgt[1] - 20 and p.inflate(
+                        int(self.hw * 2), int(self.hh * 2)).clipline(
+                        self.x, self.y, nx, ny):
+                    self.state = "climb"
+                    self.cool = random.uniform(0.8, 1.6)
+                    self.vy = min(self.vy, 0.0) - 1.0
+                    break
             # it only pulls up once it is right on the mark, so a stoop at an
             # empty ledge carries all the way into the wood
-            if d < 9 or self.y > WORLD_H - 20:
+            if self.state == "dive" and (d < 9 or self.y > WORLD_H - 20):
                 self.state = "climb"
         else:                                    # climb
-            self.vx += (self.home[0] - self.x) * 0.012
-            self.vy -= 0.34
+            # a ledge overhead between it and the sky? slide out past its
+            # nearer edge first, rather than pressing up against the
+            # underside of it forever
+            block = None
+            for p in plats:
+                if p.bottom <= self.y - self.hh + 6 and p.bottom > self.home[1] \
+                        and p.left - self.hw < self.x < p.right + self.hw:
+                    if block is None or p.bottom > block.bottom:
+                        block = p
+            if block is not None:
+                lx = block.left - self.hw - 8
+                rx = block.right + self.hw + 8
+                if lx < 16:
+                    tx = rx
+                elif rx > WORLD_W - 16:
+                    tx = lx
+                else:
+                    tx = lx if abs(self.x - lx) <= abs(self.x - rx) else rx
+                self.vx += (tx - self.x) * 0.05
+                self.vy -= 0.08
+            else:
+                self.vx += (self.home[0] - self.x) * 0.012
+                self.vy -= 0.34
             if self.y <= self.home[1] + 8:
                 self.state = "hover"
-                self.cool = random.uniform(2.2, 4.0)
+                self.cool = random.uniform(1.2, 2.2) if self.boss \
+                    else random.uniform(2.2, 4.0)
         self.vx *= 0.93
         self.vy *= 0.93
         self.x += self.vx
@@ -1103,12 +1327,13 @@ class Gull:
     def hits(self, rect):
         if self.gone or self.leaving:
             return False
-        return rect.colliderect(pygame.Rect(self.x - 10, self.y - 7, 20, 14))
+        w, h = 20 * self.scale, 14 * self.scale
+        return rect.colliderect(pygame.Rect(self.x - w / 2, self.y - h / 2, w, h))
 
     def punched(self, px, py, pr):
         if self.gone or self.leaving:
             return False
-        return math.hypot(self.x - px, self.y - py) <= self.R + pr
+        return math.hypot(self.x - px, self.y - py) <= self.R * self.scale + pr
 
     def take_hit(self, fx):
         """Returns True if this was the hit that drove it off."""
@@ -1124,8 +1349,53 @@ class Gull:
             self.vy = -1.2
             return True
         self.state = "climb"
-        self.cool = random.uniform(3.0, 5.0)
+        self.cool = random.uniform(1.4, 2.4) if self.boss else random.uniform(3.0, 5.0)
         return False
+
+    def shrug_off(self, fx):
+        """The king takes a punch like weather: it rocks, it doesn't hurt."""
+        self.hurt_flash = 0.12
+        self.vx += fx * 0.5
+        self.vy -= 1.5
+        self.state = "climb"
+
+
+class Hatchling:
+    """A lost baby crab, for the last pool. It waits on its ledge until you
+    walk into it, then falls in line behind you, stepping exactly where you
+    stepped. If you take a hit, the newest one in line loses its nerve and
+    scurries back to where you found it."""
+
+    GAP = 9                    # frames of your trail between each little one
+
+    def __init__(self, x, y):
+        self.home = (float(x), float(y))
+        self.x, self.y = float(x), float(y)
+        self.state = "wait"        # wait | follow | return
+        self.slot = 0
+        self.t = random.uniform(0, math.tau)
+        self.face = 1
+
+    def update(self, dt, trail):
+        self.t += dt * 9.0
+        if self.state == "follow" and trail:
+            idx = min(len(trail) - 1, (self.slot + 1) * self.GAP)
+            tx, ty = trail[idx]
+            if abs(tx - self.x) > 0.4:
+                self.face = 1 if tx > self.x else -1
+            self.x += (tx - self.x) * 0.4
+            self.y += (ty + 4 - self.y) * 0.4
+        elif self.state == "return":
+            hx, hy = self.home
+            d = math.hypot(hx - self.x, hy - self.y)
+            if d < 3.5:
+                self.x, self.y = hx, hy
+                self.state = "wait"
+            else:
+                step = min(d, 3.4)
+                self.face = 1 if hx > self.x else -1
+                self.x += (hx - self.x) / d * step
+                self.y += (hy - self.y) / d * step
 
 
 class Pearl:
@@ -1335,6 +1605,19 @@ class Button:
         self.hover = 0.0
 
 
+class MergedKeys:
+    """Wraps pygame.key.get_pressed() so the on-screen touch controls read as
+    the same keys the keyboard would send. update_play never knows the
+    difference - it just asks for K_LEFT, K_SPACE, and so on."""
+
+    def __init__(self, real, extra):
+        self.real = real
+        self.extra = extra
+
+    def __getitem__(self, k):
+        return self.real[k] or self.extra.get(k, False)
+
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -1403,6 +1686,27 @@ class Game:
         self.kelp = [(random.randint(0, WORLD_W), random.uniform(34, 70),
                       random.uniform(0, math.tau)) for _ in range(7)]
         self.buttons = []
+        self.special = ""
+        self.boss_done = False
+        self.hatchlings = []
+        self.trail_hist = []
+        self.goal_nag = 0.0
+
+        # -- touch controls ---------------------------------------------
+        # one active pointer per id: "stick" claims the first touch that
+        # lands in the left-hand zone, "jump" and "punch" are small round
+        # buttons bottom-right. A real mouse click is tracked the same way
+        # under the id "mouse", so the layout can be tried with a mouse on
+        # desktop before it ever reaches a phone.
+        self.touches = {}              # id -> "stick" | "jump" | "punch"
+        self.stick_id = None
+        self.stick_origin = (0.0, 0.0)
+        self.stick_vec = (0.0, 0.0)    # -1..1 on each axis
+        self.touch_jump_held = False
+        self.stick_zone = pygame.Rect(0, AD_H + HUD_H, int(WIN_W * 0.58), WORLD_H)
+        self.jump_btn = (WIN_W - 54, WIN_H - 62, 36)     # (cx, cy, r)
+        self.punch_btn = (WIN_W - 130, WIN_H - 100, 31)
+
         self.build_menu()
 
     # -- precomputed gradients ----------------------------------------------
@@ -1549,6 +1853,16 @@ class Game:
         self.gulls = [Gull(*g) for g in L.get("gulls", [])]
         self.pearls = [Pearl(*p) for p in L["pearls"]]
         self.crab = Crab(*L["spawn"])
+        # special pools: a level can carry special="gullking" (a boss you
+        # can only beat by baiting it into rock) or hatchlings=[...] (an
+        # escort). Either one keeps the goal shell shut until it's done.
+        self.special = L.get("special", "")
+        self.boss_done = False
+        if self.special == "gullking":
+            self.gulls.append(Gull(*L["boss"], boss=True))
+        self.hatchlings = [Hatchling(*h) for h in L.get("hatchlings", [])]
+        self.trail_hist = []
+        self.goal_nag = 0.0
         self.clean = True            # rainbow mode is earned pool by pool
         # pearls only stick if you get out of the pool alive, so remember what
         # you walked in with and hand it back if you drown
@@ -1584,6 +1898,13 @@ class Game:
             cw.speed /= slow
         for gl in self.gulls:
             gl.cool *= slow
+
+    def goal_open(self):
+        if self.special == "gullking":
+            return self.boss_done
+        if self.hatchlings:
+            return all(h.state == "follow" for h in self.hatchlings)
+        return True
 
     def set_msg(self, text, dur=2.2):
         self.msg, self.msg_t = text, dur
@@ -1637,6 +1958,12 @@ class Game:
             self.persist()
             self.state = DEAD
             self.build_dead_menu()
+        elif any(h.state == "follow" for h in self.hatchlings):
+            # the newest one in line loses its nerve and runs home
+            newest = max((h for h in self.hatchlings if h.state == "follow"),
+                         key=lambda h: h.slot)
+            newest.state = "return"
+            self.set_msg("The littlest one got scared and ran back.", 2.2)
         elif lost_rainbow:
             self.set_msg("Rainbow washed off. Streak reset.", 2.0)
         else:
@@ -1835,6 +2162,29 @@ class Game:
                 self.set_msg("The gull has had enough." if drove_off
                              else "Beak first into the rock.", 1.8)
         self.gulls = [g for g in self.gulls if not g.gone]
+        if self.special == "gullking" and not self.boss_done and \
+                not any(g.boss and not g.leaving for g in self.gulls):
+            self.boss_done = True
+            gx, gy = self.L["goal"]
+            for col in RAINBOW:
+                self.parts.burst(gx, gy, 8, col, 5.0, 0.9, 3.0, 0.06, True)
+            self.shake = max(self.shake, 10)
+            self.set_msg("The Gull King is beaten. The shell is open.", 3.0)
+
+        # ---- the little ones: they walk in your footsteps
+        self.trail_hist.insert(0, (c.x, c.y))
+        del self.trail_hist[(len(self.hatchlings) + 2) * Hatchling.GAP:]
+        for h in self.hatchlings:
+            h.update(dt, self.trail_hist)
+            if h.state == "wait" and math.hypot(h.x - c.x, h.y - c.y) < 22:
+                h.state = "follow"
+                h.slot = sum(1 for o in self.hatchlings
+                             if o.state == "follow" and o is not h)
+                self.parts.burst(h.x, h.y - 4, 10, C_CRAB_PALE, 2.6, 0.4, 2.0, 0.05, True)
+                n = sum(1 for o in self.hatchlings if o.state == "follow")
+                total = len(self.hatchlings)
+                self.set_msg("All of them. Now take them up to the shell." if n == total
+                             else "%d of %d little ones with you." % (n, total), 2.2)
         for j in self.jellies:
             if j.update(dt, wy) == "discharge":
                 self.parts.ring(j.x, j.y, 20, C_JELLY_HOT, 5.2, 0.6)
@@ -1901,6 +2251,14 @@ class Game:
                         break
             if not done:
                 for gl in self.gulls:
+                    if gl.punched(px, py, PUNCH_HIT_R) and gl.boss:
+                        gl.shrug_off(kx * 7.0)
+                        self.parts.burst(gl.x, gl.y, 8, C_GULL, 3.0, 0.4, 2.2, 0.1)
+                        self.set_msg("Too big to punch. Make it meet the rock.", 1.8)
+                        self.shake = max(self.shake, 5)
+                        recoil(2.0)
+                        done = True
+                        break
                     if gl.punched(px, py, PUNCH_HIT_R):
                         drove_off = gl.take_hit(kx * 7.0)
                         self.parts.burst(gl.x, gl.y, 18 if drove_off else 14,
@@ -1946,7 +2304,16 @@ class Game:
                 self.parts.burst(p.x, p.y, 14, C_SHELL, 3.6, 0.45, 2.4, 0.04, True)
 
         gx, gy = self.L["goal"]
-        if math.hypot(c.x - gx, c.y - gy) < 21 and self.state == PLAY:
+        self.goal_nag = max(0.0, self.goal_nag - dt)
+        at_goal = math.hypot(c.x - gx, c.y - gy) < 21
+        if at_goal and not self.goal_open() and self.goal_nag <= 0:
+            self.goal_nag = 3.0
+            if self.special == "gullking":
+                self.set_msg("Sealed while the Gull King rules the pool.", 2.4)
+            else:
+                left = sum(1 for h in self.hatchlings if h.state != "follow")
+                self.set_msg("Not without the little ones - %d still out there." % left, 2.4)
+        if at_goal and self.goal_open() and self.state == PLAY:
             self.cleared_last = self.level_i >= len(LEVELS) - 1
             self.next_level = min(self.level_i + 1, len(LEVELS) - 1)
             self.unlocked = max(self.unlocked, self.next_level)
@@ -2414,6 +2781,20 @@ class Game:
 
     def draw_goal(self, s):
         gx, gy = self.L["goal"]
+        if not self.goal_open():
+            # shut: no glow, no sparkle, a closed grey shell with a seam
+            pts = [(gx + math.cos(math.pi + math.pi * i / 12) * 15,
+                    gy + 9 + math.sin(math.pi + math.pi * i / 12) * 15)
+                   for i in range(13)]
+            pygame.draw.polygon(s, (120, 116, 108), pts)
+            inner = [(gx + (x - gx) * 0.84, gy + 9 + (y - (gy + 9)) * 0.84)
+                     for x, y in pts]
+            pygame.draw.polygon(s, (168, 162, 150), inner)
+            for i in range(-3, 4):
+                pygame.draw.line(s, (120, 116, 108), (gx, gy + 8),
+                                 (gx + i * 4.0, gy - 5), 1)
+            pygame.draw.line(s, (90, 86, 80), (gx - 15, gy + 9), (gx + 15, gy + 9), 3)
+            return
         glow = 0.5 + 0.5 * math.sin(self.t * 2.4)
         halo = pygame.Surface((90, 90), pygame.SRCALPHA)
         for i in range(3):
@@ -2740,10 +3121,115 @@ class Game:
         for j in self.jellies:
             self.draw_jelly(s, j)
         for gl in self.gulls:
-            self.draw_gull(s, gl)
+            if gl.boss:
+                self.draw_boss_gull(s, gl)
+            else:
+                self.draw_gull(s, gl)
+        for h in self.hatchlings:
+            self.draw_hatchling(s, h)
         self.parts.draw(s)
         self.draw_crab(s, self.crab)
         self.draw_tide_gauge(s, wy)
+        self.draw_special_hud(s)
+
+    def draw_boss_gull(self, s, gl):
+        """The king is an ordinary gull drawn big: painted at normal size on a
+        scratch surface, scaled up, then crowned. One drawing routine for
+        every bird, so the king moves exactly like the rest."""
+        S = 92
+        tmp = pygame.Surface((S, S), pygame.SRCALPHA)
+        ox, oy = gl.x, gl.y
+        gl.x, gl.y = S / 2, S / 2
+        self.draw_gull(tmp, gl)
+        gl.x, gl.y = ox, oy
+        big = pygame.transform.scale(tmp, (int(S * gl.scale), int(S * gl.scale)))
+        s.blit(big, (ox - big.get_width() / 2, oy - big.get_height() / 2))
+        # crown, riding the head
+        f = gl.face
+        hx = ox + f * 10 * gl.scale
+        hy = oy - (12 if gl.leaving else 7) * gl.scale - 10
+        if gl.leaving:
+            hx = ox - f * 4 * gl.scale
+        tilt = -0.35 * f if gl.leaving else 0.0
+        pts = []
+        for k, (dx, dy) in enumerate(((-9, 0), (-9, -8), (-4.5, -3), (0, -11),
+                                      (4.5, -3), (9, -8), (9, 0))):
+            ca, sa = math.cos(tilt), math.sin(tilt)
+            pts.append((hx + dx * ca - dy * sa, hy + dx * sa + dy * ca))
+        pygame.draw.polygon(s, (255, 206, 72), pts)
+        pygame.draw.polygon(s, (186, 120, 30), pts, 2)
+        for k in (1, 3, 5):
+            pygame.draw.circle(s, (230, 70, 90), (int(pts[k][0]), int(pts[k][1])), 2)
+        # the tell: it rears back and screams before every stoop
+        if gl.state == "windup":
+            a = 0.5 + 0.5 * math.sin(self.menu_t * 40)
+            for r, w in ((28, 3), (36, 2)):
+                ring = pygame.Rect(0, 0, int(r * 2 * (1.0 + 0.15 * a)),
+                                   int(r * 2 * (1.0 + 0.15 * a)))
+                ring.center = (int(ox), int(oy))
+                pygame.draw.ellipse(s, (255, 110, 90), ring, w)
+            g = self.fonts["h2"].render("!", True, (230, 60, 60))
+            s.blit(g, (ox - g.get_width() / 2, oy - 70))
+
+    def draw_hatchling(self, s, h):
+        bob = abs(math.sin(h.t)) * (2.0 if h.state != "wait" else 1.0)
+        x, y = h.x, h.y - bob
+        if h.state == "wait":
+            shadow(s, x, y + 6, 7, 2, 50)
+        # little legs scurry
+        for i in (-1, 1):
+            for k in (-1, 1):
+                ph = math.sin(h.t * 1.3 + i + k) * 1.6
+                pygame.draw.line(s, C_CRAB_DARK, (x + i * 3, y + 2),
+                                 (x + i * 3 + k * 4, y + 6 + ph), 2)
+        pygame.draw.ellipse(s, C_CRAB_DARK, (x - 7, y - 4, 14, 9))
+        pygame.draw.ellipse(s, C_CRAB_PALE, (x - 6, y - 3, 12, 7))
+        # claws up, waving, while it waits to be found
+        wave = math.sin(h.t * 0.9) * 2.5 if h.state == "wait" else 0
+        for i in (-1, 1):
+            pygame.draw.circle(s, C_CRAB, (int(x + i * 8), int(y - 2 - (wave if i > 0 else -wave))), 2)
+        for i in (-1, 1):
+            ex, ey = x + i * 2.5 + h.face * 0.6, y - 7
+            pygame.draw.line(s, C_CRAB, (x + i * 2, y - 3), (ex, ey), 1)
+            pygame.draw.circle(s, C_WHITE, (int(ex), int(ey)), 2)
+            pygame.draw.circle(s, C_INK, (int(ex + h.face * 0.5), int(ey)), 1)
+        if h.state == "wait" and math.sin(h.t * 0.35) > 0.6:
+            g = self.fonts["tiny"].render("!", True, C_CRAB_DARK)
+            s.blit(g, (x - g.get_width() / 2, y - 22))
+
+    def draw_special_hud(self, s):
+        if self.special == "gullking":
+            king = [g for g in self.gulls if g.boss]
+            hp = king[0].hp if king else 0
+            mx = king[0].max_hp if king else 4
+            w = 170
+            x0, y0 = WORLD_W // 2 - w // 2, 10
+            pad = pygame.Surface((w + 16, 34), pygame.SRCALPHA)
+            pygame.draw.rect(pad, (*C_PANEL, 220), (0, 0, w + 16, 34), border_radius=9)
+            s.blit(pad, (x0 - 8, y0 - 4))
+            t = self.fonts["tiny"].render("THE GULL KING", True, C_INK)
+            s.blit(t, (WORLD_W // 2 - t.get_width() // 2, y0 - 1))
+            seg = (w - (mx - 1) * 4) / mx
+            for i in range(mx):
+                r = pygame.Rect(int(x0 + i * (seg + 4)), y0 + 14, int(seg), 9)
+                pygame.draw.rect(s, (230, 70, 70) if i < hp else (214, 204, 190), r,
+                                 border_radius=3)
+        elif self.hatchlings:
+            n = sum(1 for h in self.hatchlings if h.state == "follow")
+            total = len(self.hatchlings)
+            pad = pygame.Surface((22 + total * 16 + 8, 26), pygame.SRCALPHA)
+            pygame.draw.rect(pad, (*C_PANEL, 220), (0, 0, pad.get_width(), 26),
+                             border_radius=9)
+            s.blit(pad, (8, 8))
+            t = self.fonts["tiny"].render("%d/%d" % (n, total), True, C_INK)
+            s.blit(t, (14, 14))
+            for i in range(total):
+                on = i < n
+                cx = 16 + 22 + i * 16
+                pygame.draw.ellipse(s, C_CRAB_DARK if on else (196, 188, 176),
+                                    (cx - 6, 15, 12, 9))
+                pygame.draw.ellipse(s, C_CRAB_PALE if on else (226, 220, 210),
+                                    (cx - 5, 16, 10, 7))
 
     # -- drawing: chrome -----------------------------------------------------
 
@@ -3017,6 +3503,20 @@ class Game:
 
     # -- input routing -------------------------------------------------------
 
+    def trigger_punch(self):
+        """Start a swing, if the claw is ready. Locked to the direction held
+        at the moment of the press, facing if nothing is."""
+        c = self.crab
+        if c.punch_cd > 0:
+            return
+        c.punch_ang = c.aim_angle()
+        c.punch_t = PUNCH_TIME
+        c.punch_cd = PUNCH_COOLDOWN
+        c.punch_hit = False
+        self.parts.burst(c.x + math.cos(c.punch_ang) * 14,
+                         c.y + math.sin(c.punch_ang) * 14,
+                         5, C_FOAM, 2.2, 0.2, 1.8, 0.0)
+
     def click_at(self, pos):
         if self.gear_rect.collidepoint(pos):
             return "__gear__"
@@ -3194,18 +3694,7 @@ class Game:
                         continue
                     if self.state == PLAY:
                         if ev.key in (pygame.K_b, pygame.K_x, pygame.K_z):
-                            c = self.crab
-                            if c.punch_cd <= 0:
-                                # lock the swing to the direction held at the
-                                # moment of the press, facing if nothing is
-                                c.punch_ang = c.aim_angle()
-                                c.punch_t = PUNCH_TIME
-                                c.punch_cd = PUNCH_COOLDOWN
-                                c.punch_hit = False
-                                self.parts.burst(
-                                    c.x + math.cos(c.punch_ang) * 14,
-                                    c.y + math.sin(c.punch_ang) * 14,
-                                    5, C_FOAM, 2.2, 0.2, 1.8, 0.0)
+                            self.trigger_punch()
                         elif ev.key == pygame.K_r:
                             self.start_level(self.level_i)
                     elif self.state == DIALOGUE:
