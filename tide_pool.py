@@ -15,22 +15,35 @@ but you cannot climb. Read the tide, commit at the right moment.
                         direction it happens to be drifting.
     Charge hop ........ hold Space, release to jump
                         (works on rock AND at the water surface)
-    Claw punch ........ J  (or X / Z)
+    Claw punch ........ B  (or X / Z)
     Retry pool ........ R
     Fullscreen ........ F11  (or F)
     Settings / pause .. Esc, or the gear at the top right
 
-Hazards
-    Urchin ....... static spines. Cannot be punched - the spines win.
-    Eel .......... rises and falls out of its burrow like a snapping plant.
-                   Punch it and the half you hit folds away at an angle,
-                   then springs back to vertical.
-    Jellyfish .... blinks faster and faster, then discharges a shock ring.
-                   Punch it to send it tumbling and reset its charge, but
-                   never while it is lit up.
+What lives in the pools (each one turns up a pool at a time)
+    Urchin ......... static spines. Cannot be punched - the spines win.
+    Sea star ....... walks its ledge. Punch it and it flips over, harmless.
+    Jellyfish ...... blinks faster and faster, then discharges a shock ring.
+                     Punch it and it tumbles away - and stays where it lands.
+    Anemone ........ land on it and it flings you higher than any hop.
+                     Hold Down as you land to settle on it instead.
+    Riptide ........ a band of moving water that shoves anything swimming.
+    Sandstone ...... holds you for a moment, cracks, drops, grows back.
+    Gull ........... dives at you in the open. Duck under rock, or sidestep
+                     late and let it hit the stone.
+    Bubble vent .... rumbles, then blows a column that throws you upward.
+    Pistol shrimp .. its claw glows, then it snaps a bubble along its ledge.
+                     Jump the bubble, punch the bubble, or punch the shrimp
+                     quiet for a few seconds.
+    Sea turtle ..... paddles across open water on the surface. Ride it.
+
+Bosses
+    Pool 10 ....... the Gull King. Too big to punch - make it meet the rock.
+    Pool 20 ....... five lost hatchlings to lead up.
+    Pool 31 ....... the Great Octopus. Dodge the slam, punch the stuck arm.
 
 Pearls are shy - get close and they leap toward you.
-You can take two hits. The third one ends the run.
+You can take two hits (three on Relaxed pace). The next one ends the run.
 
 Requires: pygame   ->   pip install pygame
 Run with: python3 tide_pool.py
@@ -173,355 +186,557 @@ def shadow(surf, x, y, rx, ry, alpha=70):
 # ----------------------------------------------------------------------------
 
 LEVELS = [
+    # ---- pool 1
     dict(
-        name="Shallows",
-        period=10.0, tide_low=606, tide_high=362,
-        spawn=(35, 575), goal=(340, 360),
+        name='Shallows',
+        period=10.0,
+        tide_low=606,
+        tide_high=362,
+        spawn=(30, 575),
+        goal=(340, 360),
         plats=[(0, 600, 420, 20), (100, 490, 110, 16), (250, 380, 130, 16)],
         urchins=[(232, 592)],
-        eels=[],
+        crawlers=[],
         jellies=[],
+        gulls=[],
         pearls=[(150, 470), (62, 580)],
-        puffers=[], crawlers=[], gulls=[],
-        tip="Arrows swim all 8 ways. SPACE charges a hop. Hold DOWN to grip rock.",
+        tip='Arrows swim all 8 ways. SPACE charges a hop. Hold DOWN to grip rock.',
     ),
+    # ---- pool 2
     dict(
-        name="Burrow",
-        period=11.0, tide_low=606, tide_high=218,
-        spawn=(30, 480), goal=(370, 220),
-        plats=[(0, 600, 420, 20), (0, 500, 140, 16), (190, 415, 120, 16),
-               (50, 320, 140, 16), (280, 240, 140, 16)],
-        urchins=[(120, 492), (304, 592), (232, 407)],
-        eels=[(170, 600, "up", 124, 3.4)],
+        name='Tidemarks',
+        period=11.0,
+        tide_low=606,
+        tide_high=228,
+        spawn=(30, 575),
+        goal=(350, 230),
+        plats=[(0, 600, 420, 20), (20, 500, 120, 16), (180, 420, 110, 16), (40, 330, 130, 16), (270, 250, 150, 16)],
+        urchins=[(380, 592)],
+        crawlers=[((180, 420, 110, 16), 220, 26)],
         jellies=[],
-        pearls=[(72, 482), (172, 560)],
-        puffers=[], crawlers=[((0, 500, 140, 16), 70, 26)], gulls=[],
-        tip="Punch the eel with B. The half you hit folds out of the way.",
-    ),
-    dict(
-        name="Overhang",
-        period=12.0, tide_low=606, tide_high=208,
-        spawn=(30, 500), goal=(55, 210),
-        plats=[(0, 600, 420, 20), (0, 520, 110, 16), (140, 430, 160, 14),
-               (320, 450, 100, 16), (110, 330, 150, 16), (0, 230, 130, 16)],
-        urchins=[(362, 442), (130, 322)],
-        eels=[(220, 444, "down", 112, 3.0)],
-        jellies=[((362, 548), (362, 352), 0.36)],
-        pearls=[(192, 560), (182, 312)],
-        puffers=[((150, 560), (150, 400), 0.34)],
-        crawlers=[((110, 330, 150, 16), 160, 30)],
         gulls=[],
-        tip="Jellyfish blink faster before they fire. Punch them dark, not lit.",
+        pearls=[(80, 482), (235, 402), (100, 312)],
+        tip='That star walks its ledge. Punch it with B and it flips over, harmless.',
     ),
+    # ---- pool 3
     dict(
-        name="Jelly bloom",
-        period=12.0, tide_low=606, tide_high=183,
-        spawn=(30, 520), goal=(372, 185),
-        plats=[(0, 600, 420, 20), (0, 540, 100, 16), (150, 500, 90, 16),
-               (290, 420, 130, 16), (110, 340, 140, 16), (0, 255, 110, 16),
-               (250, 205, 170, 16)],
-        urchins=[(202, 492), (384, 412), (72, 247)],
-        eels=[(252, 600, "up", 148, 3.2), (170, 356, "down", 104, 2.9)],
-        jellies=[((180, 432), (304, 432), 0.42), ((70, 492), (70, 382), 0.50)],
-        pearls=[(42, 522), (166, 322), (322, 186)],
-        puffers=[((60, 470), (240, 470), 0.30)],
-        crawlers=[((290, 420, 130, 16), 330, 28)],
-        gulls=[(210, 120, 90)],
-        tip="A shock ring reaches further than the bell. Give it room.",
-    ),
-    dict(
-        name="Spring tide",
-        period=9.0, tide_low=606, tide_high=163,
-        spawn=(30, 530), goal=(390, 165),
-        plats=[(0, 600, 420, 20), (0, 550, 90, 16), (140, 545, 80, 16),
-               (270, 480, 150, 16), (70, 410, 140, 16), (250, 340, 170, 16),
-               (40, 265, 140, 16), (230, 185, 190, 16)],
-        urchins=[(192, 537), (402, 472), (102, 402), (292, 332), (132, 257)],
-        eels=[(232, 600, "up", 158, 2.8), (150, 426, "down", 108, 3.1),
-              (344, 356, "down", 88, 2.6)],
-        jellies=[((200, 470), (200, 332), 0.46), ((330, 252), (182, 252), 0.52)],
-        pearls=[(36, 532), (112, 392), (352, 166)],
-        puffers=[((110, 500), (330, 500), 0.32),
-                 ((300, 300), (300, 200), 0.38)],
-        crawlers=[((70, 410, 140, 16), 110, 32),
-                  ((230, 185, 190, 16), 300, 30)],
-        gulls=[(180, 104, 110)],
-        tip="The tide swings faster here. Plan two moves ahead.",
-    ),
-    dict(
-        name="Kelp gate",
-        period=11.5, tide_low=606, tide_high=153,
-        spawn=(32, 560), goal=(40, 155),
-        plats=[(0, 600, 420, 20), (300, 545, 120, 16), (160, 470, 120, 16),
-               (0, 395, 140, 16), (210, 320, 150, 16), (60, 240, 130, 16),
-               (0, 175, 120, 16)],
-        urchins=[(352, 537), (212, 462), (92, 387), (262, 312)],
-        eels=[(190, 600, "up", 136, 3.0), (120, 411, "down", 96, 2.8)],
-        jellies=[((340, 470), (200, 470), 0.40), ((90, 300), (90, 196), 0.46)],
-        pearls=[(344, 527), (56, 377), (272, 302)],
-        puffers=[((380, 400), (380, 260), 0.34)],
-        crawlers=[((210, 320, 150, 16), 250, 28)],
-        gulls=[(240, 112, 96)],
-        tip="Two ways up here. The slow one is usually the dry one.",
-    ),
-    dict(
-        name="The shelf",
-        period=10.5, tide_low=606, tide_high=143,
-        spawn=(390, 570), goal=(372, 145),
-        plats=[(0, 600, 420, 20), (0, 530, 150, 16), (230, 470, 190, 16),
-               (60, 390, 160, 16), (280, 310, 140, 16), (0, 300, 130, 16),
-               (140, 215, 150, 16), (300, 165, 120, 16)],
-        urchins=[(102, 522), (266, 462), (172, 382), (46, 292), (196, 207)],
-        eels=[(300, 600, "up", 142, 2.9), (330, 486, "down", 104, 2.7),
-              (90, 406, "down", 86, 3.1)],
-        jellies=[((150, 440), (150, 330), 0.44), ((240, 250), (380, 250), 0.48)],
-        pearls=[(30, 512), (110, 372), (340, 292)],
-        puffers=[((200, 540), (380, 540), 0.32)],
-        crawlers=[((230, 470, 190, 16), 300, 30), ((140, 215, 150, 16), 180, 26)],
-        gulls=[(200, 100, 120)],
-        tip="A wide shelf is a long way to be caught standing on.",
-    ),
-    dict(
-        name="Gull run",
-        period=12.0, tide_low=606, tide_high=133,
-        spawn=(30, 570), goal=(50, 135),
-        plats=[(0, 600, 420, 20), (250, 540, 170, 16), (60, 465, 150, 16),
-               (270, 385, 150, 16), (90, 310, 140, 16), (260, 230, 160, 16),
-               (0, 155, 150, 16)],
-        urchins=[(330, 532), (130, 457), (350, 377), (160, 302), (330, 222)],
-        eels=[(210, 600, "up", 128, 3.2), (300, 401, "down", 98, 2.8)],
-        jellies=[((120, 420), (120, 330), 0.42)],
-        pearls=[(300, 522), (40, 447), (120, 292)],
-        puffers=[((60, 540), (210, 540), 0.30), ((380, 300), (380, 180), 0.36)],
-        crawlers=[((90, 310, 140, 16), 130, 28)],
-        gulls=[(140, 96, 110), (310, 120, 90)],
-        tip="Two birds. Step aside late and let them meet the rock.",
-    ),
-    dict(
-        name="Siphon",
-        period=9.5, tide_low=606, tide_high=123,
-        spawn=(200, 575), goal=(210, 125),
-        plats=[(0, 600, 420, 20), (0, 525, 130, 16), (290, 525, 130, 16),
-               (120, 450, 180, 16), (0, 370, 120, 16), (300, 370, 120, 16),
-               (130, 290, 160, 16), (0, 210, 120, 16), (300, 210, 120, 16),
-               (140, 145, 140, 16)],
-        urchins=[(72, 517), (352, 517), (210, 442), (46, 362), (346, 362),
-                 (200, 282)],
-        eels=[(160, 600, "up", 118, 2.7), (240, 600, "up", 118, 3.3),
-              (210, 466, "down", 92, 2.6)],
-        jellies=[((60, 480), (60, 390), 0.46), ((360, 330), (360, 232), 0.46)],
-        pearls=[(210, 432), (60, 352), (210, 272)],
-        puffers=[((150, 340), (280, 340), 0.34)],
-        crawlers=[((130, 290, 160, 16), 170, 32)],
-        gulls=[(210, 90, 100)],
-        tip="Narrow chimney, fast tide. Grip, wait, climb, grip again.",
-    ),
-    dict(
-        name="Gull King",
-        period=12.0, tide_low=606, tide_high=118,
-        spawn=(30, 575), goal=(210, 120),
-        plats=[(0, 600, 420, 20), (0, 520, 130, 16), (290, 520, 130, 16),
-               (145, 430, 130, 16), (0, 330, 120, 16), (300, 330, 120, 16),
-               (150, 240, 120, 16), (150, 140, 120, 16)],
-        urchins=[(360, 512)],
-        eels=[],
+        name='Anemone cove',
+        period=11.0,
+        tide_low=606,
+        tide_high=380,
+        spawn=(30, 575),
+        goal=(320, 230),
+        plats=[(0, 600, 420, 20), (0, 520, 140, 16), (250, 470, 170, 16), (60, 380, 160, 16), (240, 250, 160, 16)],
+        urchins=[(330, 462)],
+        crawlers=[],
         jellies=[],
-        pearls=[(60, 502), (210, 412), (360, 312)],
-        puffers=[], crawlers=[], gulls=[],
-        special="gullking",
+        gulls=[],
+        anemones=[(195, 380)],
+        pearls=[(390, 452), (222, 300), (40, 502)],
+        tip="The tide won't reach the top. Land on the anemone to fly - hold DOWN to land soft.",
+    ),
+    # ---- pool 4
+    dict(
+        name='Jelly drift',
+        period=12.0,
+        tide_low=606,
+        tide_high=218,
+        spawn=(30, 575),
+        goal=(60, 220),
+        plats=[(0, 600, 420, 20), (240, 520, 180, 16), (60, 440, 140, 16), (250, 350, 170, 16), (0, 240, 140, 16)],
+        urchins=[(300, 512)],
+        crawlers=[],
+        jellies=[((160, 560), (160, 400), 0.34)],
+        gulls=[],
+        anemones=[(320, 350)],
+        pearls=[(130, 422), (390, 332), (30, 222)],
+        tip='Jellyfish blink faster and faster before they fire. Swim wide of them.',
+    ),
+    # ---- pool 5
+    dict(
+        name='Overhang',
+        period=12.0,
+        tide_low=606,
+        tide_high=208,
+        spawn=(30, 575),
+        goal=(55, 210),
+        plats=[(0, 600, 420, 20), (0, 520, 110, 16), (160, 440, 140, 16), (310, 360, 110, 16), (110, 320, 150, 16), (0, 230, 130, 16)],
+        urchins=[(362, 352)],
+        crawlers=[((110, 320, 150, 16), 160, 30)],
+        jellies=[((360, 540), (360, 420), 0.36)],
+        gulls=[],
+        pearls=[(230, 422), (185, 302), (40, 502)],
+        tip='Ledges overhead stop the tide lifting you. Swim out from under them early.',
+    ),
+    # ---- pool 6
+    dict(
+        name='Riptide',
+        period=11.0,
+        tide_low=606,
+        tide_high=228,
+        spawn=(30, 575),
+        goal=(350, 230),
+        plats=[(0, 600, 420, 20), (0, 500, 130, 16), (280, 460, 140, 16), (140, 380, 120, 16), (0, 290, 120, 16), (280, 250, 140, 16)],
+        urchins=[(340, 452)],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        currents=[(0, 315, 420, 70, -2.0), (120, 212, 170, 75, 2.0)],
+        pearls=[(200, 362), (400, 442), (40, 272)],
+        tip='Currents shove anything swimming in them. Ride them, or swim hard against them.',
+    ),
+    # ---- pool 7
+    dict(
+        name='Sandstone',
+        period=11.0,
+        tide_low=606,
+        tide_high=330,
+        spawn=(30, 575),
+        goal=(330, 190),
+        plats=[(0, 600, 420, 20), (0, 520, 140, 16), (270, 450, 150, 16), (120, 390, 120, 16), (260, 210, 160, 16)],
+        urchins=[(340, 442)],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        crumbles=[(40, 300, 80, 14), (150, 252, 70, 14)],
+        pearls=[(80, 282), (185, 234), (60, 502)],
+        tip='The tide stops short. Sandstone holds you for a moment, then drops - keep moving.',
+    ),
+    # ---- pool 8
+    dict(
+        name='Gull run',
+        period=12.0,
+        tide_low=606,
+        tide_high=128,
+        spawn=(30, 575),
+        goal=(50, 130),
+        plats=[(0, 600, 420, 20), (240, 530, 180, 16), (40, 460, 160, 16), (250, 370, 170, 16), (60, 290, 140, 16), (220, 210, 160, 16), (0, 150, 140, 16)],
+        urchins=[(320, 522)],
+        crawlers=[((60, 290, 140, 16), 110, 26)],
+        jellies=[],
+        gulls=[(150, 90, 110), (320, 110, 90)],
+        pearls=[(400, 512), (100, 442), (330, 352)],
+        tip='Two birds. Duck under a ledge, or step aside late and let them hit the rock.',
+    ),
+    # ---- pool 9
+    dict(
+        name='Breathing rock',
+        period=11.0,
+        tide_low=606,
+        tide_high=340,
+        spawn=(30, 575),
+        goal=(300, 175),
+        plats=[(0, 600, 420, 20), (0, 500, 140, 16), (260, 440, 160, 16), (120, 330, 120, 16), (230, 195, 190, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[((60, 430), (60, 340), 0.3)],
+        gulls=[],
+        vents=[(180, 330, 190, 3.4, 1.6), (340, 440, 110, 3.0, 1.3)],
+        pearls=[(180, 250), (340, 300), (60, 482)],
+        tip='Rock that rumbles is about to breathe. Stand over it and ride the bubbles up.',
+    ),
+    # ---- pool 10
+    dict(
+        name='Gull King',
+        period=12.0,
+        tide_low=606,
+        tide_high=118,
+        spawn=(30, 575),
+        goal=(210, 120),
+        special='gullking',
         boss=(210, 86, 140),
-        tip="The Gull King. Too big to punch. Make it meet the rock.",
-    ),
-    dict(
-        name="Split tide",
-        period=11.0, tide_low=606, tide_high=123,
-        spawn=(30, 570), goal=(210, 125),
-        plats=[(0, 600, 420, 20), (0, 530, 150, 16), (270, 530, 150, 16),
-               (0, 440, 120, 16), (300, 440, 120, 16), (150, 360, 120, 16),
-               (0, 275, 130, 16), (290, 275, 130, 16), (140, 195, 140, 16),
-               (150, 145, 120, 16)],
-        urchins=[(72, 522), (342, 522), (46, 432), (352, 432), (210, 352),
-                 (200, 187)],
-        eels=[(210, 600, "up", 130, 3.0), (60, 456, "down", 96, 2.8),
-              (360, 456, "down", 96, 3.2)],
-        jellies=[((150, 480), (270, 480), 0.40), ((210, 300), (210, 215), 0.44)],
-        pearls=[(60, 512), (360, 422), (210, 342)],
-        puffers=[((40, 380), (140, 380), 0.32)],
-        crawlers=[((140, 195, 140, 16), 180, 28)],
-        gulls=[(210, 100, 110)],
-        tip="Two towers, one tide. Pick your side before it lifts you.",
-    ),
-    dict(
-        name="The gallery",
-        period=12.5, tide_low=606, tide_high=123,
-        spawn=(30, 575), goal=(40, 125),
-        plats=[(0, 600, 420, 20), (60, 540, 300, 16), (0, 460, 220, 16),
-               (200, 380, 220, 16), (0, 300, 240, 16), (180, 220, 240, 16),
-               (0, 145, 170, 16)],
-        urchins=[(120, 532), (300, 532), (60, 452), (160, 452), (260, 372),
-                 (380, 372), (80, 292), (300, 212)],
-        eels=[(210, 600, "up", 126, 3.1), (120, 476, "down", 92, 2.9),
-              (300, 396, "down", 88, 2.7)],
-        jellies=[((80, 420), (80, 330), 0.42), ((240, 260), (380, 260), 0.46)],
-        pearls=[(200, 522), (40, 442), (360, 362)],
-        puffers=[((260, 500), (400, 500), 0.30)],
-        crawlers=[((60, 540, 300, 16), 200, 30), ((0, 300, 240, 16), 100, 26)],
-        gulls=[(150, 96, 120), (330, 112, 80)],
-        tip="Long shelves, long walks. The birds have noticed.",
-    ),
-    dict(
-        name="Undertow",
-        period=8.0, tide_low=606, tide_high=118,
-        spawn=(30, 570), goal=(350, 120),
-        plats=[(0, 600, 420, 20), (280, 545, 140, 16), (40, 470, 130, 16),
-               (270, 395, 150, 16), (30, 320, 140, 16), (260, 245, 160, 16),
-               (60, 170, 150, 16), (240, 140, 180, 16)],
-        urchins=[(340, 537), (100, 462), (330, 387), (90, 312), (320, 237),
-                 (120, 162)],
-        eels=[(180, 600, "up", 120, 2.5), (330, 411, "down", 86, 2.4),
-              (90, 486, "down", 80, 2.6)],
-        jellies=[((180, 460), (180, 360), 0.50)],
-        pearls=[(360, 527), (70, 452), (300, 377)],
-        puffers=[((150, 520), (260, 520), 0.36)],
-        crawlers=[((260, 245, 160, 16), 300, 34)],
-        gulls=[(200, 104, 100)],
-        tip="Quick water. Read the next ledge while you're still on this one.",
-    ),
-    dict(
-        name="The bloom",
-        period=13.0, tide_low=606, tide_high=118,
-        spawn=(30, 575), goal=(140, 120),
-        plats=[(0, 600, 420, 20), (0, 545, 170, 16), (250, 490, 170, 16),
-               (60, 415, 160, 16), (260, 340, 160, 16), (40, 265, 150, 16),
-               (250, 190, 170, 16), (60, 140, 160, 16)],
-        urchins=[(100, 537), (300, 482), (120, 407), (320, 332), (80, 257)],
-        eels=[(210, 600, "up", 118, 3.4), (120, 431, "down", 84, 3.0)],
-        jellies=[((190, 520), (190, 430), 0.38), ((340, 420), (200, 420), 0.42),
-                 ((100, 340), (100, 250), 0.40), ((300, 250), (160, 250), 0.44)],
-        pearls=[(40, 527), (330, 472), (100, 397)],
-        puffers=[((380, 300), (380, 200), 0.30)],
-        crawlers=[((250, 190, 170, 16), 300, 26)],
-        gulls=[],
-        tip="Four of them, each on its own clock. Count the blinks.",
-    ),
-    dict(
-        name="Crosscurrent",
-        period=10.5, tide_low=606, tide_high=123,
-        spawn=(30, 575), goal=(225, 125),
-        plats=[(0, 600, 420, 20), (300, 540, 120, 16), (180, 480, 100, 16),
-               (40, 430, 110, 16), (170, 370, 100, 16), (300, 315, 120, 16),
-               (170, 255, 100, 16), (30, 200, 110, 16), (170, 145, 110, 16)],
-        urchins=[(350, 532), (90, 422), (360, 307), (80, 192)],
-        eels=[(240, 600, "up", 110, 3.0), (220, 496, "down", 80, 2.8)],
-        jellies=[((110, 330), (110, 250), 0.42)],
-        pearls=[(230, 462), (220, 352), (215, 237)],
-        puffers=[((60, 520), (200, 520), 0.34), ((300, 420), (400, 420), 0.36),
-                 ((60, 290), (140, 290), 0.32), ((300, 220), (400, 220), 0.34)],
-        crawlers=[((300, 315, 120, 16), 340, 28)],
-        gulls=[(220, 98, 110)],
-        tip="Zigzag up through the puffers. Wait for them to go soft.",
-    ),
-    dict(
-        name="Eel garden",
-        period=11.0, tide_low=606, tide_high=118,
-        spawn=(30, 575), goal=(210, 120),
-        plats=[(0, 600, 420, 20), (0, 530, 130, 16), (290, 530, 130, 16),
-               (140, 450, 140, 16), (0, 370, 120, 16), (300, 370, 120, 16),
-               (140, 290, 140, 16), (0, 210, 120, 16), (300, 210, 120, 16),
-               (150, 140, 120, 16)],
-        urchins=[(60, 522), (360, 522), (60, 362), (360, 362)],
-        eels=[(150, 600, "up", 120, 2.9), (270, 600, "up", 120, 3.3),
-              (170, 466, "down", 86, 2.7), (250, 466, "down", 86, 3.1),
-              (180, 306, "down", 84, 2.6), (240, 306, "down", 84, 3.0)],
+        plats=[(0, 600, 420, 20), (0, 520, 130, 16), (290, 520, 130, 16), (145, 430, 130, 16), (0, 330, 120, 16), (300, 330, 120, 16), (150, 240, 120, 16), (150, 140, 120, 16)],
+        urchins=[(360, 512)],
+        crawlers=[],
         jellies=[],
-        pearls=[(210, 432), (60, 352), (360, 192)],
-        puffers=[],
-        crawlers=[((140, 290, 140, 16), 200, 26)],
-        gulls=[(210, 100, 120)],
-        tip="A garden of eels. Every one of them folds aside for a punch.",
+        gulls=[],
+        pearls=[(60, 502), (210, 412), (360, 312)],
+        tip='The Gull King. Too big to punch. Make it meet the rock.',
     ),
+    # ---- pool 11
     dict(
-        name="Moon pool",
-        period=15.0, tide_low=606, tide_high=113,
-        spawn=(30, 575), goal=(355, 115),
-        plats=[(0, 600, 420, 20), (330, 560, 90, 14), (200, 500, 70, 14),
-               (60, 450, 70, 14), (180, 390, 70, 14), (320, 340, 80, 14),
-               (190, 280, 70, 14), (50, 230, 70, 14), (170, 170, 80, 14),
-               (300, 135, 110, 14)],
-        urchins=[(360, 552), (85, 442), (350, 332), (75, 222)],
-        eels=[(260, 600, "up", 110, 3.6)],
-        jellies=[((120, 520), (120, 420), 0.30), ((280, 430), (280, 320), 0.32),
-                 ((120, 300), (120, 200), 0.30), ((260, 240), (380, 240), 0.34)],
-        pearls=[(235, 482), (215, 372), (210, 152)],
-        puffers=[], crawlers=[], gulls=[],
-        tip="Long, slow tide. Small stones. Jellies drifting in the dark.",
+        name='Snap alley',
+        period=11.0,
+        tide_low=606,
+        tide_high=223,
+        spawn=(30, 575),
+        goal=(60, 225),
+        plats=[(0, 600, 420, 20), (200, 520, 220, 16), (0, 440, 180, 16), (220, 350, 200, 16), (0, 245, 140, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        shrimps=[(400, 520, -1, 3.4), (110, 440, 1, 3.2), (400, 350, -1, 3.6)],
+        pearls=[(300, 500), (60, 420), (300, 330)],
+        tip='Pistol shrimp glow before they snap. Jump the bubble, or punch the shrimp quiet.',
     ),
+    # ---- pool 12
     dict(
-        name="Rookery",
-        period=12.0, tide_low=606, tide_high=118,
-        spawn=(30, 575), goal=(210, 120),
-        plats=[(0, 600, 420, 20), (0, 520, 170, 16), (250, 520, 170, 16),
-               (120, 440, 180, 16), (0, 360, 150, 16), (270, 360, 150, 16),
-               (130, 280, 160, 16), (0, 200, 140, 16), (280, 200, 140, 16),
-               (140, 140, 140, 16)],
-        urchins=[(140, 512), (280, 512), (40, 352), (380, 352), (60, 192)],
-        eels=[(210, 600, "up", 120, 3.1), (210, 456, "down", 80, 2.9)],
-        jellies=[((210, 400), (210, 320), 0.40)],
-        pearls=[(210, 422), (80, 342), (350, 182)],
-        puffers=[((40, 260), (110, 260), 0.32)],
-        crawlers=[((130, 280, 160, 16), 180, 28)],
-        gulls=[(90, 96, 70), (330, 96, 70), (210, 106, 110)],
+        name='Turtle crossing',
+        period=12.0,
+        tide_low=606,
+        tide_high=193,
+        spawn=(30, 575),
+        goal=(375, 195),
+        plats=[(0, 600, 420, 20), (0, 500, 80, 16), (0, 380, 80, 16), (340, 440, 80, 16), (340, 320, 80, 16), (0, 250, 80, 16), (330, 215, 90, 16)],
+        urchins=[(150, 592), (210, 592), (270, 592)],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        currents=[(80, 170, 260, 430, -2.6)],
+        turtles=[(120, 300, 200, 40)],
+        pearls=[(210, 230), (40, 362), (380, 302)],
+        tip="The middle current is a slog to swim. The turtle doesn't mind it.",
+    ),
+    # ---- pool 13
+    dict(
+        name='Undertow',
+        period=8.5,
+        tide_low=606,
+        tide_high=118,
+        spawn=(30, 575),
+        goal=(345, 120),
+        plats=[(0, 600, 420, 20), (0, 520, 130, 16), (290, 520, 130, 16), (150, 430, 120, 16), (0, 330, 110, 16), (310, 330, 110, 16), (0, 200, 110, 16), (280, 140, 140, 16)],
+        urchins=[(370, 512)],
+        crawlers=[],
+        jellies=[((360, 470), (360, 380), 0.4)],
+        gulls=[],
+        currents=[(130, 450, 160, 70, 2.2), (0, 230, 160, 70, -1.8)],
+        vents=[(210, 430, 200, 3.2, 1.4)],
+        pearls=[(210, 300), (60, 312), (360, 312)],
+        tip='Fast water. The vent throws you clear of the undertow.',
+    ),
+    # ---- pool 14
+    dict(
+        name='The bloom',
+        period=13.0,
+        tide_low=606,
+        tide_high=118,
+        spawn=(30, 575),
+        goal=(140, 120),
+        plats=[(0, 600, 420, 20), (0, 530, 160, 16), (260, 460, 160, 16), (40, 370, 150, 16), (250, 270, 170, 16), (60, 140, 160, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[((210, 500), (210, 400), 0.36), ((330, 380), (200, 380), 0.4), ((120, 240), (120, 180), 0.4)],
+        gulls=[],
+        anemones=[(330, 460), (110, 370)],
+        pearls=[(330, 380), (110, 300), (330, 252)],
+        tip='A bloom. Spring over them - the anemones fling you clear.',
+    ),
+    # ---- pool 15
+    dict(
+        name='Crosscurrent',
+        period=10.5,
+        tide_low=606,
+        tide_high=123,
+        spawn=(30, 575),
+        goal=(225, 125),
+        plats=[(0, 600, 420, 20), (300, 540, 120, 16), (0, 470, 130, 16), (260, 400, 160, 16), (0, 320, 150, 16), (270, 250, 150, 16), (170, 145, 110, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        currents=[(0, 490, 420, 50, 1.8), (0, 350, 420, 45, -2.0), (0, 265, 420, 45, 1.6)],
+        shrimps=[(110, 470, 1, 3.6), (400, 400, -1, 3.4)],
+        pearls=[(380, 522), (60, 302), (340, 232)],
+        tip='Three currents, three directions. Read them before you jump in.',
+    ),
+    # ---- pool 16
+    dict(
+        name='Crumble stair',
+        period=11.0,
+        tide_low=606,
+        tide_high=320,
+        spawn=(30, 575),
+        goal=(350, 160),
+        plats=[(0, 600, 420, 20), (0, 520, 140, 16), (270, 470, 150, 16), (120, 400, 140, 16), (280, 180, 140, 16)],
+        urchins=[(340, 462)],
+        crawlers=[],
+        jellies=[],
+        gulls=[(200, 100, 120)],
+        crumbles=[(20, 292, 80, 14), (130, 246, 70, 14), (215, 214, 50, 14)],
+        pearls=[(60, 274), (165, 228), (240, 196)],
+        tip="A sandstone stair and a bird watching it. Don't stop.",
+    ),
+    # ---- pool 17
+    dict(
+        name='Moon pool',
+        period=15.0,
+        tide_low=606,
+        tide_high=113,
+        spawn=(30, 575),
+        goal=(355, 115),
+        plats=[(0, 600, 420, 20), (330, 560, 90, 14), (40, 450, 80, 14), (200, 380, 70, 14), (330, 320, 80, 14), (60, 270, 80, 14), (190, 200, 70, 14), (300, 135, 110, 14)],
+        urchins=[(85, 442)],
+        crawlers=[],
+        jellies=[((150, 520), (150, 420), 0.3), ((290, 440), (290, 340), 0.32), ((130, 330), (130, 230), 0.3)],
+        gulls=[],
+        pearls=[(235, 362), (100, 252), (225, 182)],
+        tip='Long, slow tide. Small stones. Jellies drifting in the dark.',
+    ),
+    # ---- pool 18
+    dict(
+        name='Rookery',
+        period=12.0,
+        tide_low=606,
+        tide_high=108,
+        spawn=(30, 575),
+        goal=(210, 110),
+        plats=[(0, 600, 420, 20), (0, 520, 170, 16), (140, 440, 160, 16), (0, 350, 140, 16), (280, 350, 140, 16), (140, 270, 140, 16), (280, 190, 140, 16), (140, 130, 140, 16)],
+        urchins=[(250, 432)],
+        crawlers=[((140, 270, 140, 16), 180, 28)],
+        jellies=[],
+        gulls=[(90, 80, 70), (330, 80, 70), (210, 95, 110)],
+        anemones=[(350, 350)],
+        pearls=[(80, 332), (350, 172), (210, 252)],
         tip="The rookery. Get under a ledge and they can't reach you.",
     ),
+    # ---- pool 19
     dict(
-        name="Last ledge",
-        period=9.5, tide_low=606, tide_high=116,
-        spawn=(30, 570), goal=(210, 118),
-        plats=[(0, 600, 420, 20), (0, 550, 120, 16), (190, 550, 110, 16),
-               (330, 480, 90, 16), (140, 470, 120, 16), (0, 400, 130, 16),
-               (250, 385, 170, 16), (80, 315, 150, 16), (260, 240, 160, 16),
-               (0, 230, 120, 16), (130, 138, 170, 16)],
-        urchins=[(60, 542), (240, 542), (370, 472), (190, 462), (60, 392),
-                 (320, 377), (140, 307), (320, 232)],
-        eels=[(160, 600, "up", 124, 2.7), (300, 600, "up", 124, 3.1),
-              (210, 486, "down", 90, 2.6), (90, 416, "down", 84, 2.9)],
-        jellies=[((180, 420), (180, 330), 0.46), ((340, 300), (200, 300), 0.50)],
-        pearls=[(350, 462), (40, 382), (300, 222)],
-        puffers=[((40, 480), (150, 480), 0.34), ((300, 180), (400, 180), 0.38)],
-        crawlers=[((80, 315, 150, 16), 120, 32), ((260, 240, 160, 16), 300, 30)],
-        gulls=[(140, 96, 110), (320, 116, 86)],
-        tip="Everything the pools taught you, in one climb.",
-    ),
-    dict(
-        name="Open water",
-        period=13.0, tide_low=606, tide_high=113,
-        spawn=(28, 575), goal=(360, 115),
-        plats=[(0, 600, 420, 20), (0, 515, 160, 16), (230, 455, 190, 16),
-               (40, 370, 170, 16), (250, 290, 170, 16), (30, 215, 150, 16),
-               (240, 135, 180, 16)],
-        urchins=[(120, 507), (300, 447), (90, 362)],
-        eels=[(200, 600, "up", 120, 3.6)],
-        jellies=[((180, 400), (180, 310), 0.34)],
-        pearls=[(40, 497), (290, 437), (160, 352)],
-        puffers=[((300, 380), (380, 380), 0.28)],
+        name='Last ledge',
+        period=10.0,
+        tide_low=606,
+        tide_high=116,
+        spawn=(30, 575),
+        goal=(225, 118),
+        plats=[(0, 600, 420, 20), (0, 530, 130, 16), (290, 500, 130, 16), (140, 420, 130, 16), (300, 330, 120, 16), (0, 300, 130, 16), (150, 138, 150, 16)],
+        urchins=[(60, 292)],
         crawlers=[],
+        jellies=[((370, 420), (370, 260), 0.42)],
+        gulls=[(210, 90, 120)],
+        currents=[(0, 440, 140, 80, 1.8)],
+        crumbles=[(160, 232, 60, 14), (250, 196, 50, 14)],
+        shrimps=[(400, 500, -1, 3.2)],
+        pearls=[(200, 402), (360, 312), (190, 214)],
+        tip='Everything so far, in one climb.',
+    ),
+    # ---- pool 20
+    dict(
+        name='Open water',
+        period=13.0,
+        tide_low=606,
+        tide_high=113,
+        spawn=(28, 575),
+        goal=(360, 115),
+        plats=[(0, 600, 420, 20), (0, 515, 160, 16), (230, 455, 190, 16), (40, 370, 170, 16), (250, 290, 170, 16), (30, 215, 150, 16), (240, 135, 180, 16)],
+        urchins=[(120, 507), (300, 447), (90, 362)],
+        crawlers=[],
+        jellies=[((180, 400), (180, 310), 0.34)],
         gulls=[],
+        anemones=[(290, 290)],
         hatchlings=[(70, 509), (390, 449), (190, 364), (340, 284), (90, 209)],
-        tip="Five little ones are lost on these ledges. Bring them all up.",
+        pearls=[(40, 497), (290, 437), (160, 352)],
+        tip='Five little ones are lost on these ledges. Bring them all up.',
+    ),
+    # ---- pool 21
+    dict(
+        name='Bubble ladder',
+        period=11.0,
+        tide_low=606,
+        tide_high=380,
+        spawn=(30, 575),
+        goal=(355, 110),
+        plats=[(0, 600, 420, 20), (300, 480, 120, 16), (60, 340, 140, 16), (130, 210, 140, 16), (290, 130, 130, 16)],
+        urchins=[(360, 472)],
+        crawlers=[],
+        jellies=[((360, 560), (360, 420), 0.32)],
+        gulls=[],
+        vents=[(230, 600, 230, 3.6, 1.7), (80, 340, 190, 3.4, 1.6), (250, 210, 150, 3.4, 1.6)],
+        pearls=[(230, 340), (80, 230), (250, 120)],
+        tip='A ladder made of air. Wait for each vent to breathe.',
+    ),
+    # ---- pool 22
+    dict(
+        name='Ferry and shrimp',
+        period=12.0,
+        tide_low=606,
+        tide_high=118,
+        spawn=(30, 575),
+        goal=(370, 120),
+        plats=[(0, 600, 420, 20), (0, 480, 90, 16), (330, 430, 90, 16), (0, 330, 90, 16), (330, 260, 90, 16), (0, 180, 85, 16), (320, 140, 100, 16)],
+        urchins=[(150, 592), (270, 592)],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        currents=[(90, 110, 240, 490, -2.4)],
+        turtles=[(125, 290, 120, 40)],
+        shrimps=[(380, 430, -1, 3.4), (40, 330, 1, 3.6)],
+        pearls=[(210, 280), (40, 312), (370, 242)],
+        tip='Ride the shell, and mind the snaps from either side.',
+    ),
+    # ---- pool 23
+    dict(
+        name='Sinking steps',
+        period=11.0,
+        tide_low=606,
+        tide_high=300,
+        spawn=(30, 575),
+        goal=(355, 150),
+        plats=[(0, 600, 420, 20), (0, 480, 120, 16), (300, 430, 120, 16), (140, 360, 100, 16), (290, 170, 130, 16)],
+        urchins=[(350, 422)],
+        crawlers=[],
+        jellies=[((60, 430), (60, 340), 0.36)],
+        gulls=[(250, 90, 110)],
+        currents=[(0, 300, 420, 90, 2.0)],
+        crumbles=[(30, 270, 70, 14), (130, 232, 60, 14), (220, 200, 50, 14)],
+        pearls=[(65, 252), (160, 214), (245, 182)],
+        tip='The steps sink, and the current wants you on the wrong side.',
+    ),
+    # ---- pool 24
+    dict(
+        name='Spring garden',
+        period=11.0,
+        tide_low=606,
+        tide_high=560,
+        spawn=(30, 575),
+        goal=(300, 70),
+        plats=[(0, 600, 420, 20), (0, 360, 90, 16), (130, 470, 110, 16), (250, 340, 110, 16), (140, 210, 120, 16), (230, 90, 140, 16)],
+        urchins=[(380, 592)],
+        crawlers=[],
+        jellies=[],
+        gulls=[(80, 60, 60)],
+        anemones=[(80, 600), (200, 470), (320, 340), (170, 210)],
+        pearls=[(40, 342), (320, 250), (170, 120)],
+        tip='Spring by spring to the top. Hold DOWN when you want to stay put.',
+    ),
+    # ---- pool 25
+    dict(
+        name='The narrows',
+        period=11.0,
+        tide_low=606,
+        tide_high=108,
+        spawn=(30, 575),
+        goal=(210, 110),
+        plats=[(0, 600, 420, 20), (0, 500, 150, 16), (270, 500, 150, 16), (0, 380, 160, 16), (260, 380, 160, 16), (0, 260, 170, 16), (250, 260, 170, 16), (150, 130, 120, 16)],
+        urchins=[(120, 492)],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        currents=[(0, 520, 420, 70, 1.6), (0, 400, 420, 90, -1.8), (0, 280, 420, 90, 1.8), (0, 150, 420, 100, -1.6)],
+        shrimps=[(400, 500, -1, 3.6)],
+        pearls=[(80, 362), (340, 242), (40, 242)],
+        tip='The narrows. Each layer of water runs the other way.',
+    ),
+    # ---- pool 26
+    dict(
+        name='Lighthouse',
+        period=12.0,
+        tide_low=606,
+        tide_high=98,
+        spawn=(210, 575),
+        goal=(210, 100),
+        plats=[(0, 600, 420, 20), (150, 520, 120, 16), (0, 430, 110, 16), (310, 430, 110, 16), (150, 330, 120, 16), (0, 230, 100, 16), (320, 230, 100, 16), (150, 120, 120, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[((60, 560), (60, 470), 0.34), ((360, 370), (360, 270), 0.36)],
+        gulls=[(210, 70, 140)],
+        crumbles=[(110, 280, 40, 14), (270, 280, 40, 14)],
+        shrimps=[(200, 330, 1, 3.8)],
+        pearls=[(40, 412), (380, 212), (240, 312)],
+        tip="Climb the lighthouse. The sandstone bridges won't wait.",
+    ),
+    # ---- pool 27
+    dict(
+        name='Shrimp fort',
+        period=11.0,
+        tide_low=606,
+        tide_high=118,
+        spawn=(30, 575),
+        goal=(220, 120),
+        plats=[(0, 600, 420, 20), (0, 510, 140, 16), (280, 450, 140, 16), (0, 380, 140, 16), (280, 310, 140, 16), (0, 240, 140, 16), (160, 140, 120, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        shrimps=[(130, 510, 1, 3.0), (290, 450, -1, 3.2), (130, 380, 1, 3.0), (290, 310, -1, 3.2), (130, 240, 1, 3.4)],
+        pearls=[(380, 432), (40, 362), (380, 292)],
+        tip='A fort of shrimp. Punch one quiet and slip past while it sulks.',
+    ),
+    # ---- pool 28
+    dict(
+        name='Storm tide',
+        period=7.5,
+        tide_low=606,
+        tide_high=108,
+        spawn=(30, 575),
+        goal=(365, 110),
+        plats=[(0, 600, 420, 20), (0, 470, 100, 16), (320, 470, 100, 16), (0, 300, 100, 16), (320, 300, 100, 16), (0, 160, 110, 16), (310, 130, 110, 16)],
+        urchins=[(50, 462)],
+        crawlers=[],
+        jellies=[((210, 420), (210, 250), 0.5)],
+        gulls=[(210, 80, 140)],
+        currents=[(110, 100, 200, 500, -2.4)],
+        turtles=[(140, 280, 120, 48)],
+        pearls=[(210, 220), (50, 282), (370, 282)],
+        tip="Storm tide. The water won't wait, and neither will the turtle.",
+    ),
+    # ---- pool 29
+    dict(
+        name='Kelp cathedral',
+        period=13.0,
+        tide_low=606,
+        tide_high=128,
+        spawn=(210, 575),
+        goal=(210, 130),
+        plats=[(0, 600, 420, 20), (0, 480, 130, 16), (290, 480, 130, 16), (150, 380, 120, 16), (0, 260, 110, 16), (310, 260, 110, 16), (150, 150, 120, 16)],
+        urchins=[],
+        crawlers=[((150, 380, 120, 16), 180, 26)],
+        jellies=[((210, 310), (210, 230), 0.3)],
+        gulls=[],
+        anemones=[(60, 480), (360, 480)],
+        pearls=[(60, 400), (360, 400), (60, 242)],
+        tip='Quiet water for once. Enjoy the springs.',
+    ),
+    # ---- pool 30
+    dict(
+        name='High-water mark',
+        period=11.0,
+        tide_low=606,
+        tide_high=88,
+        spawn=(210, 575),
+        goal=(340, 90),
+        plats=[(0, 600, 420, 20), (0, 520, 120, 16), (300, 520, 120, 16), (150, 440, 120, 16), (0, 350, 110, 16), (310, 350, 110, 16), (160, 250, 100, 16), (260, 110, 160, 16)],
+        urchins=[(60, 512)],
+        crawlers=[],
+        jellies=[((210, 330), (210, 280), 0.42)],
+        gulls=[(120, 70, 90)],
+        currents=[(120, 460, 180, 60, 2.0)],
+        vents=[(365, 350, 120, 3.4, 1.5)],
+        shrimps=[(400, 520, -1, 3.0), (20, 350, 1, 3.2)],
+        pearls=[(210, 422), (80, 332), (210, 232)],
+        tip="The high-water mark. Everything you've learned, and then some.",
+    ),
+    # ---- pool 31
+    dict(
+        name='The deep',
+        period=12.0,
+        tide_low=606,
+        tide_high=98,
+        spawn=(40, 480),
+        goal=(210, 100),
+        special='octopus',
+        octopus=(210, 600),
+        plats=[(0, 600, 420, 20), (0, 500, 120, 16), (300, 500, 120, 16), (140, 400, 140, 16), (0, 300, 120, 16), (300, 300, 120, 16), (40, 200, 100, 16), (280, 200, 100, 16), (150, 120, 120, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[],
+        gulls=[],
+        pearls=[(60, 282), (360, 282), (90, 182)],
+        tip="The Great Octopus. Dodge the slam, then punch the arm while it's stuck.",
         dialogue=[
-            ("Old hermit", "Well. Look at the little ones behind you."),
-            ("Old hermit", "All the way up from the shallows. Good."),
-            ("Old hermit", "Careful at that edge. It isn't another pool."),
-            ("Old hermit", "That's all of them, at once, going out."),
-            ("Old hermit", "I've been in this one since the spring tide."),
-            ("Old hermit", "Good rock. Good light. I stopped climbing."),
-            ("Old hermit", "Every pool you crossed is still down there,"),
-            ("Old hermit", "filling and emptying, with or without you in it."),
-            ("Old hermit", "That's the thing about a tide. It isn't taking"),
-            ("Old hermit", "anything from you. It only ever keeps moving."),
-            ("Old hermit", "Go on, then. The water's high enough."),
-            ("", "The crab lets go of the rock,"),
-            ("", "and the sea carries it the rest of the way."),
+            ('Old hermit', 'So. The old octopus finally let someone through.'),
+            ('Old hermit', 'All the way up from the shallows. Good.'),
+            ('Old hermit', "Careful at that edge. It isn't another pool."),
+            ('Old hermit', "That's all of them, at once, going out."),
+            ('Old hermit', "I've been in this one since the spring tide."),
+            ('Old hermit', 'Good rock. Good light. I stopped climbing.'),
+            ('Old hermit', 'Every pool you crossed is still down there,'),
+            ('Old hermit', 'filling and emptying, with or without you in it.'),
+            ('Old hermit', "That's the thing about a tide. It isn't taking"),
+            ('Old hermit', 'anything from you. It only ever keeps moving.'),
+            ('Old hermit', "Go on, then. The water's high enough."),
+            ('', 'The crab lets go of the rock,'),
+            ('', 'and the sea carries it the rest of the way.'),
         ],
     ),
 ]
@@ -832,6 +1047,24 @@ class Eel:
         return None
 
 
+def reanchor(mob):
+    """After a punch the creature keeps its new spot: its whole patrol line
+    slides over to wherever it was knocked, instead of it swimming straight
+    back to the old line - which was usually right where you were standing."""
+    tx = lerp(mob.p1[0], mob.p2[0], mob.u)
+    ty = lerp(mob.p1[1], mob.p2[1], mob.u)
+    ox, oy = mob.x - tx, mob.y - ty
+    lo_x = min(mob.p1[0], mob.p2[0]) + ox
+    hi_x = max(mob.p1[0], mob.p2[0]) + ox
+    lo_y = min(mob.p1[1], mob.p2[1]) + oy
+    hi_y = max(mob.p1[1], mob.p2[1]) + oy
+    # keep the shifted line inside the pool
+    ox += max(0.0, 24 - lo_x) - max(0.0, hi_x - (WORLD_W - 24))
+    oy += max(0.0, 24 - lo_y) - max(0.0, hi_y - (WORLD_H - 24))
+    mob.p1 = (mob.p1[0] + ox, mob.p1[1] + oy)
+    mob.p2 = (mob.p2[0] + ox, mob.p2[1] + oy)
+
+
 class Jelly:
     """Patrols, charges with an accelerating blink, then discharges a ring.
 
@@ -877,6 +1110,8 @@ class Jelly:
         if self.knock > 0:
             self.knock -= dt
             self.spin += self.vx * 0.05
+            if self.knock <= 0:
+                reanchor(self)
         else:
             self.u += self.dir * self.speed * dt
             if self.u >= 1:
@@ -892,13 +1127,15 @@ class Jelly:
         # surface instead
         if water_y is not None and ty < water_y - self.STRAND_PAD:
             ty = water_y - self.STRAND_PAD
-        pull = 0.9 if self.knock <= 0 else 0.12
+        pull = 0.9 if self.knock <= 0 else 0.0     # coast while knocked away
         self.vx += (tx - self.x) * 0.035 * pull
         self.vy += (ty - self.y) * 0.035 * pull
-        self.vx *= 0.90
-        self.vy *= 0.90
+        drag = 0.90 if self.knock <= 0 else 0.93
+        self.vx *= drag
+        self.vy *= drag
         self.x += self.vx
         self.y += self.vy
+        self.x = clamp(self.x, 16, WORLD_W - 16)
 
         # smaller y is higher on screen, and water fills the region BELOW
         # water_y, so "at or above the clamped resting line" is dry
@@ -984,6 +1221,8 @@ class Puffer:
                              dt * (5.0 if swollen else 2.0))
         if self.knock > 0:
             self.knock -= dt
+            if self.knock <= 0:
+                reanchor(self)
         else:
             self.u += self.dir * self.speed * dt
             if self.u >= 1:
@@ -994,7 +1233,7 @@ class Puffer:
         ty = lerp(self.p1[1], self.p2[1], self.u)
         if tx != self.x:
             self.face = 1 if tx > self.x else -1
-        pull = 0.9 if self.knock <= 0 else 0.1
+        pull = 0.9 if self.knock <= 0 else 0.0
         self.vx += (tx - self.x) * 0.04 * pull
         self.vy += (ty - self.y) * 0.04 * pull
         self.vx *= 0.90
@@ -1398,6 +1637,355 @@ class Hatchling:
                 self.y += (hy - self.y) / d * step
 
 
+# ----------------------------------------------------------------------------
+# The pool itself: currents, vents, anemones, sandstone, turtles, shrimp
+# ----------------------------------------------------------------------------
+
+class Current:
+    """A riptide channel. Anything swimming inside it is shoved along; you
+    can ride it, or fight it slowly. Out of the water it does nothing."""
+
+    def __init__(self, x, y, w, h, push):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.push = float(push)          # px/frame the water is moving
+        self.t = random.uniform(0, 10)
+
+    def update(self, dt):
+        self.t += dt
+
+
+class Vent:
+    """A crack in the rock that breathes. It rumbles, then blows a column of
+    bubbles that lifts anything above it - fast, in the water or out of it."""
+
+    WARN = 0.8
+
+    def __init__(self, x, y, height, period=3.4, blow=1.5):
+        self.x, self.y = float(x), float(y)       # y = the rock it sits in
+        self.height = float(height)
+        self.period, self.blow = float(period), float(blow)
+        self.t = random.uniform(0, period)
+        self.power = 0.0                           # 0..1, eased
+
+    @property
+    def phase(self):
+        return self.t % self.period
+
+    @property
+    def blowing(self):
+        return self.phase > self.period - self.blow
+
+    @property
+    def warming(self):
+        p = self.phase
+        return self.period - self.blow - self.WARN < p <= self.period - self.blow
+
+    def column(self):
+        return pygame.Rect(int(self.x - 15), int(self.y - self.height), 30, int(self.height))
+
+    def update(self, dt):
+        self.t += dt
+        self.power = approach(self.power, 1.0 if self.blowing else 0.0, dt * 5.0)
+
+
+class Anemone:
+    """A fat anemone on a ledge. Land on it and it flings you up, higher
+    than any hop. Hold DOWN as you land and it lets you settle instead."""
+
+    BOUNCE = 11.8
+    W = 34
+
+    def __init__(self, x, y):
+        self.x, self.y = float(x), float(y)       # y = top of the ledge
+        self.squish = 0.0
+        self.sway = random.uniform(0, math.tau)
+
+    @property
+    def top(self):
+        return self.y - 9
+
+    def update(self, dt):
+        self.sway += dt * 2.2
+        self.squish = approach(self.squish, 0.0, dt * 3.0)
+
+
+class Crumble:
+    """A sandstone shelf. It takes your weight for a moment, cracks, drops
+    away, and grows back a few seconds later."""
+
+    HOLD = 0.55
+    GONE = 3.6
+
+    def __init__(self, x, y, w, h=14):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.state = "solid"          # solid | cracking | fallen
+        self.t = 0.0
+        self.fall = 0.0               # how far the falling pieces have dropped
+        self.regrow = 0.0             # 0..1 fade back in
+
+    @property
+    def solid(self):
+        return self.state in ("solid", "cracking")
+
+    def step_on(self):
+        if self.state == "solid":
+            self.state, self.t = "cracking", 0.0
+
+    def update(self, dt, crab_rect):
+        self.t += dt
+        if self.state == "cracking" and self.t >= self.HOLD:
+            self.state, self.t, self.fall = "fallen", 0.0, 0.0
+            return "drop"
+        if self.state == "fallen":
+            self.fall += dt * 260 * min(1.0, self.t * 2)
+            # grows back only where nothing is standing in the way
+            if self.t >= self.GONE and not crab_rect.colliderect(self.rect.inflate(4, 10)):
+                self.state, self.t, self.regrow = "solid", 0.0, 0.0
+        if self.state == "solid":
+            self.regrow = approach(self.regrow, 1.0, dt * 2.5)
+        return None
+
+
+class Turtle:
+    """A sea turtle that paddles back and forth across open water, riding
+    the surface as the tide moves. Stand on its shell for a lift."""
+
+    W, H = 58, 12
+
+    def __init__(self, x1, x2, top, speed=38):
+        self.x1, self.x2 = float(x1), float(x2)
+        self.x = float(x1)
+        self.top_limit = float(top)       # it won't surface above this line
+        self.y = WORLD_H - 30.0
+        self.speed = float(speed)
+        self.dir = 1
+        self.pause = 0.0
+        self.dx = self.dy = 0.0
+        self.paddle = random.uniform(0, math.tau)
+
+    @property
+    def rect(self):
+        return pygame.Rect(int(self.x - self.W / 2), int(self.y - self.H / 2), self.W, self.H)
+
+    def update(self, dt, water_y):
+        ox, oy = self.x, self.y
+        # the shell rides just proud of the surface; on a big low tide it
+        # settles on the sand, and it never climbs out of the water
+        want = clamp(water_y - 2, self.top_limit, WORLD_H - 30)
+        self.y = approach(self.y, want, dt * 120)
+        if self.pause > 0:
+            self.pause -= dt
+        else:
+            self.paddle += dt * 6.0
+            self.x += self.dir * self.speed * dt
+            if self.x >= self.x2:
+                self.x, self.dir, self.pause = self.x2, -1, 0.9
+            elif self.x <= self.x1:
+                self.x, self.dir, self.pause = self.x1, 1, 0.9
+        self.dx, self.dy = self.x - ox, self.y - oy
+
+
+class Shrimp:
+    """Pistol shrimp. It cocks its big claw - the glow tells you it's coming
+    - and snaps a bubble that shoots along its ledge. Punch it and it sulks
+    for a few seconds. Bumping into the shrimp itself doesn't hurt; only the
+    bubble does."""
+
+    COCK = 0.75
+    R = 10
+
+    def __init__(self, x, y, face, period=3.4):
+        self.x, self.y = float(x), float(y) - 7      # y = top of its ledge
+        self.face = 1 if face >= 0 else -1
+        self.period = float(period)
+        self.t = random.uniform(0, period * 0.5)
+        self.stun = 0.0
+        self.cock = 0.0
+        self.recoil = 0.0
+
+    def update(self, dt):
+        self.recoil = approach(self.recoil, 0.0, dt * 6)
+        if self.stun > 0:
+            self.stun -= dt
+            self.t = 0.0
+            self.cock = approach(self.cock, 0.0, dt * 4)
+            return None
+        self.t += dt
+        lead = self.period - self.COCK
+        self.cock = clamp((self.t - lead) / self.COCK, 0.0, 1.0) if self.t > lead else 0.0
+        if self.t >= self.period:
+            self.t = 0.0
+            self.cock = 0.0
+            self.recoil = 1.0
+            return "snap"
+        return None
+
+    def punched(self, px, py, pr):
+        return math.hypot(self.x - px, self.y - py) <= self.R + pr
+
+
+class Bubble:
+    """The shrimp's shot: a cavitation bubble that skims along fast."""
+
+    R = 7
+
+    def __init__(self, x, y, vx):
+        self.x, self.y = float(x), float(y)
+        self.vx = vx
+        self.life = 2.6
+        self.wob = random.uniform(0, math.tau)
+        self.dead = False
+
+    def update(self, dt):
+        self.x += self.vx
+        self.wob += dt * 14
+        self.life -= dt
+        if self.life <= 0 or self.x < -20 or self.x > WORLD_W + 20:
+            self.dead = True
+
+    def rect(self):
+        return pygame.Rect(int(self.x - 6), int(self.y - 6), 12, 12)
+
+    def punched(self, px, py, pr):
+        return math.hypot(self.x - px, self.y - py) <= self.R + pr
+
+
+class Tentacle:
+    """One arm of the Great Octopus. It rears up out of the deep (that's the
+    warning), slams down where you were standing, then lies stuck in the rock
+    for a moment with its tip glowing - that's when you punch it."""
+
+    def __init__(self, base):
+        self.base = base
+        self.state = "idle"       # idle | aim | strike | stuck | retract
+        self.t = 0.0
+        self.tgt = (0.0, 0.0)
+        self.u = 0.0              # how far along its arc the tip has reached
+        self.flinch = 0.0
+        self.times = dict(aim=0.95, strike=0.22, stuck=1.7, retract=0.5)
+
+    def start(self, x, y, times):
+        self.times = times
+        self.state, self.t = "aim", 0.0
+        self.tgt = (float(x), float(y))
+
+    def ctrl(self):
+        bx, by = self.base
+        tx, ty = self.tgt
+        return ((bx + tx) / 2, min(by, ty) - 170)
+
+    def point(self, u):
+        """Position on the arc, 0 = at the octopus, 1 = at the target."""
+        (bx, by), (cx, cy), (tx, ty) = self.base, self.ctrl(), self.tgt
+        a, b, c = (1 - u) * (1 - u), 2 * (1 - u) * u, u * u
+        return (a * bx + b * cx + c * tx, a * by + b * cy + c * ty)
+
+    def update(self, dt):
+        self.flinch = approach(self.flinch, 0.0, dt * 4)
+        if self.state == "idle":
+            self.u = approach(self.u, 0.0, dt * 2)
+            return None
+        self.t += dt
+        if self.state == "aim":
+            self.u = 0.18 + math.sin(self.t * 9) * 0.03          # reared, quivering
+            if self.t >= self.times["aim"]:
+                self.state, self.t = "strike", 0.0
+        elif self.state == "strike":
+            k = clamp(self.t / self.times["strike"], 0, 1)
+            self.u = 0.18 + (1 - 0.18) * k * k
+            if self.t >= self.times["strike"]:
+                self.state, self.t, self.u = "stuck", 0.0, 1.0
+                return "impact"
+        elif self.state == "stuck":
+            self.u = 1.0
+            if self.t >= self.times["stuck"]:
+                self.state, self.t = "retract", 0.0
+        elif self.state == "retract":
+            self.u = max(0.0, 1.0 - self.t / self.times["retract"])
+            if self.t >= self.times["retract"]:
+                self.state, self.t = "idle", 0.0
+        return None
+
+    def tip(self):
+        return self.point(self.u)
+
+    def punchable(self, px, py, pr):
+        if self.state != "stuck":
+            return False
+        tx, ty = self.tgt
+        return math.hypot(tx - px, ty - py) <= 16 + pr
+
+
+class Octopus:
+    """The Great Octopus, at the bottom of the last pool. Three phases: one
+    arm at a time, then two, then two that come faster."""
+
+    HP = 9
+
+    def __init__(self, x, y):
+        self.x, self.y = float(x), float(y)
+        self.hp = self.HP
+        self.arms = [Tentacle((x - 70, y - 30)), Tentacle((x + 70, y - 30))]
+        self.next = 2.4
+        self.flash = 0.0
+        self.blink = 2.0
+        self.beaten = False
+        self.sink = 0.0
+        self.t = 0.0
+        self.ease = 1.0           # relaxed pace gives you longer to read it
+
+    @property
+    def phase(self):
+        return 1 if self.hp > 6 else 2 if self.hp > 3 else 3
+
+    def timing(self):
+        p = self.phase
+        e = self.ease
+        return dict(aim=(0.95, 0.8, 0.68)[p - 1] * e, strike=0.22,
+                    stuck=(1.8, 1.6, 1.4)[p - 1] * e, retract=0.5)
+
+    def update(self, dt, crab):
+        self.t += dt
+        self.flash = max(0.0, self.flash - dt)
+        self.blink -= dt
+        if self.blink < -0.15:
+            self.blink = random.uniform(1.5, 3.5)
+        events = []
+        if self.beaten:
+            self.sink += dt
+            self.y += 46 * dt
+            for a in self.arms:
+                if a.state != "idle":
+                    a.state, a.t = "retract", max(a.t, 0.0)
+                a.update(dt)
+            return events
+        for a in self.arms:
+            if a.update(dt) == "impact":
+                events.append(a)
+        self.next -= dt
+        busy = [a for a in self.arms if a.state != "idle"]
+        limit = 1 if self.phase == 1 else 2
+        if self.next <= 0 and len(busy) < limit:
+            # the arm on your side reaches for you
+            idle = [a for a in self.arms if a.state == "idle"]
+            idle.sort(key=lambda a: abs(a.base[0] - crab.x))
+            idle[0].start(crab.x, crab.y + 4, self.timing())
+            self.next = (2.6, 1.8, 1.25)[self.phase - 1] * self.ease
+        return events
+
+    def take_hit(self, arm):
+        before = self.phase
+        self.hp -= 1
+        self.flash = 0.35
+        arm.flinch = 1.0
+        arm.state, arm.t = "retract", 0.0
+        self.next = max(self.next, 1.1)
+        if self.hp <= 0:
+            self.beaten = True
+            return "beaten"
+        return "phase" if self.phase != before else "hit"
+
+
 class Pearl:
     """Sits still until you come near, then leaps toward you."""
 
@@ -1689,6 +2277,10 @@ class Game:
         self.special = ""
         self.boss_done = False
         self.hatchlings = []
+        self.currents, self.vents, self.anemones = [], [], []
+        self.crumbles, self.turtles, self.shrimps, self.bubbles = [], [], [], []
+        self.octopus = None
+        self.solid = []
         self.trail_hist = []
         self.goal_nag = 0.0
 
@@ -1845,7 +2437,7 @@ class Game:
         self.t = 0.0
         self.plats = [pygame.Rect(*p) for p in L["plats"]]
         self.urchins = [Urchin(*u) for u in L["urchins"]]
-        self.eels = [Eel(*e) for e in L["eels"]]
+        self.eels = [Eel(*e) for e in L.get("eels", [])]
         self.jellies = [Jelly(*j) for j in L["jellies"]]
         self.puffers = [Puffer(*p) for p in L.get("puffers", [])]
         self.crawlers = [Crawler(pygame.Rect(*r), x, sp)
@@ -1861,6 +2453,15 @@ class Game:
         if self.special == "gullking":
             self.gulls.append(Gull(*L["boss"], boss=True))
         self.hatchlings = [Hatchling(*h) for h in L.get("hatchlings", [])]
+        self.currents = [Current(*c) for c in L.get("currents", [])]
+        self.vents = [Vent(*v) for v in L.get("vents", [])]
+        self.anemones = [Anemone(*a) for a in L.get("anemones", [])]
+        self.crumbles = [Crumble(*r) for r in L.get("crumbles", [])]
+        self.turtles = [Turtle(*t) for t in L.get("turtles", [])]
+        self.shrimps = [Shrimp(*sh) for sh in L.get("shrimps", [])]
+        self.bubbles = []
+        self.octopus = Octopus(*L["octopus"]) if self.special == "octopus" else None
+        self.solid = list(self.plats)
         self.trail_hist = []
         self.goal_nag = 0.0
         self.clean = True            # rainbow mode is earned pool by pool
@@ -1898,9 +2499,15 @@ class Game:
             cw.speed /= slow
         for gl in self.gulls:
             gl.cool *= slow
+        for sh in self.shrimps:
+            sh.period *= slow ** 0.6
+        for v in self.vents:
+            v.period *= slow ** 0.4
+        if self.octopus:
+            self.octopus.ease = 1.25 if relaxed else 1.0
 
     def goal_open(self):
-        if self.special == "gullking":
+        if self.special in ("gullking", "octopus"):
             return self.boss_done
         if self.hatchlings:
             return all(h.state == "follow" for h in self.hatchlings)
@@ -1980,6 +2587,38 @@ class Game:
         c = self.crab
         wy = self.water_y()
 
+        # ---- moving and breaking ground goes first, so the crab stands on
+        # where it is this frame. A crab on a turtle's shell rides with it.
+        for tu in self.turtles:
+            # (on_ground flickers on alternate frames as gravity re-seats the
+            # crab, so go by where its feet are, not by the flag)
+            riding = c.vy >= -0.5 and -1 <= tu.rect.top - (c.y + CRAB_H / 2) <= 4 and \
+                tu.rect.left - CRAB_W / 2 + 2 < c.x < tu.rect.right + CRAB_W / 2 - 2
+            tu.update(dt, wy)
+            if riding:
+                c.x += tu.dx
+                c.y += tu.dy
+            elif c.rect.colliderect(tu.rect) and c.y < tu.y:
+                # the shell came up underneath: scoop the crab up, don't
+                # shove it out sideways
+                c.y = tu.rect.top - CRAB_H / 2
+                c.vy = min(c.vy, tu.dy)
+        for cr in self.crumbles:
+            if cr.update(dt, c.rect) == "drop":
+                for k in range(6):
+                    self.parts.add(cr.rect.x + random.uniform(0, cr.rect.w), cr.rect.y + 6,
+                                   random.uniform(-0.6, 0.6), random.uniform(0.5, 2.0),
+                                   0.6, (214, 186, 140), random.uniform(2, 3.5), 0.25)
+                self.shake = max(self.shake, 3)
+        for cur in self.currents:
+            cur.update(dt)
+        for v in self.vents:
+            v.update(dt)
+        for an in self.anemones:
+            an.update(dt)
+        self.solid = self.plats + [cr.rect for cr in self.crumbles if cr.solid] + \
+            [tu.rect for tu in self.turtles]
+
         left = keys[pygame.K_LEFT] or keys[pygame.K_a]
         right = keys[pygame.K_RIGHT] or keys[pygame.K_d]
         up = keys[pygame.K_UP] or keys[pygame.K_w]
@@ -2048,6 +2687,13 @@ class Game:
         c.vx += (d * speed - c.vx) * accel
         if not d:
             c.vx *= 0.90 if swimming else 0.74
+        if swimming:
+            for cur in self.currents:
+                if cur.rect.collidepoint(c.x, c.y):
+                    c.vx += cur.push * 0.09
+                    if random.random() < 0.2:
+                        self.parts.add(c.x - cur.push * 4, c.y + random.uniform(-6, 6),
+                                       cur.push * 0.6, 0, 0.35, C_FOAM, 1.4)
 
         if c.gripping:
             c.vy += GRAVITY * 0.55          # clamped to the rock, not floating
@@ -2064,13 +2710,21 @@ class Game:
                                random.uniform(1.2, 2.4))
         if depth > 0:
             c.vy *= WATER_DRAG
-        c.vy = clamp(c.vy, -MAX_FALL, MAX_FALL)
+        for v in self.vents:
+            if v.power > 0.05 and not c.gripping and v.column().collidepoint(c.x, c.y + 4):
+                c.vy -= 1.05 * v.power
+                c.vy = max(c.vy, -7.5)
+                c.on_ground = False
+        # an anemone throws harder than any hop, so for a moment after one
+        # the usual speed limit on rising is lifted
+        c.sprung = max(0.0, getattr(c, "sprung", 0.0) - dt)
+        c.vy = clamp(c.vy, -(Anemone.BOUNCE + 0.5) if c.sprung > 0 else -MAX_FALL, MAX_FALL)
 
         was_ground = c.on_ground
         c.on_ground = False
         c.x += c.vx
         r = c.rect
-        for p in self.plats:
+        for p in self.solid:
             if r.colliderect(p):
                 if c.vx > 0:
                     c.x = p.left - CRAB_W / 2
@@ -2080,9 +2734,28 @@ class Game:
                 r = c.rect
         c.x = clamp(c.x, CRAB_W / 2, WORLD_W - CRAB_W / 2)
 
+        prev_bottom = c.y + CRAB_H / 2
         c.y += c.vy
+        # ---- anemones: land on one and it throws you up, unless you hold
+        # DOWN, which lets you settle on it
+        if c.vy > 0:
+            for an in self.anemones:
+                if abs(c.x - an.x) < an.W / 2 + 4 and prev_bottom <= an.top + 3 and \
+                        c.y + CRAB_H / 2 >= an.top:
+                    c.y = an.top - CRAB_H / 2
+                    if down:
+                        c.vy = 0.0
+                        c.on_ground = True
+                    else:
+                        c.vy = -Anemone.BOUNCE * (0.72 if depth > 0.3 else 1.0)
+                        c.sprung = 0.6
+                        an.squish = 1.0
+                        c.squash = -0.6
+                        c.on_ground = False
+                        self.parts.burst(c.x, an.top, 10, (255, 150, 200), 3.0, 0.4, 2.2, 0.12)
+                    break
         r = c.rect
-        for p in self.plats:
+        for p in self.solid:
             if r.colliderect(p):
                 if c.vy > 0:
                     c.y = p.top - CRAB_H / 2
@@ -2094,6 +2767,12 @@ class Game:
                     c.y = p.bottom + CRAB_H / 2
                 c.vy = 0
                 r = c.rect
+
+        if c.on_ground:
+            for cr in self.crumbles:
+                if cr.solid and abs((c.y + CRAB_H / 2) - cr.rect.top) <= 1 and \
+                        cr.rect.left - 6 < c.x < cr.rect.right + 6:
+                    cr.step_on()
 
         # remember solid ground, so a fall costs a heart but not your progress
         if c.on_ground and c.iframe <= 0:
@@ -2146,7 +2825,7 @@ class Game:
         for cw in self.crawlers:
             cw.update(dt)
         for gl in self.gulls:
-            gl.update(dt, c, depth < 0.25, self.plats)
+            gl.update(dt, c, depth < 0.25, self.solid)
             if gl.crash_pending:
                 # it stooped at where you were and found rock instead
                 spd = gl.crash_pending
@@ -2190,6 +2869,38 @@ class Game:
                 self.parts.ring(j.x, j.y, 20, C_JELLY_HOT, 5.2, 0.6)
                 self.parts.burst(j.x, j.y, 12, C_JELLY, 3.2, 0.5, 2.6, 0.0, True)
                 self.shake = max(self.shake, 6)
+
+        # ---- pistol shrimp and their bubbles
+        for sh in self.shrimps:
+            if sh.update(dt) == "snap":
+                bx = sh.x + sh.face * 15
+                self.bubbles.append(Bubble(bx, sh.y - 2, sh.face * 3.6))
+                self.parts.burst(bx, sh.y - 2, 8, C_FOAM, 3.0, 0.25, 2.0, 0.0, True)
+                self.shake = max(self.shake, 2)
+        for b in self.bubbles:
+            b.update(dt)
+            if any(b.rect().colliderect(p) for p in self.solid):
+                b.dead = True
+                self.parts.burst(b.x, b.y, 8, C_FOAM, 2.4, 0.3, 2.0, 0.0)
+        self.bubbles = [b for b in self.bubbles if not b.dead]
+
+        # ---- the Great Octopus
+        if self.octopus:
+            for arm in self.octopus.update(dt, c):
+                tx, ty = arm.tgt
+                self.parts.burst(tx, ty + 6, 16, C_ROCK_LIT, 4.2, 0.5, 2.8, 0.2)
+                self.parts.splash(tx, min(ty, wy) if ty > wy else ty, 0.8)
+                self.shake = max(self.shake, 9)
+                if math.hypot(c.x - tx, c.y - ty) < 30:
+                    self.hurt(tx, ty + 20)
+            if self.octopus.beaten and not self.boss_done:
+                self.boss_done = True
+                gx, gy = self.L["goal"]
+                for col in RAINBOW:
+                    self.parts.burst(gx, gy, 8, col, 5.0, 0.9, 3.0, 0.06, True)
+                self.parts.burst(self.octopus.x, self.octopus.y - 40, 40, (40, 20, 60), 5.0, 1.2, 4.0, 0.0)
+                self.shake = max(self.shake, 16)
+                self.set_msg("The Great Octopus lets go. The way up is open.", 3.4)
 
         # ---- punch resolution, against the claw circle the player can see
         if c.punch_active() and not c.punch_hit:
@@ -2271,12 +2982,54 @@ class Game:
                         done = True
                         break
             if not done:
+                for b in self.bubbles:
+                    if b.punched(px, py, PUNCH_HIT_R):
+                        b.dead = True
+                        self.parts.burst(b.x, b.y, 12, C_FOAM, 3.4, 0.35, 2.2, 0.0, True)
+                        recoil(0.6)
+                        done = True
+                        break
+            if not done:
+                for sh in self.shrimps:
+                    if sh.punched(px, py, PUNCH_HIT_R):
+                        sh.stun = 3.6
+                        sh.t = 0.0
+                        self.parts.burst(sh.x, sh.y, 12, (255, 150, 120), 3.8, 0.4, 2.4, 0.1)
+                        self.shake = max(self.shake, 6)
+                        self.freeze = max(self.freeze, 0.06)
+                        recoil(1.3)
+                        done = True
+                        break
+            if not done and self.octopus and not self.octopus.beaten:
+                for arm in self.octopus.arms:
+                    if arm.punchable(px, py, PUNCH_HIT_R):
+                        res = self.octopus.take_hit(arm)
+                        tx, ty = arm.tgt
+                        self.parts.burst(tx, ty, 18, (190, 90, 150), 4.8, 0.5, 2.8, 0.1)
+                        self.shake = max(self.shake, 9)
+                        self.freeze = max(self.freeze, 0.1)
+                        if res == "phase":
+                            self.set_msg("It's angry now. Two arms at once." if self.octopus.phase == 2
+                                         else "Last stand. They come faster now.", 2.6)
+                        elif res == "hit":
+                            self.set_msg("Got it!", 1.0)
+                        recoil(1.8)
+                        done = True
+                        break
+            if not done:
                 for u in self.urchins:
                     if math.hypot(u.x - px, u.y - py) <= 11 + PUNCH_HIT_R:
                         self.hurt(u.x, u.y)
                         break
 
         cr = c.hurt_rect
+        if c.iframe <= 0:
+            for b in self.bubbles:
+                if b.rect().colliderect(cr):
+                    b.dead = True
+                    self.parts.burst(b.x, b.y, 10, C_FOAM, 3.0, 0.3, 2.0, 0.0)
+                    self.hurt(b.x, b.y)
+                    break
         if c.iframe <= 0:
             for mob in (list(self.urchins) + list(self.eels) + list(self.jellies) +
                         list(self.puffers) + list(self.crawlers) + list(self.gulls)):
@@ -2296,7 +3049,7 @@ class Game:
                     break
 
         for p in self.pearls:
-            p.update(dt, c, self.plats, wy, self.parts)
+            p.update(dt, c, self.solid, wy, self.parts)
             if not p.got and math.hypot(p.x - c.x, p.y - c.y) < 20:
                 p.got = True
                 self.run_pearls += 1
@@ -2310,6 +3063,8 @@ class Game:
             self.goal_nag = 3.0
             if self.special == "gullking":
                 self.set_msg("Sealed while the Gull King rules the pool.", 2.4)
+            elif self.special == "octopus":
+                self.set_msg("The octopus won't let go of the way out. Not yet.", 2.4)
             else:
                 left = sum(1 for h in self.hatchlings if h.state != "follow")
                 self.set_msg("Not without the little ones - %d still out there." % left, 2.4)
@@ -3099,14 +3854,267 @@ class Game:
         pygame.draw.lines(s, C_FOAM, False,
                           [(x + 6, y - 1 * d), (x + 9, y - 5 * d), (x + 12, y - 1 * d)], 2)
 
+
+    # -- drawing: the new pool features ---------------------------------------
+
+    def draw_current(self, s, cur, wy):
+        r = cur.rect
+        top = max(r.top, int(wy) + 4)
+        if top >= r.bottom:
+            return
+        band = pygame.Surface((r.w, r.bottom - top), pygame.SRCALPHA)
+        band.fill((210, 255, 250, 22))
+        s.blit(band, (r.x, top))
+        d = 1 if cur.push > 0 else -1
+        span = r.w + 40
+        for i in range(max(4, r.w * (r.bottom - top) // 1400)):
+            y = top + 6 + (i * 29) % max(1, r.bottom - top - 10)
+            x = r.x - 20 + (i * 53 + cur.t * abs(cur.push) * 60) % span
+            if d < 0:
+                x = r.right + 20 - (x - r.x + 20)
+            ln = 10 + (i % 3) * 5
+            a = 70 + (i % 4) * 25
+            pygame.draw.line(s, (236, 255, 250), (x, y), (x - d * ln, y), 2 if i % 3 == 0 else 1)
+        # a couple of chevrons say which way it runs
+        for k in range(2):
+            cx = r.x + r.w * (0.3 + 0.4 * k) + d * ((cur.t * 30) % 14)
+            cy = top + (r.bottom - top) * 0.5
+            if cy > wy + 6:
+                pygame.draw.lines(s, (255, 255, 255), False,
+                                  [(cx - d * 5, cy - 6), (cx + d * 2, cy), (cx - d * 5, cy + 6)], 2)
+
+    def draw_vent(self, s, v):
+        # the crack in the rock
+        pygame.draw.ellipse(s, (60, 40, 32), (v.x - 12, v.y - 3, 24, 7))
+        pygame.draw.ellipse(s, (20, 14, 12), (v.x - 8, v.y - 2, 16, 4))
+        t = self.t
+        if v.warming:
+            k = (v.phase - (v.period - v.blow - Vent.WARN)) / Vent.WARN
+            for i in range(3):
+                bx = v.x + math.sin(t * 20 + i * 2) * 5
+                by = v.y - 4 - ((t * 40 + i * 9) % (10 + 16 * k))
+                pygame.draw.circle(s, C_FOAM, (int(bx), int(by)), 2, 1)
+        if v.power > 0.05:
+            col = pygame.Surface((30, int(v.height)), pygame.SRCALPHA)
+            col.fill((230, 255, 250, int(40 * v.power)))
+            s.blit(col, (v.x - 15, v.y - v.height))
+            n = int(16 * v.power)
+            for i in range(n):
+                f = ((t * (1.4 + (i % 3) * 0.3) + i * 0.137) % 1.0)
+                by = v.y - f * v.height
+                bx = v.x + math.sin(t * 6 + i * 1.7) * (4 + 6 * f)
+                r = 2 + (i % 3) + int(2 * f)
+                pygame.draw.circle(s, C_FOAM, (int(bx), int(by)), r, 1)
+
+    def draw_anemone(self, s, an):
+        sq = an.squish
+        h = 14 * (1 - 0.45 * sq)
+        base_y = an.y
+        shadow(s, an.x, base_y + 1, 15, 3, 50)
+        pygame.draw.ellipse(s, (170, 60, 110), (an.x - 13, base_y - 8, 26, 10))
+        for i in range(11):
+            a = math.pi + math.pi * (i + 0.5) / 11
+            sway = math.sin(an.sway + i * 0.7) * 3
+            tx = an.x + math.cos(a) * (15 + 4 * sq) + sway
+            ty = base_y - 6 + math.sin(a) * h
+            pygame.draw.line(s, (196, 72, 138), (an.x + math.cos(a) * 6, base_y - 6), (tx, ty), 5)
+            pygame.draw.line(s, (255, 150, 200), (an.x + math.cos(a) * 6, base_y - 6), (tx, ty), 2)
+            pygame.draw.circle(s, (255, 214, 236), (int(tx), int(ty)), 2)
+        # a clownfish lives here
+        fx = an.x + math.sin(an.sway * 0.6) * 6
+        fy = base_y - 10 - h * 0.6
+        pygame.draw.ellipse(s, (255, 130, 40), (fx - 5, fy - 3, 10, 6))
+        pygame.draw.line(s, C_WHITE, (fx - 1, fy - 3), (fx - 1, fy + 3), 2)
+        pygame.draw.polygon(s, (255, 130, 40), [(fx - 5, fy), (fx - 9, fy - 3), (fx - 9, fy + 3)])
+        pygame.draw.circle(s, C_INK, (int(fx + 3), int(fy - 1)), 1)
+
+    def draw_crumble(self, s, cr):
+        r = cr.rect
+        base, top, dark = (216, 186, 140), (238, 214, 168), (160, 128, 90)
+        if cr.state == "fallen":
+            # the pieces tumble away and fade
+            k = clamp(1 - cr.t / 0.8, 0, 1)
+            if k > 0:
+                for i in range(4):
+                    px = r.x + r.w * (i + 0.5) / 4 + (i - 1.5) * cr.fall * 0.08
+                    py = r.y + cr.fall * (0.8 + 0.15 * i)
+                    piece = pygame.Surface((r.w // 4 + 2, r.h), pygame.SRCALPHA)
+                    piece.fill((*base, int(230 * k)))
+                    s.blit(pygame.transform.rotate(piece, cr.fall * (0.3 if i % 2 else -0.3)),
+                           (px - r.w // 8, py))
+            # a faint outline where it will grow back
+            pygame.draw.rect(s, (238, 214, 168), r, 1, border_radius=3)
+            return
+        ox = 0
+        if cr.state == "cracking":
+            ox = random.uniform(-1.6, 1.6) * (0.4 + cr.t / Crumble.HOLD)
+        a = int(255 * (0.35 + 0.65 * cr.regrow))
+        slab = pygame.Surface((r.w, r.h), pygame.SRCALPHA)
+        pygame.draw.rect(slab, (*base, a), (0, 0, r.w, r.h), border_radius=3)
+        pygame.draw.rect(slab, (*top, a), (0, 0, r.w, 4), border_radius=3)
+        pygame.draw.rect(slab, (*dark, a), (0, r.h - 3, r.w, 3))
+        rnd = random.Random(r.x * 31 + r.y)
+        for _ in range(max(2, r.w // 18)):
+            pygame.draw.circle(slab, (*dark, a), (rnd.randint(3, r.w - 3), rnd.randint(5, r.h - 4)), 1)
+        if cr.state == "cracking":
+            k = cr.t / Crumble.HOLD
+            for i in range(1 + int(k * 4)):
+                cx = int(r.w * (i + 1) / 6)
+                pygame.draw.lines(slab, (90, 60, 40, a), False,
+                                  [(cx, 0), (cx + 3, r.h * 0.4), (cx - 2, r.h * 0.7), (cx + 1, r.h)], 1)
+        s.blit(slab, (r.x + ox, r.y))
+
+    def draw_turtle(self, s, tu):
+        r = tu.rect
+        x, top, f = tu.x, r.top, tu.dir
+        pad = math.sin(tu.paddle)
+        green, dark, belly = (96, 150, 92), (52, 96, 60), (226, 210, 150)
+        # flippers paddle under the shell
+        for sg in (-1, 1):
+            fx = x + sg * 16
+            pygame.draw.ellipse(s, (120, 170, 110),
+                                (fx - 8 + pad * 3 * sg, top + 9 + pad * 2, 16, 7))
+        # head, out front
+        hx = x + f * 32
+        pygame.draw.ellipse(s, (120, 170, 110), (hx - 7, top + 2, 14, 11))
+        pygame.draw.circle(s, C_INK, (int(hx + f * 3), int(top + 6)), 1)
+        # shell: a dome with plates
+        pygame.draw.ellipse(s, belly, (x - 29, top + 4, 58, 10))
+        dome = [(x + math.cos(math.pi + math.pi * k / 12) * 29,
+                 top + 9 + math.sin(math.pi + math.pi * k / 12) * 11) for k in range(13)]
+        pygame.draw.polygon(s, dark, dome)
+        inner = [(x + (px - x) * 0.9, top + 9 + (py - top - 9) * 0.86) for px, py in dome]
+        pygame.draw.polygon(s, green, inner)
+        for k in (-1, 0, 1):
+            pygame.draw.circle(s, dark, (int(x + k * 13), int(top + 4 + abs(k) * 2)), 5, 1)
+        pygame.draw.line(s, (170, 210, 150), (x - 18, top + 1), (x + 4, top - 1), 2)
+
+    def draw_shrimp(self, s, sh):
+        x, y, f = sh.x - sh.face * sh.recoil * 3, sh.y, sh.face
+        stunned = sh.stun > 0
+        body = (255, 130, 110)
+        shadow(s, x, y + 7, 11, 3, 45)
+        # curled body and tail
+        for i in range(4):
+            pygame.draw.circle(s, (210, 90, 80), (int(x - f * i * 4), int(y + i * 0.8)), 6 - i)
+            pygame.draw.circle(s, body, (int(x - f * i * 4), int(y + i * 0.8)), 5 - i)
+        pygame.draw.polygon(s, (210, 90, 80), [(x - f * 15, y + 2), (x - f * 21, y - 3), (x - f * 21, y + 6)])
+        # the big claw: it opens and swells as it cocks
+        k = sh.cock
+        cx, cy = x + f * (10 + 2 * k), y - 3 - 2 * k
+        pygame.draw.ellipse(s, (210, 90, 80), (cx - 7 - 2 * k, cy - 5 - k, 14 + 4 * k, 10 + 2 * k))
+        pygame.draw.ellipse(s, (255, 160, 140), (cx - 6 - 2 * k, cy - 4 - k, 12 + 4 * k, 8 + 2 * k))
+        jaw = 0.2 + 0.9 * k
+        pygame.draw.line(s, (180, 70, 60), (cx, cy), (cx + f * 9 * math.cos(jaw), cy - 9 * math.sin(jaw)), 3)
+        if k > 0.25:                       # the tell
+            glow = 0.5 + 0.5 * math.sin(self.t * 30)
+            pygame.draw.circle(s, (255, 248, 164), (int(cx + f * 6), int(cy - 2)),
+                               int(4 + 7 * k + glow * 2), 2)
+        # eyes and feelers
+        ex = x + f * 4
+        pygame.draw.line(s, (220, 120, 100), (ex, y - 5), (ex + f * 12, y - 14), 1)
+        pygame.draw.line(s, (220, 120, 100), (ex, y - 5), (ex + f * 16, y - 9), 1)
+        if stunned:
+            for d in (-1, 1):
+                pygame.draw.line(s, C_INK, (ex - 2, y - 7 - d * 2), (ex + 2, y - 7 + d * 2), 1)
+            for k2 in range(3):
+                a = self.t * 5 + math.tau * k2 / 3
+                pygame.draw.circle(s, (255, 226, 92), (int(x + math.cos(a) * 9), int(y - 14 + math.sin(a) * 3)), 1)
+        else:
+            pygame.draw.circle(s, C_INK, (int(ex), int(y - 6)), 2)
+
+    def draw_bubble(self, s, b):
+        w = 1 + math.sin(b.wob) * 0.18
+        rx, ry = b.R * w, b.R / w
+        for k in (1, 2):
+            pygame.draw.circle(s, (220, 250, 250), (int(b.x - math.copysign(k * 7, b.vx)), int(b.y)), 3 - k, 1)
+        pygame.draw.ellipse(s, (200, 245, 250), (b.x - rx, b.y - ry, rx * 2, ry * 2))
+        pygame.draw.ellipse(s, (110, 200, 220), (b.x - rx, b.y - ry, rx * 2, ry * 2), 2)
+        pygame.draw.circle(s, C_WHITE, (int(b.x - 2), int(b.y - 3)), 2)
+
+    def draw_octopus_body(self, s):
+        o = self.octopus
+        x, y = o.x, o.y
+        body = (156, 62, 112) if o.flash <= 0 else (255, 230, 240)
+        dark = (104, 34, 76)
+        # the mantle, half sunk in the sand at the back of the pool
+        pygame.draw.ellipse(s, dark, (x - 76, y - 120, 152, 150))
+        pygame.draw.ellipse(s, body, (x - 72, y - 116, 144, 142))
+        pygame.draw.ellipse(s, (186, 92, 142), (x - 50, y - 108, 70, 40))
+        for (sx, sy, r) in ((-40, -60, 6), (28, -86, 5), (46, -50, 7), (-14, -96, 4), (10, -40, 5)):
+            pygame.draw.circle(s, dark, (int(x + sx), int(y + sy)), r)
+        # eyes that follow you, and narrow as it gets angry
+        c = self.crab
+        for sg in (-1, 1):
+            ex, ey = x + sg * 32, y - 24
+            pygame.draw.ellipse(s, (255, 236, 200), (ex - 14, ey - 11, 28, 22))
+            if o.beaten:
+                pygame.draw.line(s, C_INK, (ex - 9, ey), (ex + 9, ey), 3)
+                continue
+            if o.blink < 0:
+                pygame.draw.line(s, dark, (ex - 12, ey), (ex + 12, ey), 4)
+                continue
+            dx = clamp((c.x - ex) / 60, -1, 1) * 6
+            dy = clamp((c.y - ey) / 120, -1, 1) * 4
+            slit = 4 if o.phase == 1 else 3 if o.phase == 2 else 2
+            pygame.draw.ellipse(s, C_INK, (ex + dx - slit, ey + dy - 8, slit * 2, 16))
+            # brow, lower each phase
+            tilt = (o.phase - 1) * 3
+            pygame.draw.line(s, dark, (ex - 13, ey - 14 + sg * tilt * -0.5 + tilt),
+                             (ex + 13, ey - 14 - sg * tilt * -0.5 + (tilt if sg < 0 else -tilt) * 0), 4)
+
+    def draw_tentacle(self, s, arm):
+        o = self.octopus
+        if arm.state == "aim":
+            tx, ty = arm.tgt
+            k = arm.t / arm.times["aim"]
+            pulse = 0.5 + 0.5 * math.sin(self.t * (16 + 20 * k))
+            rr = int(30 - 10 * k)
+            pygame.draw.circle(s, (255, 90, 80), (int(tx), int(ty)), rr, 2)
+            pygame.draw.circle(s, (255, 200, 120), (int(tx), int(ty)), max(3, int(rr * 0.35 * pulse)), 2)
+            g = self.fonts["ui"].render("!", True, (230, 60, 60))
+            s.blit(g, (tx - g.get_width() // 2, ty - rr - 22))
+        if arm.u <= 0.01:
+            return
+        n = 22
+        pts = [arm.point(arm.u * i / n) for i in range(n + 1)]
+        # sway and flinch
+        sw = math.sin(self.t * 3 + arm.base[0]) * 6 * (1 - arm.u) + arm.flinch * 8
+        pts = [(px + sw * math.sin(i * 0.4), py) for i, (px, py) in enumerate(pts)]
+        body = (176, 74, 130)
+        for i in range(n):
+            w = int(18 - 13 * i / n)
+            pygame.draw.line(s, (110, 38, 82), pts[i], pts[i + 1], w + 4)
+        for i in range(n):
+            w = int(18 - 13 * i / n)
+            pygame.draw.line(s, body, pts[i], pts[i + 1], w)
+        for i in range(2, n, 3):
+            px, py = pts[i]
+            pygame.draw.circle(s, (255, 214, 226), (int(px), int(py + 2)), max(2, int(5 - 3 * i / n)))
+        tx, ty = pts[-1]
+        if arm.state == "stuck":
+            glow = 0.5 + 0.5 * math.sin(self.t * 12)
+            pygame.draw.circle(s, (255, 248, 164), (int(tx), int(ty)), int(12 + glow * 5), 3)
+            pygame.draw.circle(s, (255, 210, 120), (int(tx), int(ty)), 6)
+
     def draw_world(self):
         s = self.world
         wy = self.water_y()
         self.draw_backdrop(s, wy)
+        if self.octopus:
+            self.draw_octopus_body(s)
         self.draw_plats(s, wy)
+        for cr in self.crumbles:
+            self.draw_crumble(s, cr)
         self.draw_water(s, wy)
+        for cur in self.currents:
+            self.draw_current(s, cur, wy)
         self.draw_light(s, wy)
         self.relight_plats(s)
+        for v in self.vents:
+            self.draw_vent(s, v)
+        for an in self.anemones:
+            self.draw_anemone(s, an)
         for p in self.pearls:
             self.draw_pearl(s, p)
         self.draw_goal(s)
@@ -3118,8 +4126,17 @@ class Game:
             self.draw_crawler(s, cw)
         for pf in self.puffers:
             self.draw_puffer(s, pf)
+        for sh in self.shrimps:
+            self.draw_shrimp(s, sh)
+        for tu in self.turtles:
+            self.draw_turtle(s, tu)
         for j in self.jellies:
             self.draw_jelly(s, j)
+        for b in self.bubbles:
+            self.draw_bubble(s, b)
+        if self.octopus:
+            for arm in self.octopus.arms:
+                self.draw_tentacle(s, arm)
         for gl in self.gulls:
             if gl.boss:
                 self.draw_boss_gull(s, gl)
@@ -3198,6 +4215,20 @@ class Game:
             s.blit(g, (x - g.get_width() / 2, y - 22))
 
     def draw_special_hud(self, s):
+        if self.special == "octopus" and self.octopus:
+            hp, mx = max(0, self.octopus.hp), Octopus.HP
+            w = 190
+            x0, y0 = WORLD_W // 2 - w // 2, 10
+            pad = pygame.Surface((w + 16, 34), pygame.SRCALPHA)
+            pygame.draw.rect(pad, (*C_PANEL, 220), (0, 0, w + 16, 34), border_radius=9)
+            s.blit(pad, (x0 - 8, y0 - 4))
+            t = self.fonts["tiny"].render("THE GREAT OCTOPUS", True, C_INK)
+            s.blit(t, (WORLD_W // 2 - t.get_width() // 2, y0 - 1))
+            seg = (w - (mx - 1) * 3) / mx
+            for i in range(mx):
+                r = pygame.Rect(int(x0 + i * (seg + 3)), y0 + 14, int(seg), 9)
+                pygame.draw.rect(s, (176, 74, 130) if i < hp else (214, 204, 190), r, border_radius=3)
+            return
         if self.special == "gullking":
             king = [g for g in self.gulls if g.boss]
             hp = king[0].hp if king else 0
@@ -3482,7 +4513,7 @@ class Game:
             ("MOVE", "Arrows or WASD", "swim or walk in all 8 directions"),
             ("HOP", "Hold SPACE, release", "hold longer for a higher jump"),
             ("PUNCH", "B, X, or Z", "aims the way you're holding"),
-            ("GRIP", "Hold DOWN on rock", "anchors you against the tide"),
+            ("GRIP", "Hold DOWN on rock", "tide can't lift you; soft anemone landing"),
             ("SETTINGS", "Gear icon, or ESC", ""),
             ("FULLSCREEN", "F11 or F", "works any time"),
             ("RESTART POOL", "R", "while playing"),
