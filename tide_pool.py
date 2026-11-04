@@ -146,7 +146,7 @@ C_PANEL_2 = (255, 255, 255)
 C_DANGER = (236, 74, 68)
 C_WHITE = (255, 255, 255)
 C_NIGHT = (8, 14, 34)                    # the dark of the night pool
-NIGHT_A = 222
+NIGHT_A = 238
 
 
 def clamp(v, lo, hi):
@@ -787,11 +787,11 @@ LEVELS = [
         gulls=[],
         anemones=[(80, 450)],
         shrimps=[(370, 200, -1, 3.8)],
-        guide=[(150, 560), (330, 500), (200, 440), (110, 430), (330, 340), (200, 290), (70, 262), (300, 182), (150, 140), (60, 112)],
+        guide=[(75, 548), (200, 545), (330, 500), (200, 440), (110, 430), (330, 340), (200, 290), (70, 262), (300, 182), (150, 140), (60, 112)],
         pearls=[(110, 432), (330, 342), (60, 262)],
-        tip="Follow Glim's lantern. It waits for the tide - and for you.",
+        tip="Follow Glim's lantern through the dark. Glim goes at your pace.",
         intro=[
-            ('Glim', "Lost? Follow my lantern. I'll wait for the tide - and for you."),
+            ('Glim', "Lost? Stay close to my lantern. I'll go at your pace."),
         ],
         outro=[
             ('Glim', 'This is as high as I swim. The rocks above roll loose - go carefully.'),
@@ -2463,7 +2463,7 @@ class Lantern:
     tide it waits at the surface for the water to come up - and it never
     swims on until you've caught up."""
 
-    LIGHT = 124
+    LIGHT = 132
 
     def __init__(self, path):
         self.path = [tuple(p) for p in path]
@@ -2473,17 +2473,28 @@ class Lantern:
         self.t = random.uniform(0, 6)
         self.face = 1
 
-    def target(self, water_y):
-        tx, ty = self.path[self.i]
-        return tx, max(ty, water_y + 12)
+    def target(self, water_y=None):
+        return self.path[self.i]
 
     def update(self, dt, crab, water_y):
         self.t += dt
-        tx, ty = self.target(water_y)
-        close = math.hypot(crab.x - self.x, crab.y - self.y) < 78
+        # you set the pace: skip ahead if you've already got further, and
+        # only swim on once you've caught up
+        for j in range(len(self.path) - 1, self.i, -1):
+            if math.hypot(crab.x - self.path[j][0], crab.y - self.path[j][1]) < 46:
+                self.i = j
+                break
+        tx, ty = self.target()
+        gap = math.hypot(crab.x - self.x, crab.y - self.y)
         there = math.hypot(tx - self.x, ty - self.y) < 14
-        if there and close and self.i < len(self.path) - 1:
+        if there and gap < 80 and self.i < len(self.path) - 1:
             self.i += 1
+            tx, ty = self.target()
+        # never more than a short swim ahead of you: lead, then wait
+        lead = math.hypot(tx - crab.x, ty - crab.y)
+        if lead > 90:
+            k = 90 / lead
+            tx, ty = crab.x + (tx - crab.x) * k, crab.y + (ty - crab.y) * k
         self.vx += (tx - self.x) * 0.012
         self.vy += (ty - self.y) * 0.012
         self.vx *= 0.9
@@ -2987,6 +2998,9 @@ class MergedKeys:
 
 class Game:
     def __init__(self):
+        # a small mixer buffer, so a sound lands on the frame that caused it
+        # (the default buffer can lag a tenth of a second behind)
+        pygame.mixer.pre_init(44100, -16, 2, 256)
         pygame.init()
         pygame.display.set_caption("Tide Pool")
         self.save = load_save()
@@ -3516,6 +3530,17 @@ class Game:
                 # shove it out sideways
                 c.y = tu.rect.top - CRAB_H / 2
                 c.vy = min(c.vy, tu.dy)
+            elif getattr(c, "board_cd", 0.0) <= 0 and c.vy > -3 and \
+                    ((c.y + CRAB_H / 2) - wy) / CRAB_H > 0.2 and c.y < tu.y + 16 and \
+                    c.rect.inflate(10, 12).colliderect(tu.rect):
+                # swimming up to the turtle is enough: it lets you climb on
+                c.x = clamp(c.x, tu.rect.left + 4, tu.rect.right - 4)
+                c.y = tu.rect.top - CRAB_H / 2
+                c.vx, c.vy = tu.dx, 0.0
+                c.on_ground = True
+                c.squash = 0.4
+                self.sfx.play("hop", 0.4)
+                self.parts.burst(c.x, c.y + 8, 8, C_FOAM, 2.0, 0.3, 2.0, 0.0)
         for cr in self.crumbles:
             if cr.update(dt, c.rect) == "drop":
                 self.sfx.play("crumble", 0.7)
@@ -3639,7 +3664,9 @@ class Game:
         else:
             c.charging = False
             c.charge = 0.0
+        c.board_cd = max(0.0, getattr(c, "board_cd", 0.0) - dt)
         if launch:
+            c.board_cd = 0.5                  # hopping off the turtle shouldn't re-board you
             c.vy = -launch
             c.on_ground = False
             c.squash = -0.5
@@ -5424,57 +5451,49 @@ class Game:
             g = self.fonts["tiny"].render("!", True, C_CRAB_DARK)
             s.blit(g, (x - g.get_width() / 2, y - 22))
 
-    def light_sprite(self, r):
+    def light_sprite(self, r, na=NIGHT_A):
         """A soft hole for the night overlay: alpha 0 in the middle, rising to
         the overlay's own darkness at the rim. Cached per radius."""
         cache = self.__dict__.setdefault("_lights", {})
-        if r not in cache:
+        if (r, na) not in cache:
             spr = pygame.Surface((r * 2, r * 2), pygame.SRCALPHA)
-            spr.fill((*C_NIGHT, NIGHT_A))
+            spr.fill((*C_NIGHT, na))
             for k in range(r, 0, -2):
-                a = int(NIGHT_A * (k / r) ** 1.6)
+                a = int(na * (k / r) ** 1.6)
                 pygame.draw.circle(spr, (*C_NIGHT, a), (r, r), k)
-            cache[r] = spr
-        return cache[r]
+            cache[(r, na)] = spr
+        return cache[(r, na)]
 
     def draw_night(self, s, wy):
         dark = self.__dict__.get("_dark")
         if dark is None:
             dark = self._dark = pygame.Surface((WORLD_W, WORLD_H), pygame.SRCALPHA)
-        dark.fill((*C_NIGHT, NIGHT_A))
+        na = 250 if self.lantern else NIGHT_A      # Glim's pool is near pitch black
+        dark.fill((*C_NIGHT, na))
         c = self.crab
         flick = 1.0 + 0.04 * math.sin(self.t * 7)
-        lights = [(c.x, c.y, int((64 if self.lantern else 92) * flick))]
         if self.lantern:
+            # the whole pool is dark: only Glim's lantern and your own small glow
             lt = self.lantern
-            lights.append((lt.x + lt.face * 14, lt.y - 14, int(Lantern.LIGHT * flick)))
-            # a faint trail of light toward where Glim is headed next
-            nx, ny = lt.path[min(lt.i + 1, len(lt.path) - 1)]
-            lights.append(((lt.x + nx) / 2, (lt.y + ny) / 2, 40))
-        for j in self.jellies:
-            lights.append((j.x, j.y, 58 if not getattr(j, "lit", False) else 84))
-        for p in self.pearls:
-            if not p.got:
-                lights.append((p.x, p.y, 26))
-        gx, gy = self.L["goal"]
-        lights.append((gx, gy, 54))
-        for an in self.anemones:
-            lights.append((an.x, an.top, 34))
-        for v in self.vents:
-            if v.power > 0.1:
-                lights.append((v.x, v.y - v.height / 2, int(40 + 30 * v.power)))
-        for sh in self.shrimps:
-            if sh.cock > 0.2:
-                lights.append((sh.x, sh.y, 34))
-        for b in self.bubbles:
-            lights.append((b.x, b.y, 22))
+            lights = [(c.x, c.y, int(52 * flick)),
+                      (lt.x + lt.face * 14, lt.y - 14, int(Lantern.LIGHT * flick))]
+        else:
+            lights = [(c.x, c.y, int(92 * flick))]
+            for j in self.jellies:
+                lights.append((j.x, j.y, 58 if not getattr(j, "lit", False) else 84))
+            for p in self.pearls:
+                if not p.got:
+                    lights.append((p.x, p.y, 26))
+            gx, gy = self.L["goal"]
+            lights.append((gx, gy, 54))
         for (x, y, r) in lights:
-            spr = self.light_sprite(max(8, r // 2 * 2))
+            spr = self.light_sprite(max(8, r // 2 * 2), na)
             dark.blit(spr, (int(x - spr.get_width() / 2), int(y - spr.get_height() / 2)),
                       special_flags=pygame.BLEND_RGBA_MIN)
         s.blit(dark, (0, 0))
-        # glowing plankton along the surface, so you can always read the tide
-        if wy < WORLD_H:
+        # glowing plankton along the surface, so you can read the tide (not
+        # in Glim's pool: there it's only the two of you)
+        if wy < WORLD_H and not self.lantern:
             for i in range(0, WORLD_W, 14):
                 a = 0.5 + 0.5 * math.sin(self.t * 2.3 + i * 0.37)
                 col = (int(60 + 80 * a), int(200 + 50 * a), int(210 + 40 * a))
