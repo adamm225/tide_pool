@@ -210,22 +210,31 @@ LEVELS = [
         gulls=[],
         pearls=[(150, 470), (62, 580)],
         tip='Arrows swim all 8 ways. SPACE hops. Hold DOWN to grip rock.',
+        intro=[
+            ('', 'A storm in the night. One small crab, washed all the way down to the bottom pool.'),
+            ('Old Hermit', "The sea's up at the top, little one. The water does the climbing - you do the timing."),
+        ],
     ),
     # ---- pool 2
     dict(
-        name='Tidemarks',
+        name='The rock door',
         period=11.0,
         tide_low=606,
-        tide_high=228,
+        tide_high=200,
         spawn=(30, 575),
-        goal=(350, 230),
-        plats=[(0, 600, 420, 20), (20, 500, 120, 16), (180, 420, 110, 16), (40, 330, 130, 16), (270, 250, 150, 16)],
-        urchins=[(380, 592)],
-        crawlers=[((180, 420, 110, 16), 220, 26)],
+        goal=(360, 152),
+        plats=[(0, 600, 420, 20), (0, 510, 150, 16), (230, 440, 190, 16), (30, 350, 180, 16), (250, 270, 170, 16), (140, 172, 110, 16), (270, 172, 150, 16), (270, 90, 150, 14)],
+        urchins=[],
+        crawlers=[((30, 350, 180, 16), 150, 26)],
         jellies=[],
         gulls=[],
-        pearls=[(80, 482), (235, 402), (100, 312)],
-        tip='That star walks its ledge. Punch it with B and it flips over, harmless.',
+        gates=[(270, 104, 14, 68, 0, -72)],
+        switches=[(50, 350, [0], 0)],
+        pearls=[(75, 490), (320, 420), (120, 330), (330, 250), (195, 152)],
+        tip='Punch the barnacle switch and the door up top slides open.',
+        intro=[
+            ('Old Hermit', 'Punch the sea star out of your way, then punch the barnacle. It opens the door up top.'),
+        ],
     ),
     # ---- pool 3
     dict(
@@ -243,6 +252,9 @@ LEVELS = [
         anemones=[(195, 380)],
         pearls=[(390, 452), (222, 300), (40, 502)],
         tip="The tide won't reach the top. Land on the anemone to fly - hold DOWN to land soft.",
+        intro=[
+            ('Old Hermit', 'That anemone throws anything that lands on it. Rude, but useful.'),
+        ],
     ),
     # ---- pool 4
     dict(
@@ -263,19 +275,23 @@ LEVELS = [
     ),
     # ---- pool 5
     dict(
-        name='Overhang',
+        name="The hermit's bell",
         period=12.0,
         tide_low=606,
-        tide_high=208,
+        tide_high=470,
         spawn=(30, 575),
-        goal=(55, 210),
-        plats=[(0, 600, 420, 20), (0, 520, 110, 16), (160, 440, 140, 16), (310, 360, 110, 16), (110, 320, 150, 16), (0, 230, 130, 16)],
-        urchins=[(362, 352)],
-        crawlers=[((110, 320, 150, 16), 160, 30)],
-        jellies=[((360, 540), (360, 420), 0.36)],
+        goal=(110, 145),
+        plats=[(0, 600, 420, 20), (30, 490, 150, 16), (240, 410, 160, 16), (60, 320, 150, 16), (250, 240, 150, 16), (40, 165, 150, 16)],
+        urchins=[],
+        crawlers=[],
+        jellies=[((320, 360), (320, 280), 0.3)],
         gulls=[],
-        pearls=[(230, 422), (185, 302), (40, 502)],
-        tip='Ledges overhead stop the tide lifting you. Swim out from under them early.',
+        bells=[(120, 490, 205, 7.0)],
+        pearls=[(70, 470), (310, 390), (130, 300), (320, 220), (60, 145)],
+        tip="The tide won't come up on its own today. Ring the bell!",
+        intro=[
+            ('Old Hermit', "That's my bell. Ring it and the sea comes up to meet you - for a little while."),
+        ],
     ),
     # ---- pool 6
     dict(
@@ -293,6 +309,9 @@ LEVELS = [
         currents=[(0, 315, 420, 70, -2.0), (120, 212, 170, 75, 2.0)],
         pearls=[(200, 362), (400, 442), (40, 272)],
         tip='Currents shove anything swimming in them. Ride them, or swim hard against them.',
+        intro=[
+            ('Old Hermit', "This is the reef. The water pulls here - ride it, don't fight it."),
+        ],
     ),
     # ---- pool 7
     dict(
@@ -310,6 +329,9 @@ LEVELS = [
         crumbles=[(40, 305, 90, 14), (150, 283, 80, 14)],
         pearls=[(85, 287), (190, 265), (185, 402)],
         tip='The tide stops short. Sandstone holds you for a moment, then drops - keep moving.',
+        intro=[
+            ('Old Hermit', "Sandstone. It holds you for a breath, then it doesn't."),
+        ],
     ),
     # ---- pool 8
     dict(
@@ -326,23 +348,31 @@ LEVELS = [
         gulls=[(150, 90, 110), (320, 110, 90)],
         pearls=[(400, 512), (100, 442), (330, 352)],
         tip='Two birds. Duck under a ledge, or step aside late and let them hit the rock.',
+        intro=[
+            ('Old Hermit', "Gulls. They hunt for the Gull King. Duck under rock and they'll bite stone."),
+        ],
     ),
     # ---- pool 9
     dict(
-        name='Breathing rock',
-        period=11.0,
+        name='Reef door',
+        period=13.0,
         tide_low=606,
-        tide_high=340,
+        tide_high=176,
         spawn=(30, 575),
-        goal=(300, 175),
-        plats=[(0, 600, 420, 20), (0, 500, 140, 16), (260, 440, 160, 16), (120, 330, 120, 16), (230, 195, 190, 16)],
+        goal=(60, 176),
+        plats=[(0, 600, 420, 20), (0, 520, 150, 16), (270, 470, 150, 16), (30, 390, 150, 16), (260, 310, 160, 16), (250, 214, 110, 16), (0, 196, 130, 16), (0, 120, 130, 14)],
         urchins=[],
         crawlers=[],
-        jellies=[((60, 430), (60, 340), 0.3)],
+        jellies=[((150, 440), (150, 320), 0.32)],
         gulls=[],
-        vents=[(180, 330, 190, 3.4, 1.6), (340, 440, 110, 3.0, 1.3)],
-        pearls=[(180, 250), (340, 300), (60, 482)],
-        tip='Rock that rumbles is about to breathe. Stand over it and ride the bubbles up.',
+        currents=[(144, 150, 116, 80, -2.6)],
+        gates=[(130, 134, 14, 62, 0, -72)],
+        switches=[(335, 214, [0], 6.0)],
+        pearls=[(80, 500), (340, 450), (90, 370), (330, 290), (220, 190)],
+        tip='The switch only holds the door a few seconds. Hit it as the water peaks, then ride the current in.',
+        intro=[
+            ('Old Hermit', 'The reef door only stays open a moment. Let the current carry you.'),
+        ],
     ),
     # ---- pool 10
     dict(
@@ -361,10 +391,17 @@ LEVELS = [
         gulls=[],
         pearls=[(60, 502), (210, 412), (360, 312)],
         tip='The Gull King. Too big to punch. Make it meet the rock.',
+        intro=[
+            ('Gull King', 'A crab? Climbing MY pools?'),
+            ('Gull King', "Come up, then. I'll be waiting at the top."),
+        ],
+        outro=[
+            ('Gull King', 'Bah! Keep your soggy pools!'),
+        ],
     ),
     # ---- pool 11
     dict(
-        name='Snap alley',
+        name='Shrimp sentries',
         period=11.0,
         tide_low=606,
         tide_high=223,
@@ -378,10 +415,13 @@ LEVELS = [
         shrimps=[(400, 520, -1, 3.4), (110, 440, 1, 3.2), (400, 350, -1, 3.6)],
         pearls=[(300, 500), (60, 420), (300, 330)],
         tip='Pistol shrimp glow before they snap. Jump the bubble, or punch the shrimp quiet.',
+        intro=[
+            ('Shrimp sentry', 'SNAP! Nobody passes the coves without hearing from us first!'),
+        ],
     ),
     # ---- pool 12
     dict(
-        name='Turtle crossing',
+        name="Moss's ferry",
         period=12.0,
         tide_low=606,
         tide_high=193,
@@ -396,24 +436,29 @@ LEVELS = [
         turtles=[(120, 300, 200, 40)],
         pearls=[(210, 230), (40, 362), (380, 302)],
         tip="The middle current is a slog to swim. The turtle doesn't mind it.",
+        intro=[
+            ('Moss', "Need a lift, small one? Climb on. Currents don't bother an old shell like me."),
+        ],
     ),
     # ---- pool 13
     dict(
-        name='Undertow',
-        period=8.5,
+        name='Boulder bay',
+        period=11.0,
         tide_low=606,
-        tide_high=118,
+        tide_high=420,
         spawn=(30, 575),
-        goal=(345, 120),
-        plats=[(0, 600, 420, 20), (0, 520, 130, 16), (290, 520, 130, 16), (150, 430, 120, 16), (0, 330, 110, 16), (310, 330, 110, 16), (0, 200, 110, 16), (280, 140, 140, 16)],
-        urchins=[(370, 512)],
-        crawlers=[],
-        jellies=[((360, 470), (360, 380), 0.4)],
+        goal=(380, 314),
+        plats=[(0, 600, 420, 20), (0, 520, 140, 16), (40, 400, 240, 16), (280, 356, 40, 60), (320, 334, 100, 16)],
+        urchins=[(200, 592)],
+        crawlers=[((40, 400, 240, 16), 180, 24)],
+        jellies=[],
         gulls=[],
-        currents=[(130, 450, 160, 70, 2.2), (0, 230, 160, 70, -1.8)],
-        vents=[(210, 430, 200, 3.2, 1.4)],
-        pearls=[(210, 300), (60, 312), (360, 312)],
-        tip='Fast water. The vent throws you clear of the undertow.',
+        boulders=[(90, 389, 269, 389)],
+        pearls=[(60, 500), (150, 380), (269, 360), (300, 336), (360, 314)],
+        tip='Punch the boulder against the pillar, then climb it.',
+        intro=[
+            ('Moss', 'See that boulder? Give it a shove. Rocks make fine stairs.'),
+        ],
     ),
     # ---- pool 14
     dict(
@@ -482,6 +527,9 @@ LEVELS = [
         gulls=[],
         pearls=[(235, 362), (100, 252), (225, 182)],
         tip='Long, slow tide. Small stones. Jellies drifting in the dark.',
+        intro=[
+            ('Moss', 'The moon pool. Slow water. A good place to think about home.'),
+        ],
     ),
     # ---- pool 18
     dict(
@@ -502,26 +550,30 @@ LEVELS = [
     ),
     # ---- pool 19
     dict(
-        name='Last ledge',
-        period=10.0,
+        name='Shrimp fort',
+        period=11.0,
         tide_low=606,
-        tide_high=116,
+        tide_high=200,
         spawn=(30, 575),
-        goal=(225, 118),
-        plats=[(0, 600, 420, 20), (0, 530, 130, 16), (290, 500, 130, 16), (140, 420, 130, 16), (300, 330, 120, 16), (0, 300, 130, 16), (150, 138, 150, 16)],
-        urchins=[(60, 292)],
+        goal=(380, 170),
+        plats=[(0, 600, 420, 20), (0, 420, 130, 16), (300, 420, 120, 16), (160, 360, 100, 16), (0, 300, 140, 16), (280, 300, 140, 16), (130, 190, 110, 16), (250, 190, 170, 16), (250, 110, 170, 14)],
+        urchins=[],
         crawlers=[],
-        jellies=[((370, 420), (370, 260), 0.42)],
-        gulls=[(210, 90, 120)],
-        currents=[(0, 440, 140, 80, 1.8)],
-        crumbles=[(160, 232, 60, 14), (250, 196, 50, 14)],
-        shrimps=[(400, 500, -1, 3.2)],
-        pearls=[(200, 402), (360, 312), (190, 214)],
-        tip='Everything so far, in one climb.',
+        jellies=[],
+        gulls=[],
+        shrimps=[(25, 420, 1, 3.4), (405, 300, -1, 3.2)],
+        gates=[(250, 124, 14, 66, 0, -80), (320, 124, 14, 66, 0, -80)],
+        switches=[(30, 300, [0], 0), (395, 420, [1], 0)],
+        pearls=[(210, 340), (90, 280), (330, 400), (180, 170), (290, 170)],
+        tip='Two doors, two switches. Jump the bubbles, or punch the shrimp quiet.',
+        intro=[
+            ('Shrimp sentry', 'SNAP! Two doors, two switches, and us in between!'),
+            ('Old Hermit', 'Hear that, though? Little voices, somewhere above.'),
+        ],
     ),
     # ---- pool 20
     dict(
-        name='Open water',
+        name='The little ones',
         period=13.0,
         tide_low=606,
         tide_high=113,
@@ -536,6 +588,13 @@ LEVELS = [
         hatchlings=[(70, 509), (390, 449), (190, 364), (340, 284), (90, 209)],
         pearls=[(40, 497), (290, 437), (160, 352)],
         tip='Five little ones are lost on these ledges. Bring them all up.',
+        intro=[
+            ('Little one', 'Are you a big crab? The storm took us too.'),
+            ('Little one', 'Can we follow you up?'),
+        ],
+        outro=[
+            ('Old Hermit', "All five safe in the cove. You're braver than you look."),
+        ],
     ),
     # ---- pool 21
     dict(
@@ -553,6 +612,9 @@ LEVELS = [
         vents=[(230, 600, 230, 3.6, 1.7), (80, 340, 190, 3.4, 1.6), (250, 210, 150, 3.4, 1.6)],
         pearls=[(230, 340), (80, 230), (250, 120)],
         tip='A ladder made of air. Wait for each vent to breathe.',
+        intro=[
+            ('Old Hermit', 'The deep pools now. The rocks breathe here - ride their breath.'),
+        ],
     ),
     # ---- pool 22
     dict(
@@ -575,21 +637,23 @@ LEVELS = [
     ),
     # ---- pool 23
     dict(
-        name='Sinking steps',
-        period=11.0,
+        name='Bell tower',
+        period=12.0,
         tide_low=606,
-        tide_high=300,
+        tide_high=530,
         spawn=(30, 575),
-        goal=(352, 186),
-        plats=[(0, 600, 420, 20), (0, 480, 120, 16), (300, 430, 120, 16), (140, 360, 100, 16), (285, 206, 135, 16)],
-        urchins=[(350, 422)],
+        goal=(330, 105),
+        plats=[(0, 600, 420, 20), (20, 520, 150, 16), (280, 400, 140, 16), (30, 280, 140, 16), (250, 125, 170, 16)],
+        urchins=[],
         crawlers=[],
-        jellies=[((60, 430), (60, 340), 0.36)],
-        gulls=[(250, 90, 110)],
-        currents=[(0, 300, 420, 90, 2.0)],
-        crumbles=[(30, 272, 70, 14), (125, 250, 60, 14), (210, 228, 55, 14)],
-        pearls=[(65, 254), (155, 232), (237, 210)],
-        tip='The steps sink, and the current wants you on the wrong side.',
+        jellies=[((210, 470), (210, 340), 0.3), ((210, 300), (210, 190), 0.32)],
+        gulls=[],
+        bells=[(60, 520, 390, 7.0), (380, 400, 262, 7.0), (60, 280, 150, 7.5)],
+        pearls=[(110, 500), (330, 380), (100, 260), (210, 160), (300, 105)],
+        tip="Each bell lifts the sea higher than the last. Ring them in order - and don't dawdle.",
+        intro=[
+            ('Old Hermit', 'Old bells, one above the other. Ring them in order and the sea will follow you up.'),
+        ],
     ),
     # ---- pool 24
     dict(
@@ -625,6 +689,9 @@ LEVELS = [
         shrimps=[(400, 500, -1, 3.6)],
         pearls=[(80, 362), (340, 242), (40, 242)],
         tip='The narrows. Each layer of water runs the other way.',
+        intro=[
+            ('Moss', "They say the Great Octopus holds the last rock shut. Nobody's reached the sea in years."),
+        ],
     ),
     # ---- pool 26
     dict(
@@ -646,20 +713,25 @@ LEVELS = [
     ),
     # ---- pool 27
     dict(
-        name='Shrimp fort',
-        period=11.0,
+        name='Floodgate',
+        period=12.0,
         tide_low=606,
-        tide_high=118,
+        tide_high=480,
         spawn=(30, 575),
-        goal=(220, 120),
-        plats=[(0, 600, 420, 20), (0, 510, 140, 16), (280, 450, 140, 16), (0, 380, 140, 16), (280, 310, 140, 16), (0, 240, 140, 16), (160, 140, 120, 16)],
+        goal=(370, 130),
+        plats=[(0, 600, 420, 20), (300, 520, 120, 16), (30, 420, 130, 16), (230, 330, 150, 16), (0, 230, 110, 16), (180, 150, 100, 16), (290, 150, 130, 16), (290, 70, 130, 14)],
         urchins=[],
         crawlers=[],
-        jellies=[],
+        jellies=[((150, 280), (250, 280), 0.3)],
         gulls=[],
-        shrimps=[(130, 510, 1, 3.0), (290, 450, -1, 3.2), (130, 380, 1, 3.0), (290, 310, -1, 3.2), (130, 240, 1, 3.4)],
-        pearls=[(380, 432), (40, 362), (380, 292)],
-        tip='A fort of shrimp. Punch one quiet and slip past while it sulks.',
+        bells=[(380, 520, 200, 9.5)],
+        gates=[(290, 84, 14, 66, 0, -80)],
+        switches=[(35, 230, [0], 0)],
+        pearls=[(340, 500), (90, 400), (300, 310), (60, 210), (230, 130)],
+        tip="Ring the bell, hit the switch while the water's high, then make for the door.",
+        intro=[
+            ('Moss', "The floodgate. Ring the bell, then hit the switch while the water's high."),
+        ],
     ),
     # ---- pool 28
     dict(
@@ -695,10 +767,13 @@ LEVELS = [
         anemones=[(60, 480), (360, 480)],
         pearls=[(60, 400), (360, 400), (60, 242)],
         tip='Quiet water for once. Enjoy the springs.',
+        intro=[
+            ('Old Hermit', "The moon's going dark tonight. Find a light, little one."),
+        ],
     ),
     # ---- pool 30
     dict(
-        name='Night tide',
+        name="Glim's lantern",
         period=12.0,
         tide_low=606,
         tide_high=108,
@@ -712,8 +787,15 @@ LEVELS = [
         gulls=[],
         anemones=[(80, 450)],
         shrimps=[(370, 200, -1, 3.8)],
+        guide=[(150, 560), (330, 500), (200, 440), (110, 430), (330, 340), (200, 290), (70, 262), (300, 182), (150, 140), (60, 112)],
         pearls=[(110, 432), (330, 342), (60, 262)],
-        tip='Night tide. Stay near the glow - the jellies light the way, and give themselves away.',
+        tip="Follow Glim's lantern. It waits for the tide - and for you.",
+        intro=[
+            ('Glim', "Lost? Follow my lantern. I'll wait for the tide - and for you."),
+        ],
+        outro=[
+            ('Glim', 'This is as high as I swim. The rocks above roll loose - go carefully.'),
+        ],
     ),
     # ---- pool 31
     dict(
@@ -731,6 +813,9 @@ LEVELS = [
         gulls=[],
         pearls=[(100, 500), (330, 430), (150, 340)],
         tip='Loose urchins roll their ledges and rest at each end. Hop them - never punch them.',
+        intro=[
+            ('Old Hermit', "The octopus is shaking the rocks loose. It knows you're coming."),
+        ],
     ),
     # ---- pool 32
     dict(
@@ -752,22 +837,23 @@ LEVELS = [
     ),
     # ---- pool 33
     dict(
-        name='Undercurrent',
-        period=10.0,
+        name='Rockfall',
+        period=11.0,
         tide_low=606,
-        tide_high=128,
+        tide_high=118,
         spawn=(30, 575),
-        goal=(60, 130),
-        plats=[(0, 600, 420, 20), (250, 520, 170, 16), (0, 440, 170, 16), (260, 360, 160, 16), (0, 260, 150, 16), (230, 220, 120, 16), (0, 150, 130, 16)],
+        goal=(70, 120),
+        plats=[(0, 600, 420, 20), (240, 520, 180, 16), (0, 450, 180, 16), (220, 370, 200, 16), (0, 290, 170, 16), (230, 210, 190, 16), (0, 140, 150, 16)],
         urchins=[],
-        rollers=[((0, 260, 150, 16), 60, 44)],
         crawlers=[],
         jellies=[],
         gulls=[],
-        currents=[(0, 460, 420, 60, 2.0), (0, 290, 420, 60, 2.0)],
-        shrimps=[(400, 520, -1, 3.4), (400, 360, -1, 3.0)],
-        pearls=[(80, 420), (330, 340), (290, 200)],
-        tip='The water drags right, the shrimp shoot left. Pick your moment.',
+        rockfall=(2.4, [80, 160, 260, 340]),
+        pearls=[(330, 500), (90, 430), (320, 350), (80, 270), (320, 190)],
+        tip='Falling rocks: watch for grit and the red mark below it. Ledges overhead are shelter.',
+        intro=[
+            ('Old Hermit', 'Rocks falling! Watch for grit and the red mark - and keep moving.'),
+        ],
     ),
     # ---- pool 34
     dict(
@@ -803,10 +889,13 @@ LEVELS = [
         turtles=[(120, 300, 130, 36)],
         pearls=[(210, 260), (40, 282), (380, 232)],
         tip='A turtle ride with birds overhead. Duck when the shadow comes.',
+        intro=[
+            ('Moss', 'Last ride, small one. Hold on tight.'),
+        ],
     ),
     # ---- pool 36
     dict(
-        name='Crumble cascade',
+        name='Shaking stair',
         period=11.0,
         tide_low=606,
         tide_high=430,
@@ -819,8 +908,9 @@ LEVELS = [
         gulls=[],
         anemones=[(360, 400), (50, 306)],
         crumbles=[(220, 350, 70, 14), (130, 328, 70, 14)],
+        rockfall=(3.2, [160, 260, 60]),
         pearls=[(255, 332), (165, 310), (50, 200)],
-        tip="A sandstone staircase with a spring at the top. Don't stop moving.",
+        tip="Sandstone and falling rocks. Don't stop moving.",
     ),
     # ---- pool 37
     dict(
@@ -841,22 +931,26 @@ LEVELS = [
     ),
     # ---- pool 38
     dict(
-        name='High-water mark',
-        period=11.0,
+        name='The lock',
+        period=12.0,
         tide_low=606,
-        tide_high=88,
-        spawn=(210, 575),
-        goal=(340, 90),
-        plats=[(0, 600, 420, 20), (0, 520, 120, 16), (300, 520, 120, 16), (150, 440, 120, 16), (0, 350, 110, 16), (310, 350, 110, 16), (160, 250, 100, 16), (260, 110, 160, 16)],
-        urchins=[(60, 512)],
+        tide_high=480,
+        spawn=(30, 575),
+        goal=(110, 180),
+        plats=[(0, 600, 420, 20), (40, 470, 160, 16), (200, 426, 30, 60), (230, 404, 190, 16), (40, 200, 140, 16)],
+        urchins=[],
         crawlers=[],
-        jellies=[((210, 330), (210, 280), 0.42)],
-        gulls=[(120, 70, 90)],
-        currents=[(120, 460, 180, 60, 2.0)],
-        vents=[(365, 350, 120, 3.4, 1.5)],
-        shrimps=[(400, 520, -1, 3.0), (20, 350, 1, 3.2)],
-        pearls=[(210, 422), (80, 332), (210, 232)],
-        tip="The high-water mark. Everything you've learned, and then some.",
+        jellies=[],
+        gulls=[(200, 80, 110)],
+        bells=[(380, 404, 250, 8.0)],
+        gates=[(256, 340, 14, 64, 0, -70)],
+        switches=[(215, 426, [0], 0)],
+        boulders=[(80, 459, 189, 459)],
+        pearls=[(120, 450), (189, 430), (300, 384), (110, 240), (90, 180)],
+        tip='Boulder to the pillar, switch on the pillar, bell behind the door.',
+        intro=[
+            ('Old Hermit', 'The old lock. Boulder, switch, bell - in that order.'),
+        ],
     ),
     # ---- pool 39
     dict(
@@ -874,12 +968,16 @@ LEVELS = [
         gulls=[(210, 60, 120)],
         anemones=[(165, 400)],
         crumbles=[(200, 278, 55, 14), (280, 256, 55, 14)],
+        rockfall=(3.0, [200, 300, 60]),
         pearls=[(228, 260), (307, 238), (210, 382)],
         tip="Low water and everything you've learned. The Great Octopus waits past this one.",
+        intro=[
+            ('Old Hermit', "One more climb. Then it's you and the octopus."),
+        ],
     ),
     # ---- pool 40
     dict(
-        name='The deep',
+        name='The last rock',
         period=12.0,
         tide_low=606,
         tide_high=98,
@@ -894,20 +992,15 @@ LEVELS = [
         gulls=[],
         pearls=[(60, 282), (360, 282), (90, 182)],
         tip="The Great Octopus. Dodge the slam, then punch the arm while it's stuck.",
-        dialogue=[
-            ('Old hermit', 'So. The old octopus finally let someone through.'),
-            ('Old hermit', 'All the way up from the shallows. Good.'),
-            ('Old hermit', "Careful at that edge. It isn't another pool."),
-            ('Old hermit', "That's all of them, at once, going out."),
-            ('Old hermit', "I've been in this one since the spring tide."),
-            ('Old hermit', 'Good rock. Good light. I stopped climbing.'),
-            ('Old hermit', 'Every pool you crossed is still down there,'),
-            ('Old hermit', 'filling and emptying, with or without you in it.'),
-            ('Old hermit', "That's the thing about a tide. It isn't taking"),
-            ('Old hermit', 'anything from you. It only ever keeps moving.'),
-            ('Old hermit', "Go on, then. The water's high enough."),
-            ('', 'The crab lets go of the rock,'),
-            ('', 'and the sea carries it the rest of the way.'),
+        intro=[
+            ('Great Octopus', 'Little crab. The sea is too big for you. Stay down here, with me.'),
+            ('Great Octopus', '...No? Then come and take it from me.'),
+        ],
+        outro=[
+            ('Great Octopus', '...Go, then. Tell the sea I still remember it.'),
+            ('Old Hermit', 'All the way up from the bottom pool. Well done, little one.'),
+            ('Old Hermit', 'Go on. Let go of the rock.'),
+            ('', 'The crab lets go, and the sea carries it home.'),
         ],
     ),
 ]
@@ -2185,6 +2278,222 @@ class Octopus:
         return "phase" if self.phase != before else "hit"
 
 
+class Bell:
+    """A brass tide bell on a driftwood post. Punch it and the sea answers:
+    the water surges up to its mark and holds there for a while, then sinks
+    back to the ordinary tide."""
+
+    HOLD = 7.0
+
+    def __init__(self, x, y, surge_y, hold=HOLD):
+        self.x, self.y = float(x), float(y)          # y = top of its ledge
+        self.surge_y = float(surge_y)
+        self.hold = float(hold)
+        self.swing = 0.0
+        self.t = random.uniform(0, 6)
+
+    def update(self, dt):
+        self.t += dt
+        self.swing *= 0.97
+        self.swing_a = math.sin(self.t * 9) * self.swing
+
+    def punched(self, px, py, pr):
+        return math.hypot(self.x - px, (self.y - 22) - py) <= 13 + pr
+
+
+class Switch:
+    """A barnacle button set into the rock. Punch it and the gates it's tied
+    to slide open - for good, or (timer > 0) only for a few seconds."""
+
+    def __init__(self, x, y, gates, timer=0.0):
+        self.x, self.y = float(x), float(y)          # y = top of its ledge
+        self.gates = list(gates)
+        self.timer = float(timer)
+        self.left = 0.0                              # seconds the gates stay open
+        self.on = False
+        self.glow = 0.0
+
+    def punched(self, px, py, pr):
+        return math.hypot(self.x - px, (self.y - 7) - py) <= 10 + pr
+
+    def update(self, dt):
+        if self.on and self.timer > 0:
+            self.left -= dt
+            if self.left <= 0:
+                self.on = False
+        self.glow = approach(self.glow, 1.0 if self.on else 0.0, dt * 4)
+
+
+class Gate:
+    """A slab of rock that slides out of the way when its switch is struck."""
+
+    def __init__(self, x, y, w, h, dx=0, dy=0):
+        self.home = (float(x), float(y))
+        self.w, self.h = int(w), int(h)
+        self.dx, self.dy = float(dx), float(dy)
+        self.k = 0.0                                 # 0 shut .. 1 open
+        self.open = False
+
+    @property
+    def rect(self):
+        return pygame.Rect(int(self.home[0] + self.dx * self.k), int(self.home[1] + self.dy * self.k),
+                           self.w, self.h)
+
+    def update(self, dt):
+        self.k = approach(self.k, 1.0 if self.open else 0.0, dt * (1.6 if self.open else 1.1))
+
+
+class Boulder:
+    """A round rock you can punch along a ledge. It rolls, drops off edges,
+    and stops where it lands - a step to stand on, a plug for a shrimp's
+    firing line, or a way to flatten whatever it rolls into."""
+
+    R = 11
+
+    def __init__(self, x, y, *_where_it_ends_up):
+        self.home = (float(x), float(y))
+        self.x, self.y = float(x), float(y)
+        self.vx = self.vy = 0.0
+        self.spin = 0.0
+        self.on_ground = False
+
+    @property
+    def rect(self):
+        return pygame.Rect(int(self.x - self.R), int(self.y - self.R), self.R * 2, self.R * 2)
+
+    def punched(self, px, py, pr):
+        return math.hypot(self.x - px, self.y - py) <= self.R + pr
+
+    def update(self, dt, solid, water_y):
+        wet = self.y > water_y
+        self.vy += GRAVITY * (0.55 if wet else 1.0)
+        self.vy = min(self.vy, 6.0 if wet else MAX_FALL)
+        if self.on_ground:
+            self.vx *= 0.93
+        else:
+            self.vx *= 0.995
+        if abs(self.vx) < 0.05:
+            self.vx = 0.0
+        self.x += self.vx
+        r = self.rect
+        for p in solid:
+            if r.colliderect(p):
+                self.x = p.left - self.R if self.vx > 0 else p.right + self.R
+                self.vx = -self.vx * 0.25
+                r = self.rect
+        if self.x < self.R or self.x > WORLD_W - self.R:
+            self.x = clamp(self.x, self.R, WORLD_W - self.R)
+            self.vx = -self.vx * 0.3
+        self.spin += self.vx / self.R
+        self.on_ground = False
+        self.y += self.vy
+        r = self.rect
+        for p in solid:
+            if r.colliderect(p):
+                if self.vy > 0:
+                    self.y = p.top - self.R
+                    self.on_ground = True
+                    landed = self.vy
+                    self.vy = 0.0
+                    if landed > 4:
+                        return "thud"
+                else:
+                    self.y = p.bottom + self.R
+                    self.vy = 0.0
+                r = self.rect
+        if self.y > WORLD_H + 40:
+            self.x, self.y = self.home
+            self.vx = self.vy = 0.0
+        return None
+
+
+class Rockfall:
+    """The octopus shaking the cliffs: every so often a rock comes down. A
+    trickle of grit at the top and a mark on the rock below give it away."""
+
+    WARN = 0.95
+
+    def __init__(self, period, xs):
+        self.period = float(period)
+        self.xs = list(xs)
+        self.t = self.period * 0.5
+        self.warn = []          # [x, time left, landing y]
+        self.rocks = []         # [x, y, vy]
+
+    def update(self, dt, crab, solid):
+        out = []
+        self.t -= dt
+        if self.t <= 0:
+            self.t = self.period * random.uniform(0.8, 1.2)
+            # half the time it drops right on you; otherwise one of its spots
+            if random.random() < 0.55:
+                x = clamp(crab.x + random.uniform(-26, 26), 16, WORLD_W - 16)
+            else:
+                x = random.choice(self.xs)
+            # the mark goes on the first rock it would hit on the way down
+            tops = sorted(p.top for p in solid if p.left <= x <= p.right)
+            land = tops[0] if tops else WORLD_H
+            self.warn.append([x, self.WARN, land])
+        for w in self.warn:
+            w[1] -= dt
+        for w in [w for w in self.warn if w[1] <= 0]:
+            self.rocks.append([w[0], -14.0, 2.0])
+            self.warn.remove(w)
+        for r in self.rocks:
+            r[2] = min(r[2] + GRAVITY * 1.2, 11.0)
+            r[1] += r[2]
+        for r in list(self.rocks):
+            rr = pygame.Rect(int(r[0] - 9), int(r[1] - 9), 18, 18)
+            if any(rr.colliderect(p) for p in solid) or r[1] > WORLD_H + 20:
+                out.append(("smash", r[0], r[1]))
+                self.rocks.remove(r)
+        return out
+
+    def hits(self, rect):
+        for r in self.rocks:
+            if rect.colliderect(pygame.Rect(int(r[0] - 8), int(r[1] - 8), 16, 16)):
+                self.rocks.remove(r)
+                return (r[0], r[1])
+        return None
+
+
+class Lantern:
+    """Glim, a lanternfish who swims ahead along a path to the way out and
+    lights it. A fish stays in the water, so when the next stop is above the
+    tide it waits at the surface for the water to come up - and it never
+    swims on until you've caught up."""
+
+    LIGHT = 124
+
+    def __init__(self, path):
+        self.path = [tuple(p) for p in path]
+        self.i = 0
+        self.x, self.y = self.path[0]
+        self.vx = self.vy = 0.0
+        self.t = random.uniform(0, 6)
+        self.face = 1
+
+    def target(self, water_y):
+        tx, ty = self.path[self.i]
+        return tx, max(ty, water_y + 12)
+
+    def update(self, dt, crab, water_y):
+        self.t += dt
+        tx, ty = self.target(water_y)
+        close = math.hypot(crab.x - self.x, crab.y - self.y) < 78
+        there = math.hypot(tx - self.x, ty - self.y) < 14
+        if there and close and self.i < len(self.path) - 1:
+            self.i += 1
+        self.vx += (tx - self.x) * 0.012
+        self.vy += (ty - self.y) * 0.012
+        self.vx *= 0.9
+        self.vy *= 0.9
+        self.x += self.vx
+        self.y += self.vy + math.sin(self.t * 2.4) * 0.25
+        if abs(self.vx) > 0.15:
+            self.face = 1 if self.vx > 0 else -1
+
+
 class Pearl:
     """Sits still until you come near, then leaps toward you."""
 
@@ -2306,6 +2615,42 @@ SHOP_ITEMS = [
          blurb="one extra heart, every pool"),
 ]
 SHOP_TABS = ["HATS", "SHELLS", "EXTRAS"]
+
+# The climb home, in chapters. Each one has its own light: the sky and the
+# water shift as the day goes on and the weather turns.
+#   (first pool index, title, sky top, sky bottom, water top, water mid, water deep)
+CHAPTERS = [
+    (0, "The Shallows", (255, 212, 158), (152, 230, 232), (86, 212, 205), (34, 158, 178), (16, 82, 118)),
+    (5, "The Reef", (255, 186, 168), (168, 224, 240), (96, 214, 214), (40, 150, 190), (22, 70, 126)),
+    (10, "Shrimp Coves", (255, 222, 140), (196, 232, 206), (110, 210, 180), (40, 150, 150), (18, 84, 100)),
+    (20, "The Deep Pools", (250, 164, 150), (124, 152, 210), (70, 176, 204), (30, 112, 162), (14, 50, 100)),
+    (29, "Night Tide", (34, 40, 86), (64, 74, 126), (44, 96, 146), (22, 62, 112), (8, 30, 70)),
+    (30, "The High Rocks", (212, 200, 222), (150, 182, 212), (90, 182, 192), (40, 122, 152), (18, 60, 96)),
+    (39, "The Last Rock", (184, 124, 172), (112, 112, 172), (82, 144, 184), (36, 92, 142), (16, 40, 80)),
+]
+
+
+def chapter_of(i):
+    k = 0
+    for n, ch in enumerate(CHAPTERS):
+        if i >= ch[0]:
+            k = n
+    return k
+
+
+def wrap_text(font, text, width):
+    """Greedy word wrap for one font; returns the lines."""
+    out, line = [], ""
+    for word in text.split():
+        trial = (line + " " + word).strip()
+        if font.size(trial)[0] <= width or not line:
+            line = trial
+        else:
+            out.append(line)
+            line = word
+    if line:
+        out.append(line)
+    return out
 SHELLS = {   # body, dark edge, highlight
     "blue": ((74, 142, 240), (30, 72, 170), (156, 200, 255)),
     "mint": ((92, 212, 170), (36, 140, 110), (190, 246, 222)),
@@ -2382,7 +2727,7 @@ class AdBanner:
 
 DEFAULT_SAVE = dict(level=0, unlocked=0, pearls=0, fullscreen=False,
                     pace="relaxed", wallet=0, owned=[], hat="", dance=False,
-                    streak=0, shell="", trail="", stars=[], sound=True)
+                    streak=0, shell="", trail="", stars=[], sound=True, seen=[])
 
 
 def load_save():
@@ -2404,9 +2749,10 @@ def load_save():
                     shell=str(d.get("shell", "")) if str(d.get("shell", "")) in owned else "",
                     trail=str(d.get("trail", "")) if str(d.get("trail", "")) in owned else "",
                     stars=[int(v) & 7 for v in d.get("stars", [])][:len(LEVELS)],
-                    sound=bool(d.get("sound", True)))
+                    sound=bool(d.get("sound", True)),
+                    seen=[str(v) for v in d.get("seen", [])][:200])
     except Exception:
-        return dict(DEFAULT_SAVE, owned=[], stars=[])
+        return dict(DEFAULT_SAVE, owned=[], stars=[], seen=[])
 
 
 def write_save(d):
@@ -2518,6 +2864,15 @@ class Sfx:
         self.sounds["pearl"] = S(self._mix(T(1320, 1320, 0.16, "sine", decay=2.0),
                                            [0.0] * int(self.rate * 0.05) +
                                            T(1980, 1980, 0.2, "sine", decay=2.2)), 0.35)
+        # a run of pearls climbs the scale
+        for k in range(6):
+            f = 1047 * (2 ** (k * 2 / 12))
+            self.sounds["pearl%d" % k] = S(self._mix(T(f, f, 0.15, "sine", decay=2.0),
+                                                     [0.0] * int(self.rate * 0.045) +
+                                                     T(f * 1.5, f * 1.5, 0.2, "sine", decay=2.2)), 0.33)
+        self.sounds["bell"] = S(self._mix(T(660, 660, 1.4, "sine", decay=1.4),
+                                          T(1320 * 1.01, 1320, 1.0, "sine", decay=2.2),
+                                          T(1980, 1985, 0.6, "sine", decay=2.8)), 0.4)
         self.sounds["splash"] = S(T(500, 150, 0.32, "sine", noise=0.92, decay=1.8), 0.4)
         self.sounds["boing"] = S(T(180, 720, 0.24, "sine", vib=0.06, decay=1.0), 0.5)
         self.sounds["crumble"] = S(T(140, 60, 0.4, "sine", noise=0.95, decay=1.5), 0.5)
@@ -2677,6 +3032,18 @@ class Game:
         self.trail_fx = self.save["trail"]
         self.stars = list(self.save["stars"])
         self.sound_on = self.save["sound"]
+        self.seen = list(self.save["seen"])
+        self.dlg_lines = []
+        self.dlg_then = CLEARED
+        self.dlg_key = ""
+        self.banner = ""
+        self.banner_t = 0.0
+        self.lantern = None
+        self.chapter_i = -1
+        self.bells, self.gates, self.switches, self.boulders = [], [], [], []
+        self.rockfall = None
+        self.surge = self.surge_y = self.surge_t = 0.0
+        self.combo, self.combo_t = 0, 0.0
         self.sfx = Sfx(self.sound_on)
         self.shop_tab = SHOP_TABS[0]
         self.pool_from = MENU
@@ -2735,23 +3102,27 @@ class Game:
 
     # -- precomputed gradients ----------------------------------------------
 
-    def build_backdrops(self):
+    def build_backdrops(self, ch=0):
+        _n, _t, sky_top, sky_bot, w_top, w_mid, w_deep = CHAPTERS[ch]
         sky = pygame.Surface((1, WORLD_H))
         for y in range(WORLD_H):
-            sky.set_at((0, y), lerp3(C_SKY_TOP, C_SKY_BOT, (y / WORLD_H) ** 0.6))
+            sky.set_at((0, y), lerp3(sky_top, sky_bot, (y / WORLD_H) ** 0.6))
         self.sky = pygame.transform.smoothscale(sky, (WORLD_W, WORLD_H))
 
         grad = pygame.Surface((1, WORLD_H), pygame.SRCALPHA)
         for y in range(WORLD_H):
             t = y / WORLD_H
-            col = lerp3(C_WATER_TOP, C_WATER_MID, min(1.0, t * 2.4)) if t < 0.42 \
-                else lerp3(C_WATER_MID, C_WATER_DEEP, (t - 0.42) / 0.58)
+            col = lerp3(w_top, w_mid, min(1.0, t * 2.4)) if t < 0.42 \
+                else lerp3(w_mid, w_deep, (t - 0.42) / 0.58)
             grad.set_at((0, y), (*col, int(68 + 84 * t)))
         self.water_grad = pygame.transform.smoothscale(grad, (WORLD_W, WORLD_H))
 
     # -- menus ---------------------------------------------------------------
 
     def build_menu(self):
+        if self.chapter_i not in (-1, 0):
+            self.build_backdrops(0)
+            self.chapter_i = -1
         cx = WORLD_W // 2
         self.buttons = [
             Button("CONTINUE", (cx - 105, 300, 210, 54), primary=True,
@@ -2881,7 +3252,8 @@ class Game:
                         fullscreen=self.fullscreen, pace=self.pace,
                         wallet=self.wallet, owned=self.owned, hat=self.hat,
                         dance=self.dance_on, streak=self.streak, shell=self.shell,
-                        trail=self.trail_fx, stars=self.stars, sound=self.sound_on))
+                        trail=self.trail_fx, stars=self.stars, sound=self.sound_on,
+                        seen=self.seen))
 
     def toggle_fullscreen(self):
         """SCALED letterboxes the fixed playfield to whatever the display is,
@@ -2930,6 +3302,21 @@ class Game:
         # escort). Either one keeps the goal shell shut until it's done.
         self.special = L.get("special", "")
         self.night = self.special == "night"
+        self.lantern = Lantern(L["guide"]) if L.get("guide") else None
+        self.bells = [Bell(*b) for b in L.get("bells", [])]
+        self.gates = [Gate(*g) for g in L.get("gates", [])]
+        self.switches = [Switch(*s) for s in L.get("switches", [])]
+        self.boulders = [Boulder(*b) for b in L.get("boulders", [])]
+        self.rockfall = Rockfall(*L["rockfall"]) if L.get("rockfall") else None
+        self.surge, self.surge_y, self.surge_t = 0.0, 0.0, 0.0
+        self.combo, self.combo_t = 0, 0.0
+        ch = chapter_of(self.level_i)
+        if ch != self.chapter_i:
+            self.chapter_i = ch
+            self.build_backdrops(ch)
+        first = CHAPTERS[ch][0] == self.level_i
+        self.banner = ("Chapter %d  -  %s" % (ch + 1, CHAPTERS[ch][1])) if first else ""
+        self.banner_t = 3.2 if first else 0.0
         self.boss_done = False
         if self.special == "gullking":
             self.gulls.append(Gull(*L["boss"], boss=True))
@@ -2959,6 +3346,25 @@ class Game:
         self.shake = self.freeze = self.flash = 0.0
         self.set_msg(L["tip"], 4.0)
         self.persist()
+        # a few words before the pool, the first time only
+        self.talk("intro", PLAY)
+
+    def talk(self, which, then):
+        """Start this pool's intro or outro lines if there are any you haven't
+        heard. Returns True if a conversation started. The ending always plays."""
+        lines = self.L.get(which) or []
+        key = "%d:%s" % (self.level_i, which)
+        final = which == "outro" and self.level_i == len(LEVELS) - 1
+        if not lines or (key in self.seen and not final):
+            return False
+        self.dlg_lines = list(lines)
+        self.dlg_then = then
+        self.dlg_key = key
+        self.dlg_i = 0
+        self.dlg_t = 0.0
+        self.state = DIALOGUE
+        self.buttons = []
+        return True
 
     def apply_pace(self):
         """Relaxed stretches every hazard's cycle and slows every patrol, so
@@ -2991,6 +3397,12 @@ class Game:
                 u.speed /= slow
         if self.octopus:
             self.octopus.ease = 1.25 if relaxed else 1.0
+        for b in getattr(self, "bells", []):
+            b.hold *= slow ** 0.5
+        for sw in getattr(self, "switches", []):
+            sw.timer *= slow ** 0.5
+        if getattr(self, "rockfall", None):
+            self.rockfall.period *= slow ** 0.6
 
     def goal_open(self):
         if self.special in ("gullking", "octopus"):
@@ -3005,7 +3417,12 @@ class Game:
     def water_y(self):
         L = self.L
         ph = math.tau * self.t / (L["period"] * getattr(self, "tide_mul", 1.0))
-        return L["tide_low"] + (L["tide_high"] - L["tide_low"]) * (0.5 - 0.5 * math.cos(ph))
+        natural = L["tide_low"] + (L["tide_high"] - L["tide_low"]) * (0.5 - 0.5 * math.cos(ph))
+        sg = getattr(self, "surge", 0.0)
+        if sg > 0 and self.surge_y < natural:
+            # a rung bell pulls the water up to its mark
+            return natural + (self.surge_y - natural) * (sg * sg * (3 - 2 * sg))
+        return natural
 
     def rising(self):
         return math.sin(math.tau * self.t /
@@ -3013,7 +3430,7 @@ class Game:
 
     # -- damage --------------------------------------------------------------
 
-    def hurt(self, src_x, src_y, kind="hit"):
+    def hurt(self, src_x, src_y, kind="hit", knock=None):
         c = self.crab
         if c.iframe > 0:
             return
@@ -3036,8 +3453,15 @@ class Game:
         if lost_rainbow:
             self.rainbow = False
             self.parts.burst(c.x, c.y, 22, RAINBOW[2], 4.0, 0.6, 3.0, 0.1, True)
-        c.vx = (1 if c.x >= src_x else -1) * 4.6
-        c.vy = -4.4
+        if knock:
+            c.vx, c.vy = knock
+            c.knock = 0.35
+            c.on_ground = False
+            c.squash = -0.6
+            self.parts.burst(c.x, c.y - 4, 12, C_GULL, 4.0, 0.45, 2.6, 0.1)
+        else:
+            c.vx = (1 if c.x >= src_x else -1) * 4.6
+            c.vy = -4.4
         self.shake = max(self.shake, 11)
         self.freeze = 0.09
         self.flash = 0.25
@@ -3067,6 +3491,8 @@ class Game:
     # -- update --------------------------------------------------------------
 
     def update_play(self, dt, keys):
+        self.banner_t = max(0.0, self.banner_t - dt)
+        self.combo_t = max(0.0, getattr(self, "combo_t", 0.0) - dt)
         if self.freeze > 0:
             self.freeze -= dt
             return
@@ -3104,8 +3530,53 @@ class Game:
             v.update(dt)
         for an in self.anemones:
             an.update(dt)
+        # ---- bells, switches and gates
+        if self.surge_t > 0:
+            self.surge_t -= dt
+            self.surge = approach(self.surge, 1.0, dt * 0.55)
+        else:
+            self.surge = approach(self.surge, 0.0, dt * 0.22)
+        for b in self.bells:
+            b.update(dt)
+        for sw in self.switches:
+            was = sw.on
+            sw.update(dt)
+            if was and not sw.on:
+                for gi in sw.gates:
+                    self.gates[gi].open = False
+                self.sfx.play("crumble", 0.5)
+        for g in self.gates:
+            g.update(dt)
         self.solid = self.plats + [cr.rect for cr in self.crumbles if cr.solid] + \
-            [tu.rect for tu in self.turtles]
+            [tu.rect for tu in self.turtles] + [g.rect for g in self.gates]
+        for b in self.boulders:
+            others = self.solid + [o.rect for o in self.boulders if o is not b]
+            if b.update(dt, others, wy) == "thud":
+                self.shake = max(self.shake, 4)
+                self.sfx.play("bonk", 0.6)
+                self.parts.burst(b.x, b.y + b.R, 8, C_ROCK_LIT, 2.6, 0.3, 2.2, 0.2)
+            if abs(b.vx) > 1.2 or b.vy > 3:
+                # a rolling boulder flattens what it runs into
+                br = b.rect.inflate(4, 4)
+                for cw in list(self.crawlers):
+                    if br.colliderect(pygame.Rect(cw.x - 10, cw.y - 8, 20, 16)):
+                        self.crawlers.remove(cw)
+                        self.parts.burst(cw.x, cw.y, 14, C_STAR, 4.0, 0.5, 2.6, 0.1)
+                for sh in list(self.shrimps):
+                    if math.hypot(sh.x - b.x, sh.y - b.y) < 20:
+                        self.shrimps.remove(sh)
+                        self.parts.burst(sh.x, sh.y, 14, (255, 150, 120), 4.0, 0.5, 2.6, 0.1)
+                        self.set_msg("Flattened.", 1.2)
+                for u in list(self.urchins):
+                    if math.hypot(u.x - b.x, u.y - b.y) < 22:
+                        self.urchins.remove(u)
+                        self.parts.burst(u.x, u.y, 16, (90, 60, 120), 4.0, 0.5, 2.6, 0.1)
+        self.solid = self.solid + [b.rect for b in self.boulders]
+        if self.rockfall:
+            for kind, x, y in self.rockfall.update(dt, c, self.solid):
+                self.parts.burst(x, y, 12, C_ROCK_LIT, 3.6, 0.45, 2.6, 0.2)
+                self.shake = max(self.shake, 4)
+                self.sfx.play("crumble", 0.6)
 
         left = keys[pygame.K_LEFT] or keys[pygame.K_a]
         right = keys[pygame.K_RIGHT] or keys[pygame.K_d]
@@ -3184,9 +3655,15 @@ class Game:
         if c.gripping:
             speed *= 0.5
         accel = WATER_ACCEL if swimming else GROUND_ACCEL
-        c.vx += (d * speed - c.vx) * accel
-        if not d:
-            c.vx *= 0.90 if swimming else 0.74
+        c.knock = max(0.0, getattr(c, "knock", 0.0) - dt)
+        if c.knock > 0:
+            # bowled over: the controls don't steer for a moment and the
+            # shove carries, so a hit can take you off the ledge
+            c.vx *= 0.97 if not c.on_ground else 0.9
+        else:
+            c.vx += (d * speed - c.vx) * accel
+            if not d:
+                c.vx *= 0.90 if swimming else 0.74
         if swimming:
             for cur in self.currents:
                 if cur.rect.collidepoint(c.x, c.y):
@@ -3390,6 +3867,9 @@ class Game:
                 self.parts.burst(j.x, j.y, 12, C_JELLY, 3.2, 0.5, 2.6, 0.0, True)
                 self.shake = max(self.shake, 6)
 
+        if self.lantern:
+            self.lantern.update(dt, c, wy)
+
         # ---- pistol shrimp and their bubbles
         for sh in self.shrimps:
             if sh.update(dt) == "snap":
@@ -3436,15 +3916,52 @@ class Game:
                 c.punch_hit = True
 
             done = False
-            for e in self.eels:
-                hit = e.punched(px, py, PUNCH_HIT_R, c.x)
-                if hit:
-                    self.parts.burst(hit[0], hit[1], 14, C_EEL_BELLY, 4.2, 0.42, 2.6, 0.1)
-                    self.shake = max(self.shake, 7)
-                    self.freeze = max(self.freeze, 0.07)
-                    recoil()
+            for b in self.bells:
+                if b.punched(px, py, PUNCH_HIT_R):
+                    self.surge_y = b.surge_y if self.surge_t <= 0 else min(self.surge_y, b.surge_y)
+                    self.surge_t = b.hold
+                    b.swing = 1.0
+                    self.sfx.play("bell")
+                    self.parts.ring(b.x, b.y - 22, 14, (255, 226, 140), 4.0, 0.5)
+                    self.set_msg("The sea answers the bell.", 1.6)
+                    recoil(1.0)
                     done = True
                     break
+            if not done:
+                for sw in self.switches:
+                    if sw.punched(px, py, PUNCH_HIT_R):
+                        sw.on = True
+                        sw.left = sw.timer
+                        for gi in sw.gates:
+                            self.gates[gi].open = True
+                        self.sfx.play("buy")
+                        self.parts.burst(sw.x, sw.y - 7, 10, (255, 236, 160), 3.0, 0.35, 2.2, 0.05, True)
+                        self.shake = max(self.shake, 4)
+                        if sw.timer > 0:
+                            self.set_msg("The door is open - but not for long!", 1.8)
+                        recoil(1.0)
+                        done = True
+                        break
+            if not done:
+                for b in self.boulders:
+                    if b.punched(px, py, PUNCH_HIT_R):
+                        b.vx = (1 if kx >= 0 else -1) * 6.2
+                        b.vy = min(b.vy, -1.2)
+                        self.parts.burst(b.x, b.y, 10, C_ROCK_LIT, 3.0, 0.35, 2.2, 0.2)
+                        self.shake = max(self.shake, 5)
+                        recoil(1.2)
+                        done = True
+                        break
+            if not done:
+                for e in self.eels:
+                    hit = e.punched(px, py, PUNCH_HIT_R, c.x)
+                    if hit:
+                        self.parts.burst(hit[0], hit[1], 14, C_EEL_BELLY, 4.2, 0.42, 2.6, 0.1)
+                        self.shake = max(self.shake, 7)
+                        self.freeze = max(self.freeze, 0.07)
+                        recoil()
+                        done = True
+                        break
             if not done:
                 for j in self.jellies:
                     if j.punched(px, py, PUNCH_HIT_R):
@@ -3546,6 +4063,11 @@ class Game:
                         break
 
         cr = c.hurt_rect
+        if c.iframe <= 0 and self.rockfall:
+            hit = self.rockfall.hits(cr)
+            if hit:
+                self.parts.burst(hit[0], hit[1], 12, C_ROCK_LIT, 3.6, 0.45, 2.6, 0.2)
+                self.hurt(hit[0], hit[1] - 10)
         if c.iframe <= 0:
             for b in self.bubbles:
                 if b.rect().colliderect(cr):
@@ -3564,9 +4086,18 @@ class Game:
                         sy = mob.y
                     # a stoop that actually connects is spent: the bird pulls
                     # up rather than carrying on into the rock for a free hit
-                    if isinstance(mob, Gull) and mob.state == "dive":
-                        mob.state = "climb"
-                        mob.cool = random.uniform(2.4, 4.0)
+                    if isinstance(mob, Gull):
+                        # a bird hitting you is a body blow: it bowls you
+                        # along the way it was flying, up and off your feet
+                        side = 1 if c.x >= mob.x else -1
+                        if abs(mob.vx) > 0.8:
+                            side = 1 if mob.vx > 0 else -1
+                        power = 7.0 if mob.boss else 5.6
+                        if mob.state == "dive":
+                            mob.state = "climb"
+                            mob.cool = random.uniform(2.4, 4.0)
+                        self.hurt(sx, sy, "hit", knock=(side * power, -5.4 if mob.boss else -4.6))
+                        break
                     zap = isinstance(mob, Jelly) and mob.lit
                     self.hurt(sx, sy, "zap" if zap else "hit")
                     break
@@ -3575,7 +4106,9 @@ class Game:
             p.update(dt, c, self.solid, wy, self.parts)
             if not p.got and math.hypot(p.x - c.x, p.y - c.y) < (28 if "magnet" in self.owned else 20):
                 p.got = True
-                self.sfx.play("pearl")
+                self.combo = self.combo + 1 if self.combo_t > 0 else 0
+                self.combo_t = 1.6
+                self.sfx.play("pearl%d" % min(self.combo, 5))
                 self.run_pearls += 1
                 self.wallet += 1          # spendable in the shop, and it keeps
                 self.parts.burst(p.x, p.y, 14, C_SHELL, 3.6, 0.45, 2.4, 0.04, True)
@@ -3618,13 +4151,8 @@ class Game:
                 for i, col in enumerate(RAINBOW):
                     self.parts.burst(gx, gy, 9, col, 5.6, 0.9, 3.2, 0.06, True)
             self.shake = max(self.shake, 8)
-            # the last pool says its piece before the clear card
-            if self.cleared_last and self.L.get("dialogue"):
-                self.state = DIALOGUE
-                self.dlg_i = 0
-                self.dlg_t = 0.0
-                self.buttons = []
-            else:
+            # a few words after the pool, then the clear card
+            if not self.talk("outro", CLEARED):
                 self.state = CLEARED
                 self.build_cleared_menu()
 
@@ -4436,7 +4964,7 @@ class Game:
         top, bot = 26, WORLD_H - 26
         pygame.draw.line(s, (255, 255, 255), (x, top), (x, bot), 3)
         pygame.draw.line(s, C_WATER_MID, (x, top), (x, bot), 1)
-        f = (wy - L["tide_high"]) / max(1.0, (L["tide_low"] - L["tide_high"]))
+        f = clamp((wy - L["tide_high"]) / max(1.0, (L["tide_low"] - L["tide_high"])), -0.1, 1)
         y = top + f * (bot - top)
         pygame.draw.polygon(s, C_INK, [(x - 8, y), (x + 4, y - 6), (x + 4, y + 6)])
         pygame.draw.polygon(s, C_WATER_TOP, [(x - 6, y), (x + 3, y - 4), (x + 3, y + 4)])
@@ -4446,6 +4974,82 @@ class Game:
 
 
     # -- drawing: the new pool features ---------------------------------------
+
+    def draw_bell(self, s, b):
+        x, y = b.x, b.y
+        wood, dark = (150, 106, 66), (96, 64, 40)
+        # a little driftwood gallows
+        pygame.draw.line(s, dark, (x - 12, y), (x - 12, y - 40), 5)
+        pygame.draw.line(s, wood, (x - 12, y), (x - 12, y - 40), 3)
+        pygame.draw.line(s, dark, (x - 15, y - 40), (x + 6, y - 40), 5)
+        pygame.draw.line(s, wood, (x - 15, y - 40), (x + 6, y - 40), 3)
+        a = b.swing_a if hasattr(b, "swing_a") else 0.0
+        hx, hy = x, y - 38
+        # the bell itself, swinging from its hook
+        def R(px, py):
+            ca, sa = math.cos(a * 0.6), math.sin(a * 0.6)
+            return (hx + px * ca - py * sa, hy + px * sa + py * ca)
+        body = [R(-4, 2), R(-6, 10), R(-10, 18), R(10, 18), R(6, 10), R(4, 2)]
+        pygame.draw.polygon(s, (186, 132, 40), body)
+        pygame.draw.polygon(s, (255, 206, 92), [R(-3, 3), R(-5, 10), R(-7, 16), R(0, 16), R(0, 3)])
+        pygame.draw.polygon(s, (120, 80, 24), body, 1)
+        cl = R(math.sin(b.t * 9) * 3 * b.swing, 20)
+        pygame.draw.circle(s, (120, 80, 24), (int(cl[0]), int(cl[1])), 3)
+        # the mark it will raise the water to, when it isn't ringing
+        if self.surge_t <= 0 or abs(self.surge_y - b.surge_y) > 1:
+            for k in range(0, WORLD_W, 18):
+                pygame.draw.line(s, (255, 226, 140), (k, b.surge_y), (k + 7, b.surge_y), 1)
+            pygame.draw.circle(s, (255, 226, 140), (int(x), int(b.surge_y)), 3, 1)
+
+    def draw_switch(self, s, sw):
+        x, y = sw.x, sw.y
+        g = sw.glow
+        pygame.draw.ellipse(s, (70, 60, 56), (x - 12, y - 9, 24, 10))
+        cap = (int(200 + 55 * g), int(190 + 46 * g), int(170 - 60 * g))
+        pygame.draw.circle(s, (120, 110, 100), (int(x), int(y - 7)), 9)
+        pygame.draw.circle(s, cap, (int(x), int(y - 7 + 2 * g)), 7)
+        for k in range(6):
+            a = k * math.tau / 6
+            pygame.draw.line(s, (130, 120, 108), (x, y - 7 + 2 * g),
+                             (x + math.cos(a) * 6, y - 7 + 2 * g + math.sin(a) * 5), 1)
+        if not sw.on and math.sin(self.t * 4) > 0.3:
+            pygame.draw.circle(s, (255, 236, 160), (int(x), int(y - 7)), 12, 1)
+        if sw.on and sw.timer > 0:
+            k = clamp(sw.left / sw.timer, 0, 1)
+            pygame.draw.arc(s, (255, 236, 160), (x - 13, y - 20, 26, 26), math.pi / 2,
+                            math.pi / 2 + math.tau * k, 3)
+
+    def draw_gate(self, s, g):
+        r = g.rect
+        pygame.draw.rect(s, (92, 78, 72), r, border_radius=4)
+        pygame.draw.rect(s, (130, 112, 100), (r.x + 2, r.y + 2, r.w - 4, 5), border_radius=3)
+        pygame.draw.rect(s, (60, 50, 46), r, 2, border_radius=4)
+        # a carved barnacle so it's clear which switch it answers to
+        pygame.draw.circle(s, (200, 190, 170), r.center, 5, 1)
+        for k in range(0, r.h - 10, 14):
+            pygame.draw.line(s, (70, 60, 56), (r.x + 4, r.y + 10 + k), (r.right - 4, r.y + 12 + k), 1)
+
+    def draw_boulder(self, s, b):
+        shadow(s, b.x, b.y + b.R + 1, b.R, 4, 60)
+        pygame.draw.circle(s, (88, 78, 74), (int(b.x), int(b.y)), b.R)
+        pygame.draw.circle(s, (128, 116, 108), (int(b.x - 2), int(b.y - 2)), b.R - 3)
+        for k in range(3):
+            a = b.spin + k * math.tau / 3
+            pygame.draw.circle(s, (88, 78, 74), (int(b.x + math.cos(a) * 6), int(b.y + math.sin(a) * 6)), 2)
+        pygame.draw.circle(s, (170, 160, 150), (int(b.x - 5), int(b.y - 6)), 2)
+
+    def draw_rockfall(self, s, rf):
+        for x, left, land in rf.warn:
+            k = 1 - left / Rockfall.WARN
+            # grit trickling from the top, and a mark where it'll land
+            for i in range(3):
+                gy = (self.t * 120 + i * 40) % 80
+                pygame.draw.circle(s, C_ROCK_LIT, (int(x + math.sin(i * 3 + self.t * 9) * 3), int(gy)), 1)
+            pygame.draw.ellipse(s, (200, 60, 50), (x - 10 - 4 * k, land - 4, 20 + 8 * k, 6), 2)
+        for x, y, vy in rf.rocks:
+            pygame.draw.circle(s, (88, 78, 74), (int(x), int(y)), 9)
+            pygame.draw.circle(s, (140, 126, 116), (int(x - 2), int(y - 2)), 6)
+            pygame.draw.line(s, (220, 220, 210), (x, y - 12), (x, y - 12 - vy * 2), 1)
 
     def draw_current(self, s, cur, wy):
         r = cur.rect
@@ -4693,6 +5297,8 @@ class Game:
         self.draw_backdrop(s, wy)
         if self.octopus:
             self.draw_octopus_body(s)
+        for g in self.gates:              # behind the rock, so they slide into it
+            self.draw_gate(s, g)
         self.draw_plats(s, wy)
         for cr in self.crumbles:
             self.draw_crumble(s, cr)
@@ -4705,6 +5311,12 @@ class Game:
             self.draw_vent(s, v)
         for an in self.anemones:
             self.draw_anemone(s, an)
+        for sw in self.switches:
+            self.draw_switch(s, sw)
+        for b in self.bells:
+            self.draw_bell(s, b)
+        for b in self.boulders:
+            self.draw_boulder(s, b)
         for p in self.pearls:
             self.draw_pearl(s, p)
         self.draw_goal(s)
@@ -4724,6 +5336,11 @@ class Game:
             self.draw_jelly(s, j)
         for b in self.bubbles:
             self.draw_bubble(s, b)
+        if self.lantern:
+            lt = self.lantern
+            self.draw_lantern_fish(s, lt.x, lt.y, lt.face, lt.t)
+        if self.rockfall:
+            self.draw_rockfall(s, self.rockfall)
         if self.octopus:
             for arm in self.octopus.arms:
                 self.draw_tentacle(s, arm)
@@ -4740,6 +5357,7 @@ class Game:
             self.draw_night(s, wy)
         self.draw_tide_gauge(s, wy)
         self.draw_special_hud(s)
+        self.draw_banner(s)
 
     def draw_boss_gull(self, s, gl):
         """The king is an ordinary gull drawn big: painted at normal size on a
@@ -4826,7 +5444,13 @@ class Game:
         dark.fill((*C_NIGHT, NIGHT_A))
         c = self.crab
         flick = 1.0 + 0.04 * math.sin(self.t * 7)
-        lights = [(c.x, c.y, int(92 * flick))]
+        lights = [(c.x, c.y, int((64 if self.lantern else 92) * flick))]
+        if self.lantern:
+            lt = self.lantern
+            lights.append((lt.x + lt.face * 14, lt.y - 14, int(Lantern.LIGHT * flick)))
+            # a faint trail of light toward where Glim is headed next
+            nx, ny = lt.path[min(lt.i + 1, len(lt.path) - 1)]
+            lights.append(((lt.x + nx) / 2, (lt.y + ny) / 2, 40))
         for j in self.jellies:
             lights.append((j.x, j.y, 58 if not getattr(j, "lit", False) else 84))
         for p in self.pearls:
@@ -5140,37 +5764,129 @@ class Game:
         pygame.draw.polygon(s, (150, 110, 40) if col[0] == 255 else (196, 186, 168), pts, 1)
 
     def draw_dialogue(self, surf):
-        """The last pool's send-off. One line at a time, click or press to go
-        on; the pool keeps moving behind it."""
+        """A few lines between pools: who's talking, their face, the line
+        typing itself in. Click or press to go on."""
         s = self.world
-        lines = self.L.get("dialogue", [])
+        lines = self.dlg_lines or [("", "")]
         i = min(self.dlg_i, len(lines) - 1)
         speaker, text = lines[i]
         veil = pygame.Surface((WORLD_W, WORLD_H), pygame.SRCALPHA)
         veil.fill((8, 40, 54, 120))
         s.blit(veil, (0, 0))
 
-        box = pygame.Rect(26, WORLD_H - 150, WORLD_W - 52, 96)
+        box = pygame.Rect(18, WORLD_H - 166, WORLD_W - 36, 116)
         pygame.draw.rect(s, C_PANEL, box, border_radius=14)
         pygame.draw.rect(s, (226, 206, 170), box, 2, border_radius=14)
+        tx = box.x + 18
         if speaker:
+            face = pygame.Rect(box.x + 12, box.y + 14, 58, 58)
+            pygame.draw.rect(s, (232, 244, 240), face, border_radius=12)
+            pygame.draw.rect(s, (200, 214, 206), face, 2, border_radius=12)
+            self.draw_portrait(s, speaker, face.centerx, face.centery + 4)
+            tx = face.right + 12
             nm = self.fonts["tiny"].render(speaker.upper(), True, C_CRAB_DARK)
-            s.blit(nm, (box.x + 18, box.y + 14))
-        # the line types itself in, so it reads at a speaking pace
+            s.blit(nm, (tx, box.y + 14))
         shown = text[:int(self.dlg_t * 34)]
-        body = self.fonts["small"] if speaker else self.fonts["ui"]
-        g = body.render(shown, True, C_INK if speaker else C_MUTED)
-        s.blit(g, (box.x + 18, box.y + 36))
+        body = self.fonts["small"]
+        for k, ln in enumerate(wrap_text(body, shown, box.right - 16 - tx)[:4]):
+            g = body.render(ln, True, C_INK if speaker else C_MUTED)
+            s.blit(g, (tx, box.y + (34 if speaker else 22) + k * 19))
 
         done = len(shown) >= len(text)
         if done and math.sin(self.menu_t * 5.0) > -0.2:
             tip = "click or press to go on" if i < len(lines) - 1 else \
-                  "click or press to finish"
+                  ("click or press to play" if self.dlg_then == PLAY else "click or press to finish")
             hint = self.fonts["tiny"].render(tip, True, C_MUTED)
             s.blit(hint, (box.right - hint.get_width() - 16, box.bottom - 20))
 
+    def draw_portrait(self, s, who, x, y):
+        """Tiny faces for the dialogue box, all drawn with shapes."""
+        if who == "Old Hermit":
+            pts = [(x - 20, y + 12), (x - 14, y - 10), (x + 2, y - 20), (x + 18, y - 6), (x + 20, y + 12)]
+            pygame.draw.polygon(s, C_SHELL_DARK, pts)
+            pygame.draw.polygon(s, C_SHELL, [(px * 0.9 + x * 0.1, py * 0.9 + y * 0.1) for px, py in pts])
+            pygame.draw.arc(s, C_SHELL_DARK, (x - 10, y - 12, 20, 20), 0.3, 4.6, 2)
+            for dx in (-7, 3):
+                pygame.draw.line(s, C_CRAB_DARK, (x + dx, y + 8), (x + dx - 2, y - 2), 2)
+                pygame.draw.circle(s, C_WHITE, (x + dx - 2, y - 3), 3)
+                pygame.draw.circle(s, C_INK, (x + dx - 2, y - 3), 1)
+            pygame.draw.line(s, (240, 240, 230), (x - 12, y + 12), (x - 4, y + 16), 2)   # whiskers
+        elif who == "Gull King":
+            pygame.draw.ellipse(s, C_GULL, (x - 16, y - 12, 32, 28))
+            pygame.draw.polygon(s, (255, 196, 70), [(x + 12, y - 2), (x + 26, y + 2), (x + 12, y + 6)])
+            pygame.draw.circle(s, C_INK, (x + 5, y - 3), 3)
+            pygame.draw.line(s, C_INK, (x - 1, y - 9), (x + 9, y - 6), 2)
+            crown = [(x - 10, y - 12), (x - 10, y - 20), (x - 5, y - 15), (x, y - 22), (x + 5, y - 15),
+                     (x + 10, y - 20), (x + 10, y - 12)]
+            pygame.draw.polygon(s, (255, 206, 72), crown)
+            pygame.draw.polygon(s, (186, 120, 30), crown, 1)
+        elif who == "Moss":
+            pygame.draw.ellipse(s, (120, 170, 110), (x - 14, y - 16, 28, 26))
+            pygame.draw.ellipse(s, (52, 96, 60), (x - 22, y + 4, 44, 18))
+            pygame.draw.ellipse(s, (96, 150, 92), (x - 20, y + 6, 40, 14))
+            pygame.draw.circle(s, C_INK, (x + 4, y - 7), 2)
+            pygame.draw.arc(s, C_INK, (x - 4, y - 4, 12, 8), 3.6, 5.8, 1)
+            pygame.draw.circle(s, (70, 150, 80), (x - 6, y - 14), 3)          # a bit of moss
+        elif who == "Little one":
+            pygame.draw.ellipse(s, C_CRAB_DARK, (x - 13, y - 6, 26, 18))
+            pygame.draw.ellipse(s, C_CRAB, (x - 12, y - 6, 24, 16))
+            for dx in (-5, 5):
+                pygame.draw.line(s, C_CRAB_DARK, (x + dx, y - 4), (x + dx, y - 13), 2)
+                pygame.draw.circle(s, C_WHITE, (x + dx, y - 14), 4)
+                pygame.draw.circle(s, C_INK, (x + dx, y - 13), 2)
+            pygame.draw.arc(s, C_INK, (x - 4, y, 8, 6), 3.5, 5.9, 1)
+        elif who == "Glim":
+            self.draw_lantern_fish(s, x - 4, y + 4, 1, self.menu_t, scale=1.3)
+        elif who == "Shrimp sentry":
+            pygame.draw.circle(s, (210, 90, 80), (x - 4, y + 4), 12)
+            pygame.draw.circle(s, (255, 130, 110), (x - 4, y + 4), 10)
+            pygame.draw.ellipse(s, (255, 160, 140), (x + 4, y - 14, 18, 14))
+            pygame.draw.circle(s, C_INK, (x, y), 2)
+            pygame.draw.line(s, (220, 120, 100), (x - 2, y - 6), (x + 10, y - 20), 1)
+        elif who == "Great Octopus":
+            pygame.draw.ellipse(s, (104, 34, 76), (x - 22, y - 22, 44, 40))
+            pygame.draw.ellipse(s, (156, 62, 112), (x - 20, y - 20, 40, 36))
+            for dx in (-9, 9):
+                pygame.draw.ellipse(s, (255, 236, 200), (x + dx - 6, y - 6, 12, 10))
+                pygame.draw.ellipse(s, C_INK, (x + dx - 1, y - 6, 3, 10))
+            for k in range(4):
+                pygame.draw.arc(s, (156, 62, 112), (x - 20 + k * 10, y + 10, 10, 12), 3.2, 6.2, 3)
+
+    def draw_lantern_fish(self, s, x, y, face, t, scale=1.0):
+        k = scale
+        # the lure first, on its stalk, glowing
+        lx, ly = x + face * 14 * k, y - 14 * k + math.sin(t * 3) * 1.5
+        pygame.draw.line(s, (60, 80, 120), (x + face * 6 * k, y - 6 * k), (lx, ly), 2)
+        glow = 0.5 + 0.5 * math.sin(t * 4)
+        pygame.draw.circle(s, (255, 236, 150), (int(lx), int(ly)), int((5 + glow) * k))
+        pygame.draw.circle(s, (255, 255, 230), (int(lx), int(ly)), int(2.5 * k))
+        # body, tail, fins
+        pygame.draw.ellipse(s, (40, 66, 112), (x - 11 * k, y - 8 * k, 22 * k, 16 * k))
+        pygame.draw.ellipse(s, (70, 104, 160), (x - 8 * k, y - 6 * k, 15 * k, 9 * k))
+        wag = math.sin(t * 8) * 3 * k
+        pygame.draw.polygon(s, (40, 66, 112), [(x - face * 10 * k, y), (x - face * 18 * k, y - 6 * k + wag),
+                                               (x - face * 18 * k, y + 6 * k + wag)])
+        pygame.draw.circle(s, C_WHITE, (int(x + face * 5 * k), int(y - 2 * k)), int(3 * k))
+        pygame.draw.circle(s, C_INK, (int(x + face * 6 * k), int(y - 2 * k)), max(1, int(1.5 * k)))
+        pygame.draw.line(s, (200, 230, 255), (x + face * 7 * k, y + 3 * k), (x + face * 10 * k, y + 3 * k), 1)
+
+    def draw_banner(self, s):
+        if self.banner_t <= 0 or not self.banner or self.state != PLAY:
+            return
+        a = clamp(min(self.banner_t / 0.6, (3.2 - self.banner_t) / 0.4), 0, 1)
+        g = self.fonts["h2"].render(self.banner, True, C_WHITE)
+        sh = self.fonts["h2"].render(self.banner, True, C_INK)
+        pad = pygame.Surface((g.get_width() + 36, g.get_height() + 16), pygame.SRCALPHA)
+        pygame.draw.rect(pad, (8, 40, 54, int(150 * a)), pad.get_rect(), border_radius=12)
+        x = WORLD_W // 2 - pad.get_width() // 2
+        s.blit(pad, (x, 64))
+        g.set_alpha(int(255 * a))
+        sh.set_alpha(int(160 * a))
+        s.blit(sh, (WORLD_W // 2 - g.get_width() // 2 + 2, 72 + 2))
+        s.blit(g, (WORLD_W // 2 - g.get_width() // 2, 72))
+
     def advance_dialogue(self):
-        lines = self.L.get("dialogue", [])
+        lines = self.dlg_lines or [("", "")]
         text = lines[min(self.dlg_i, len(lines) - 1)][1]
         if self.dlg_t * 34 < len(text):        # first press finishes the line
             self.dlg_t = len(text) / 34.0 + 0.1
@@ -5178,8 +5894,16 @@ class Game:
         self.dlg_i += 1
         self.dlg_t = 0.0
         if self.dlg_i >= len(lines):
-            self.state = CLEARED
-            self.build_cleared_menu()
+            if self.dlg_key and self.dlg_key not in self.seen:
+                self.seen.append(self.dlg_key)
+                self.persist(level=self.next_level if self.dlg_then == CLEARED else self.level_i)
+            if self.dlg_then == PLAY:
+                self.state = PLAY
+                self.buttons = []
+                self.crab.jump_latch = True        # the key that closed it isn't a hop
+            else:
+                self.state = CLEARED
+                self.build_cleared_menu()
 
     def draw_controls(self, surf):
         s = self.world
@@ -5368,6 +6092,7 @@ class Game:
             self.shell = sv["shell"]
             self.trail_fx = sv["trail"]
             self.stars = list(sv["stars"])
+            self.seen = list(sv["seen"])
             self.L = LEVELS[self.level_i]
             self.state = MENU
             self.build_menu()
@@ -5474,7 +6199,8 @@ class Game:
             elif self.state in (DEAD, CLEARED, DIALOGUE):
                 self.parts.update(dt)
                 if self.state == DIALOGUE:
-                    self.t += dt          # the pool keeps breathing behind it
+                    if self.dlg_then != PLAY:
+                        self.t += dt      # the pool keeps breathing behind it
                     self.dlg_t += dt
             self.rain_t += dt
             self.shop_msg_t = max(0.0, self.shop_msg_t - dt)
